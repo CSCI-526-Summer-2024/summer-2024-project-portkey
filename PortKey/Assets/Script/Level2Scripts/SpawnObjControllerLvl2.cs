@@ -80,17 +80,20 @@ public class SpawnObjControllerLvl2 : MonoBehaviour
                 else
                 {
                     GameObject cloneObstacle = Instantiate(obstacle, transform);
-                    Debug.Log(lastPos.transform.position.y + " and " + cloneObstacle.transform.position.y);
-                    if (cloneObstacle.transform.position.y - lastPos.transform.position.y <= 250f)
-                    {
-                        Debug.Log("DO NOT PLACE");
-                        Destroy(cloneObstacle);
-                    }
-                    else
-                    {
-                        Debug.Log("PLACE");
-                        lastPos = cloneObstacle;
-                    }
+                    // Debug.Log(lastPos.transform.position.y + " and " + cloneObstacle.transform.position.y);
+                   
+                        if ((cloneObstacle != null && lastPos != null) &&
+                            (cloneObstacle.transform.position.y - lastPos.transform.position.y <= 250f))
+                        {
+                            //Debug.Log("DO NOT PLACE");
+                            Destroy(cloneObstacle);
+                        }
+                        else
+                        {
+                            //Debug.Log("PLACE");
+                            lastPos = cloneObstacle;
+                        }
+                    
                 }
             }
         }

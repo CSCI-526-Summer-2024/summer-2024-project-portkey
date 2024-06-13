@@ -83,7 +83,10 @@ public class GameController : MonoBehaviour
 
     void Start()
     {
-        level = GameLevelsManager.Instance.Level; // setting the level using GameLevelsManager.cs
+        if (GameLevelsManager.Instance != null)
+        { 
+            level = GameLevelsManager.Instance.Level; // setting the level using GameLevelsManager.cs
+        }
         Time.timeScale = 1;
 
         if (leftScore != null)
