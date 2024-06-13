@@ -4,6 +4,21 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
+using Proyecto26;
+
+// for firebase analytics
+[System.Serializable]
+public class PlayerData
+{
+    public string name;
+    public float score;
+    public int level;
+    public int reasonforFinshingLevel1; //1 = obstacle collision. 2= time up
+    public int totalSwitchingPropCollected;
+    public bool deathDueToControlsFlip;
+}
+
+
 public class GameController : MonoBehaviour
 {
     public Transform zoom1;
@@ -56,8 +71,19 @@ public class GameController : MonoBehaviour
     // game duration, unit is second
     private float gameDuration = 30f;
 
+    //analytics helper variables
+    public int totalSwitchingPropCollected = 0;
+
+    public int level;
+
+    public int reasonforFinshingLevel1;
+
+    public bool deathDueToControlsFlip;
+
+
     void Start()
     {
+        level = GameLevelsManager.Instance.Level; // setting the level using GameLevelsManager.cs
         Time.timeScale = 1;
 
         if (leftScore != null)
@@ -115,6 +141,9 @@ public class GameController : MonoBehaviour
             broadcastMsg.text = "TIMES UP!\nTIE!";
             broadcastMsg.color = Color.yellow;
         }
+
+        //  Metric #2 
+        reasonforFinshingLevel1 = 2;
     }
 
     void PauseGame()
@@ -210,6 +239,21 @@ public class GameController : MonoBehaviour
         {
             CancelInvoke("CalculateScoreRight");
         }
+
+        //posting the analytics to the firebase
+        PlayerData playerData = new PlayerData();
+        playerData.name = "player";
+        playerData.level = level;
+        playerData.score = currentRightScore + currentLeftScore;
+        playerData.reasonforFinshingLevel1 = reasonforFinshingLevel1;
+        playerData.totalSwitchingPropCollected = totalSwitchingPropCollected;
+        playerData.deathDueToControlsFlip = deathDueToControlsFlip;
+
+        string json = JsonUtility.ToJson(playerData);
+        RestClient.Post("https://portkey-2a1ae-default-rtdb.firebaseio.com/all_analytics.json", playerData);
+        Debug.Log("Analytics sent to firebase");
+        //  yield break;
+
     }
 
     void CalculateScoreLeft()

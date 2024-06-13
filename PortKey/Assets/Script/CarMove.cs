@@ -99,6 +99,12 @@ public class CarMove : MonoBehaviour
             winText.gameObject.SetActive(true);
             winText.text = "YOU WIN";
             winText.color = Color.green;
+
+            // Deaths after Control Flip Metric #4
+            gameController.deathDueToControlsFlip = reversed;
+            // First Level Completion Metric #2 
+            gameController.reasonforFinshingLevel1 = 1;
+
             gameController.StopScoreCalculation(transform.name);
         }
 
@@ -107,6 +113,9 @@ public class CarMove : MonoBehaviour
             DisplaySwithcMessage();
             Destroy(other.gameObject);
             gameController.EnemyControlReverse(transform.name);
+
+            // Metric #3
+            gameController.totalSwitchingPropCollected += 1;
         }
 
         if (other.gameObject.name.Contains("ScoreUp"))
