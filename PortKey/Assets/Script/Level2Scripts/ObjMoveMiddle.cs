@@ -4,12 +4,12 @@ using UnityEngine;
 
 public class ObjMoveMiddle : MonoBehaviour
 {
-    public float moveSpeed = 200f;
+    public float moveSpeed = 2.5f;
 
-    public float speed = 200f;
+    public float speed = 2.5f;
 
-    public float range = 100f;
-    public float oscillateSpeed = 50f;
+    public float range = 2.8f;
+    public float oscillateSpeed = 1f;
     private bool movingRight = true;
     private float startPos;
 
