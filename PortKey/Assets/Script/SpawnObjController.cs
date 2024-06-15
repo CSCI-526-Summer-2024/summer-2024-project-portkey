@@ -56,38 +56,43 @@ public class SpawnObjController : MonoBehaviour
 
             if (!isStopSpawn)
             {
-                int leftOrRight = Random.Range(0, 2);
-                GameObject obstacle;
-                if (leftOrRight == 0)
-                {
-                    obstacle = obstacleLeft;
-                }
-                else
-                {
-                    obstacle = obstacleRight;
-                }
-                if (firstSpawn)
-                {
-                    GameObject cloneObstacle = Instantiate(obstacle, transform);
-                    firstSpawn = false;
-                    lastPos = cloneObstacle;
-                }
-                else
-                {
-                    GameObject cloneObstacle = Instantiate(obstacle, transform);
-                    Debug.Log(lastPos.transform.position.y + " and " + cloneObstacle.transform.position.y);
-                    if (cloneObstacle.transform.position.y - lastPos.transform.position.y <= 250f)
-                    {
-                        Debug.Log("DO NOT PLACE");
-                        Destroy(cloneObstacle);
-                    }
-                    else
-                    {
-                        Debug.Log("PLACE");
-                        lastPos = cloneObstacle;
-                    }
-                }
+                GameObject cloneProp1 = Instantiate(obstacleLeft, transform);
             }
+
+            // if (!isStopSpawn)
+            // {
+            //     int leftOrRight = Random.Range(0, 2);
+            //     GameObject obstacle;
+            //     if (leftOrRight == 0)
+            //     {
+            //         obstacle = obstacleLeft;
+            //     }
+            //     else
+            //     {
+            //         obstacle = obstacleRight;
+            //     }
+            //     if (firstSpawn)
+            //     {
+            //         GameObject cloneObstacle = Instantiate(obstacle, transform);
+            //         firstSpawn = false;
+            //         lastPos = cloneObstacle;
+            //     }
+            //     else
+            //     {
+            //         GameObject cloneObstacle = Instantiate(obstacle, transform);
+            //         Debug.Log(lastPos.transform.position.y + " and " + cloneObstacle.transform.position.y);
+            //         if (cloneObstacle.transform.position.y - lastPos.transform.position.y <= 2.50f)
+            //         {
+            //             Debug.Log("DO NOT PLACE");
+            //             Destroy(cloneObstacle);
+            //         }
+            //         else
+            //         {
+            //             Debug.Log("PLACE");
+            //             lastPos = cloneObstacle;
+            //         }
+            //     }
+            // }
         }
 
     }
@@ -104,7 +109,7 @@ public class SpawnObjController : MonoBehaviour
             if (!isStopSpawn)
             {
                 GameObject cloneProp1 = Instantiate(EnemyControlReverse, transform);
-                cloneProp1.transform.GetComponent<RectTransform>().anchoredPosition = new Vector2(Random.Range(leftOffset, rightOffset), 565);
+                cloneProp1.transform.position = new Vector2(Random.Range(leftOffset, rightOffset), 3.58f);
             }
         }
 
@@ -123,7 +128,7 @@ public class SpawnObjController : MonoBehaviour
             if (!isStopSpawn)
             {
                 GameObject cloneProp2 = Instantiate(ScoreUp, transform);
-                cloneProp2.transform.GetComponent<RectTransform>().anchoredPosition = new Vector2(Random.Range(leftOffset, rightOffset), 565);
+                cloneProp2.transform.position = new Vector2(Random.Range(leftOffset, rightOffset), 3.58f);
             }
         }
 

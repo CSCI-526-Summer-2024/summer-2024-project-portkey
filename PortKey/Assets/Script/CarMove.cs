@@ -39,7 +39,7 @@ public class CarMove : MonoBehaviour
             return;
         }
 
-        float posX = transform.GetComponent<RectTransform>().anchoredPosition.x;
+        float posX = transform.position.x;
 
         if (transform.name == "CarLeft")
         {
@@ -53,7 +53,8 @@ public class CarMove : MonoBehaviour
                 {
                     transform.Translate(Vector3.right * carSpeed * Time.deltaTime);
                 }
-            } else
+            }
+            else
             {
                 if (Input.GetKey(KeyCode.A) && posX < boundaryRight)
                 {
@@ -78,7 +79,9 @@ public class CarMove : MonoBehaviour
                 {
                     transform.Translate(Vector3.right * carSpeed * Time.deltaTime);
                 }
-            } else {
+            }
+            else
+            {
                 if (Input.GetKey(KeyCode.LeftArrow) && posX < boundaryRight)
                 {
                     transform.Translate(Vector3.left * carSpeed * Time.deltaTime);
