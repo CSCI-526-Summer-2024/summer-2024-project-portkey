@@ -60,6 +60,8 @@ public class GameController : MonoBehaviour
 
     public Image imageRight;
 
+    public Image navArea;
+
     private float currentLeftScore = 0f;
 
     private float currentRightScore = 0f;
@@ -83,6 +85,7 @@ public class GameController : MonoBehaviour
 
     void Start()
     {
+        navArea.gameObject.SetActive(false);
         if (GameLevelsManager.Instance != null)
         { 
             level = GameLevelsManager.Instance.Level; // setting the level using GameLevelsManager.cs
@@ -119,6 +122,7 @@ public class GameController : MonoBehaviour
         TimerMsg.text = "Time Remaining: 0s";
         // Pause the game when the game duration is over
         PauseGame();
+        navArea.gameObject.SetActive(true);
         if (currentLeftScore > currentRightScore)
         {
             broadcastMsg.text = "TIMES UP!";

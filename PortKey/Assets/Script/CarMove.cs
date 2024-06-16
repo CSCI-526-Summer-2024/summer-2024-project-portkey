@@ -1,5 +1,6 @@
 using System.Collections;
 using UnityEngine;
+using UnityEngine.UI;
 using TMPro;
 
 public class CarMove : MonoBehaviour
@@ -20,6 +21,10 @@ public class CarMove : MonoBehaviour
     public TextMeshProUGUI deathText;
 
     public TextMeshProUGUI winText;
+
+    public TextMeshProUGUI broadcastMsg;
+
+    public Image navArea;
 
     public bool reversed = false;
 
@@ -157,6 +162,9 @@ public class CarMove : MonoBehaviour
         if (other.gameObject.tag == "Obstacle")
         {
             Time.timeScale = 0;
+            navArea.gameObject.SetActive(true);
+            broadcastMsg.text = "GAME\nOVER";
+            broadcastMsg.color = Color.black;
             deathText.gameObject.SetActive(true);
             deathText.text = "YOU LOSE";
             deathText.color = Color.red;
