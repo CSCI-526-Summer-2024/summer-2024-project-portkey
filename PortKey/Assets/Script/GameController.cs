@@ -180,6 +180,7 @@ public class GameController : MonoBehaviour
             carRight.GetComponent<CarMove>().reversed = !carRight.GetComponent<CarMove>().reversed;
             imageLeft.sprite = spriteRight;
             imageRight.sprite = spriteLeft;
+            StartCoroutine(Flashing(imageLeft, imageRight));
         }
         else
         {
@@ -187,7 +188,25 @@ public class GameController : MonoBehaviour
             carLeft.GetComponent<CarMove>().reversed = !carLeft.GetComponent<CarMove>().reversed;
             imageA.sprite = spriteD;
             imageD.sprite = spriteA;
+            StartCoroutine(Flashing(imageA, imageD));
         }
+    }
+
+    IEnumerator Flashing(Image left, Image right)
+    {
+        left.GetComponentInChildren<TextMeshProUGUI>().color = Color.green;
+        right.GetComponentInChildren<TextMeshProUGUI>().color = Color.green;
+        for (int i = 0; i < 3; i++)
+        {
+            left.enabled = false;
+            right.enabled = false;
+            yield return new WaitForSeconds(0.2f);
+            left.enabled = true;
+            right.enabled = true;
+            yield return new WaitForSeconds(0.2f);
+        }
+        left.GetComponentInChildren<TextMeshProUGUI>().color = Color.black;
+        right.GetComponentInChildren<TextMeshProUGUI>().color = Color.black;
     }
 
     public void CarLeftStop()
@@ -281,12 +300,27 @@ public class GameController : MonoBehaviour
         {
             currentLeftScore += 5;
             leftScore.text = "Score: " + currentLeftScore.ToString("F0");
+            StartCoroutine(FlashScore(leftScore));
         }
         else
         {
             currentRightScore += 5;
             rightScore.text = "Score: " + currentRightScore.ToString("F0");
+            StartCoroutine(FlashScore(rightScore));
         }
+    }
+
+    IEnumerator FlashScore(TextMeshProUGUI score)
+    {
+        score.color = Color.magenta;
+        for (int i = 0; i < 3; i++)
+        {
+            score.enabled = false;
+            yield return new WaitForSeconds(0.2f);
+            score.enabled = true;
+            yield return new WaitForSeconds(0.2f);
+        }
+        score.color = Color.black;
     }
 
     public void ActivateBonus()
