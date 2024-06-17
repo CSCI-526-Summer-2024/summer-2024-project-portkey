@@ -31,9 +31,42 @@ public class CarMove : MonoBehaviour
     public GameObject bulletPrefab;
     public float bulletSpeed = 300f;
 
+    //healthbar helper variables
+    public float playerLefthealth = 100;
+    public float playerRighthealth = 100;
+    public float maxHealth = 100;
+    private HealthBar leftHealthBar;
+    private HealthBar rightHealthBar;
 
     void Start()
     {
+        UploadHealthBars();
+    }
+
+    void UploadHealthBars()
+    {
+
+        leftHealthBar = GameObject.FindWithTag("LeftHealthBar").GetComponent<HealthBar>();
+        rightHealthBar = GameObject.FindWithTag("RightHealthBar").GetComponent<HealthBar>();
+
+
+        if (leftHealthBar != null)
+        {
+            leftHealthBar.UpdateLeftPlayerHealthBar(playerLefthealth, maxHealth);
+        }
+        else
+        {
+            Debug.LogError("Left HealthBar component not found.");
+        }
+
+        if (rightHealthBar != null)
+        {
+            rightHealthBar.UpdateRightPlayerHealthBar(playerRighthealth, maxHealth);
+        }
+        else
+        {
+            Debug.LogError("Left HealthBar component not found.");
+        }
     }
 
     void Update()
@@ -161,23 +194,41 @@ public class CarMove : MonoBehaviour
 
         if (other.gameObject.tag == "Obstacle")
         {
-            Time.timeScale = 0;
-            navArea.gameObject.SetActive(true);
-            broadcastMsg.text = "GAME\nOVER";
-            broadcastMsg.color = Color.black;
-            deathText.gameObject.SetActive(true);
-            deathText.text = "YOU LOSE";
-            deathText.color = Color.red;
-            winText.gameObject.SetActive(true);
-            winText.text = "YOU WIN";
-            winText.color = Color.green;
 
-            // Deaths after Control Flip Metric #4
-            gameController.deathDueToControlsFlip = reversed;
-            // First Level Completion Metric #2 
-            gameController.reasonforFinshingLevel1 = 1;
+            //decrement healthbar accordingly
+            if (transform.name == "CarLeft")
+            {
+                playerLefthealth -= 15;
+                leftHealthBar.UpdateLeftPlayerHealthBar(playerLefthealth, maxHealth);
+            }
+            else
+            {
+                playerRighthealth -= 15;
+                rightHealthBar.UpdateRightPlayerHealthBar(playerRighthealth, maxHealth);
+            }
+            //destroy the obstacle on collision
+            Destroy(other.gameObject);
 
-            gameController.StopScoreCalculation(transform.name);
+            //updates the ui if one of the players lost all of their hp
+            if (playerLefthealth <= 0 || playerRighthealth <= 0)
+            {
+                Time.timeScale = 0;
+                deathText.gameObject.SetActive(true);
+                deathText.text = "YOU LOSE";
+                deathText.color = Color.red;
+                winText.gameObject.SetActive(true);
+                winText.text = "YOU WIN";
+                winText.color = Color.green;
+
+                // Deaths after Control Flip Metric #4
+                gameController.deathDueToControlsFlip = reversed;
+                // First Level Completion Metric #2 
+                gameController.reasonforFinshingLevel1 = 1;
+
+                gameController.StopScoreCalculation(transform.name);
+            }
+
+
         }
 
         if (other.gameObject.name.Contains("EnemyControlReverse"))
