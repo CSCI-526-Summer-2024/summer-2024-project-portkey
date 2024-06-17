@@ -5345,7 +5345,7 @@ MonoBehaviour:
   ScoreUp: {fileID: 1682798608209473767, guid: 953c256a8673340a59b64718359dcd9b, type: 3}
   isStopSpawn: 0
   leftOffset: -8
-  rightOffset: 0.5
+  rightOffset: -0.5
 --- !u!114 &1857266098
 MonoBehaviour:
   m_ObjectHideFlags: 0
