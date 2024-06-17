@@ -252,7 +252,7 @@ public class CarMove : MonoBehaviour
         }
     }
 
-    public void DisplaySwithcMessage()
+    void DisplaySwithcMessage()
     {
         winText.text = "CONTROLS SWITCHED!";
         winText.color = Color.blue;
@@ -260,7 +260,7 @@ public class CarMove : MonoBehaviour
         StartCoroutine(HideSwitchMessage(1f));
     }
 
-    private IEnumerator HideSwitchMessage(float delay)
+    IEnumerator HideSwitchMessage(float delay)
     {
         yield return new WaitForSeconds(delay);
         winText.gameObject.SetActive(false);

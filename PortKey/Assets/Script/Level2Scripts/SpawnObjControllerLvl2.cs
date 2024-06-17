@@ -15,6 +15,10 @@ public class SpawnObjControllerLvl2 : MonoBehaviour
 
     public GameObject ScoreUp;
 
+    public GameObject leftBulletPrefab;
+
+    public GameObject rightBulletPrefab;
+
     public bool isStopSpawn = false;
 
     public float leftOffset = -200f;
@@ -29,18 +33,50 @@ public class SpawnObjControllerLvl2 : MonoBehaviour
 
     private bool firstSpawn = true;
     GameObject lastPos;
+    Transform leftParent;
+    Transform rightParent;
+
 
     // Start is called before the first frame update
     void Start()
     {
+        leftParent = GameObject.Find("ZoomLeft").transform;
+        rightParent = GameObject.Find("ZoomRight").transform;
         StartCoroutine(SpawnObstacle());
         StartCoroutine(SpawnProp1());
         StartCoroutine(SpawnProp2());
+        InvokeRepeating("SpawnLeftBulletProps", 3f, 3f);
+        InvokeRepeating("SpawnRightBulletProps", 3f, 3f);
     }
 
     // Update is called once per frame
     void Update()
     {
+    }
+
+    void SpawnRightBulletProps()
+    {
+        if (isStopSpawn == false && rightBulletPrefab != null)
+        {
+            Instantiate(rightBulletPrefab, RandomizeSpawnPosition(rightBulletPrefab), rightBulletPrefab.transform.rotation, rightParent);
+        }
+    }
+
+
+    void SpawnLeftBulletProps()
+    {
+        if (isStopSpawn == false && leftBulletPrefab != null)
+        {
+            Instantiate(leftBulletPrefab, RandomizeSpawnPosition(leftBulletPrefab), leftBulletPrefab.transform.rotation ,leftParent);
+        }
+    }
+
+    Vector3 RandomizeSpawnPosition(GameObject bulletPrefab)
+    {
+        Vector3 curr = bulletPrefab.transform.position;
+        float newX = curr.x + Random.Range(0, 5);
+        return new Vector3(newX, curr.y, curr.z);
+
     }
 
     IEnumerator SpawnObstacle()

@@ -4,20 +4,33 @@ using UnityEngine;
 
 public class BulletManager : MonoBehaviour
 {
+    public float speed = 5f;
     readonly float distanceThreshold = 1500f;
+    Rigidbody2D rb;
+
     Vector3 lastPosition;
+
 
     // Start is called before the first frame update
     void Start()
     {
         lastPosition = GetComponent<Rigidbody2D>().transform.position;
+        rb = GetComponent<Rigidbody2D>();
+        rb.constraints = RigidbodyConstraints2D.FreezePositionX | RigidbodyConstraints2D.FreezeRotation;
     }
 
     // Update is called once per frame
     void Update()
     {
+        MoveDown();
         CheckOutOfBounds();
     }
+
+    void MoveDown()
+    {
+        transform.Translate(Vector3.down * speed * Time.deltaTime);
+    }
+
 
     void CheckOutOfBounds()
     {
@@ -35,9 +48,27 @@ public class BulletManager : MonoBehaviour
     }
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if (collision.gameObject.CompareTag("Obstacle"))
+        // Debug.Log("Bullet Trigger: "+collision.name);
+
+        //if (collision.gameObject.CompareTag("Obstacle"))
+        //{
+        //    Destroy(collision.gameObject);
+        //    Destroy(gameObject);
+        //}
+
+        if (collision.gameObject.CompareTag("Player") || collision.CompareTag("Player"))
         {
-            Destroy(collision.gameObject);
+            if (collision.name == "CarLeft")
+            {
+                Debug.Log("Deduct Right Player Score");
+                GameObject.Find("GameContorller").GetComponent<GameController>().DisplayRightLostPointsMsg();
+            }
+            else
+            {
+                GameObject.Find("GameContorller").GetComponent<GameController>().DisplayLeftLostPointsMsg();
+                Debug.Log("Deduct Left Player Score");
+            }
+
             Destroy(gameObject);
         }
     }

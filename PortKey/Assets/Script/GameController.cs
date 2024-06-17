@@ -82,6 +82,19 @@ public class GameController : MonoBehaviour
 
     public bool deathDueToControlsFlip;
 
+    public TextMeshProUGUI rightLostPointsMsg;
+    public TextMeshProUGUI leftLostPointsMsg;
+
+    private int bulletPropImpact = 6;
+
+    void Awake()
+    {
+        if (rightLostPointsMsg != null)
+        { rightLostPointsMsg.gameObject.SetActive(false); }
+
+        if (leftLostPointsMsg != null)
+        { leftLostPointsMsg.gameObject.SetActive(false); }
+    }
 
     void Start()
     {
@@ -333,5 +346,53 @@ public class GameController : MonoBehaviour
         scoreMultiplier = 2.0f;
         yield return new WaitForSeconds(5.0f);
         scoreMultiplier = 1.0f;
+    }
+
+
+    public void DisplayLeftLostPointsMsg()
+    {
+        BulletImpactForLeftPlayer();
+        leftLostPointsMsg.color = Color.blue;
+        leftLostPointsMsg.gameObject.SetActive(true);
+        StartCoroutine(HideSwitchMessage(1f));
+    }
+
+    void BulletImpactForLeftPlayer()
+    {
+        if (currentLeftScore - bulletPropImpact < 0)
+        {
+            currentLeftScore = 0f;
+        }
+        else
+        {
+            currentLeftScore -= bulletPropImpact;
+        }
+    }
+
+    public void DisplayRightLostPointsMsg()
+    {
+        BulletImpactForRightPlayer();
+        rightLostPointsMsg.color = Color.blue;
+        rightLostPointsMsg.gameObject.SetActive(true);
+        StartCoroutine(HideSwitchMessage(1f));
+    }
+
+    void BulletImpactForRightPlayer()
+    {
+        if (currentRightScore - bulletPropImpact < 0)
+        {
+            currentRightScore = 0f;
+        }
+        else
+        {
+            currentRightScore -= bulletPropImpact;
+        }
+    }
+
+    IEnumerator HideSwitchMessage(float delay)
+    {
+        yield return new WaitForSeconds(delay);
+        rightLostPointsMsg.gameObject.SetActive(false);
+        leftLostPointsMsg.gameObject.SetActive(false);
     }
 }
