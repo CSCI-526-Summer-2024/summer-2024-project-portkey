@@ -220,6 +220,10 @@ public class CarMove : MonoBehaviour
                 winText.text = "YOU WIN";
                 winText.color = Color.green;
 
+                navArea.gameObject.SetActive(true);
+                broadcastMsg.text = "GAME OVER";
+                broadcastMsg.color = Color.black;
+
                 // Deaths after Control Flip Metric #4
                 gameController.deathDueToControlsFlip = reversed;
                 // First Level Completion Metric #2 
