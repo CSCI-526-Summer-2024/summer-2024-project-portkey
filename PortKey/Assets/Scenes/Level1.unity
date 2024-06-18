@@ -1459,6 +1459,8 @@ MonoBehaviour:
   level: 0
   reasonforFinshingLevel1: 0
   deathDueToControlsFlip: 0
+  rightLostPointsMsg: {fileID: 0}
+  leftLostPointsMsg: {fileID: 0}
 --- !u!4 &799866738
 Transform:
   m_ObjectHideFlags: 0
@@ -4289,9 +4291,21 @@ PrefabInstance:
       propertyPath: m_IsTrigger
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: -279700878142861245, guid: dc0412c1c3bfe46b7874b302aab22540, type: 3}
+      propertyPath: speed
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: -279700878142861245, guid: dc0412c1c3bfe46b7874b302aab22540, type: 3}
+      propertyPath: moveSpeed
+      value: 2
+      objectReference: {fileID: 0}
     - target: {fileID: 1682798608209473767, guid: dc0412c1c3bfe46b7874b302aab22540, type: 3}
       propertyPath: m_Name
       value: EnemyControlReverse
+      objectReference: {fileID: 0}
+    - target: {fileID: 1682798608209473767, guid: dc0412c1c3bfe46b7874b302aab22540, type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 8013834637219093177, guid: dc0412c1c3bfe46b7874b302aab22540, type: 3}
       propertyPath: m_Pivot.x

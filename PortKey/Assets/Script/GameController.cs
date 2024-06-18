@@ -136,6 +136,11 @@ public class GameController : MonoBehaviour
         // Pause the game when the game duration is over
         PauseGame();
         navArea.gameObject.SetActive(true);
+        if (rightLostPointsMsg != null && leftLostPointsMsg != null)
+        {
+            leftLostPointsMsg.gameObject.SetActive(false);
+            rightLostPointsMsg.gameObject.SetActive(false);
+        }
         if (currentLeftScore > currentRightScore)
         {
             broadcastMsg.text = "TIMES UP!";
@@ -313,19 +318,19 @@ public class GameController : MonoBehaviour
         {
             currentLeftScore += 5;
             leftScore.text = "Score: " + currentLeftScore.ToString("F0");
-            StartCoroutine(FlashScore(leftScore));
+            StartCoroutine(FlashScore(leftScore, Color.magenta));
         }
         else
         {
             currentRightScore += 5;
             rightScore.text = "Score: " + currentRightScore.ToString("F0");
-            StartCoroutine(FlashScore(rightScore));
+            StartCoroutine(FlashScore(rightScore, Color.magenta));
         }
     }
 
-    IEnumerator FlashScore(TextMeshProUGUI score)
+    IEnumerator FlashScore(TextMeshProUGUI score, Color col)
     {
-        score.color = Color.magenta;
+        score.color = col;
         for (int i = 0; i < 3; i++)
         {
             score.enabled = false;
@@ -367,6 +372,7 @@ public class GameController : MonoBehaviour
         {
             currentLeftScore -= bulletPropImpact;
         }
+        StartCoroutine(FlashScore(leftScore, Color.blue));
     }
 
     public void DisplayRightLostPointsMsg()
@@ -387,6 +393,7 @@ public class GameController : MonoBehaviour
         {
             currentRightScore -= bulletPropImpact;
         }
+        StartCoroutine(FlashScore(rightScore, Color.blue));
     }
 
     IEnumerator HideSwitchMessage(float delay)
