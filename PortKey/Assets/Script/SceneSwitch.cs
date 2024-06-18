@@ -10,29 +10,22 @@ public class SceneSwitch : MonoBehaviour
     public void loaderLvl1()
     {
 
-        if (GameLevelsManager.Instance != null)
-        {
-            GameLevelsManager.Instance.Level = 1; //setting the current level globally that player is on
-        }
+        GameLevelsManager.Instance.Level = 1; //setting the current level globally that player is on
        
         SceneManager.LoadScene("Level1");
     }
     public void loaderLvl2()
     {
-        if (GameLevelsManager.Instance != null)
-        {
-            GameLevelsManager.Instance.Level = 2; //setting the current level globally that player is on
-        }
+        GameLevelsManager.Instance.Level = 2; //setting the current level globally that player is on
+        
 
         SceneManager.LoadScene("Level2");
     }
     public void loaderLvl3()
     {
 
-        if (GameLevelsManager.Instance != null)
-        {
-            GameLevelsManager.Instance.Level = 3; //setting the current level globally that player is on
-        }
+        GameLevelsManager.Instance.Level = 3; //setting the current level globally that player is on
+        
 
         SceneManager.LoadScene("Level3");
     }

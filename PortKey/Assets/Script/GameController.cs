@@ -99,10 +99,8 @@ public class GameController : MonoBehaviour
     void Start()
     {
         navArea.gameObject.SetActive(false);
-        if (GameLevelsManager.Instance != null)
-        { 
-            level = GameLevelsManager.Instance.Level; // setting the level using GameLevelsManager.cs
-        }
+        level = GameLevelsManager.Instance.Level; // setting the level using GameLevelsManager.cs
+        
         Time.timeScale = 1;
 
         if (leftScore != null)
@@ -133,6 +131,12 @@ public class GameController : MonoBehaviour
             gameDuration -= 1f;
         }
         TimerMsg.text = "Time Remaining: 0s";
+
+        //  Metric #2 
+        reasonforFinshingLevel1 = 2;
+        //posting the analytics to the firebase
+        Anaytics();
+
         // Pause the game when the game duration is over
         PauseGame();
         navArea.gameObject.SetActive(true);
@@ -167,8 +171,6 @@ public class GameController : MonoBehaviour
             broadcastMsg.color = Color.yellow;
         }
 
-        //  Metric #2 
-        reasonforFinshingLevel1 = 2;
     }
 
     void PauseGame()
@@ -285,6 +287,13 @@ public class GameController : MonoBehaviour
         }
 
         //posting the analytics to the firebase
+        Anaytics();
+
+    }
+
+    void Anaytics()
+    {
+        //posting the analytics to the firebase
         PlayerData playerData = new PlayerData();
         playerData.name = "player";
         playerData.level = level;
@@ -294,10 +303,8 @@ public class GameController : MonoBehaviour
         playerData.deathDueToControlsFlip = deathDueToControlsFlip;
 
         string json = JsonUtility.ToJson(playerData);
-        RestClient.Post("https://portkey-2a1ae-default-rtdb.firebaseio.com/all_analytics.json", playerData);
+        RestClient.Post("https://portkey-2a1ae-default-rtdb.firebaseio.com/metric2_analytics.json", playerData);
         Debug.Log("Analytics sent to firebase");
-        //  yield break;
-
     }
 
     void CalculateScoreLeft()
