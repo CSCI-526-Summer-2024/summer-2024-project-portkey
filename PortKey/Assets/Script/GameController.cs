@@ -5,6 +5,7 @@ using UnityEngine;
 using UnityEngine.UI;
 
 using Proyecto26;
+using UnityEngine.SceneManagement;
 
 // for firebase analytics
 [System.Serializable]
@@ -99,8 +100,9 @@ public class GameController : MonoBehaviour
     void Start()
     {
         navArea.gameObject.SetActive(false);
+
         level = GameLevelsManager.Instance.Level; // setting the level using GameLevelsManager.cs
-        
+
         Time.timeScale = 1;
 
         if (leftScore != null)
@@ -155,7 +157,8 @@ public class GameController : MonoBehaviour
             broadcastMsgRight.gameObject.SetActive(true);
             broadcastMsgRight.text = "YOU LOSE";
             broadcastMsgRight.color = Color.red;
-        } else if (currentLeftScore < currentRightScore)
+        }
+        else if (currentLeftScore < currentRightScore)
         {
             broadcastMsg.text = "TIMES UP!";
             broadcastMsg.color = Color.black;
@@ -165,7 +168,8 @@ public class GameController : MonoBehaviour
             broadcastMsgLeft.gameObject.SetActive(true);
             broadcastMsgLeft.text = "YOU LOSE";
             broadcastMsgLeft.color = Color.red;
-        } else
+        }
+        else
         { //tie condition
             broadcastMsg.text = "TIMES UP!\nTIE!";
             broadcastMsg.color = Color.yellow;
