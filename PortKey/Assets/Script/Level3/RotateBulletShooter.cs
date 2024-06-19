@@ -8,46 +8,94 @@ public class RotateBulletShooter : MonoBehaviour
     public GameObject playerLeft;
     public GameObject playerRight;
 
-    public float rotationSpeed = 100f; 
+    public float rotationSpeed = 2f; 
     public GameObject bulletPrefab; 
     public float bulletSpeed = 10f; 
-    public Transform bulletSpawnPoint; 
+    public Transform bulletSpawnPoint;
+    string defaultRightPlayerName = "CarRight";
+    string defaultLeftPlayerName = "CarLeft";
+
+    float zRoatationRange = 70f;
+    float rotation;
+    Transform parent;
+
+    void Start()
+    {
+        rotation = transform.eulerAngles.z;
+        parent = transform.parent;
+    }
+
 
     void Update()
     {
-        // get the current rotation
-        float rotation = transform.eulerAngles.z;
+        //rotation = transform.eulerAngles.z;
+        RotatePointer();
+        RotatePoiterAndShootBullets();
 
-        //setting control keys for right player
-        KeyCode upKey = KeyCode.UpArrow;
-        KeyCode downKey = KeyCode.DownArrow;
-        KeyCode shootKey = KeyCode.RightControl;
+    }
 
-        //setting control keys for left player
-        if (playerLeft != null)
-        {
-            upKey = KeyCode.W;
-            downKey = KeyCode.S;
-            shootKey = KeyCode.E;
-        }
+    void RotatePoiterAndShootBullets()
+    {
+        LeftCarShooting();
+        RightCarShooting();
+    }
 
-        // rotate the bullet clockwise/counter when user presses corresponding up/down keys
-        if (Input.GetKey(upKey))
-        {
-            rotation += rotationSpeed * Time.deltaTime;
-        }
-        else if (Input.GetKey(downKey))
-        {
-            rotation -= rotationSpeed * Time.deltaTime;
-        }
 
+    void RotatePointer()
+    {
+
+        rotation += rotationSpeed * Time.deltaTime;
+        CheckRotationRange();
         transform.rotation = Quaternion.Euler(0, 0, rotation);
+        
+    }
 
-        // if players presses the key to shoot
-        if (Input.GetKeyDown(shootKey))
+    void CheckRotationRange()
+    {
+        if (rotation > zRoatationRange)
         {
-            Shoot();
+            rotation = -zRoatationRange;
         }
+
+        if (rotation < -zRoatationRange)
+        {
+            rotation = zRoatationRange;
+        }
+
+    }
+
+
+    void LeftCarShooting()
+    {
+        //if (playerLeft != null && playerRight == null)
+        if (parent.name == defaultLeftPlayerName)
+        {
+            KeyCode shootKey = KeyCode.S;
+
+            // if left players presses the key to shoot
+            if (Input.GetKeyDown(shootKey))
+            {
+                Shoot();
+            }
+        }
+       
+    }
+
+    void RightCarShooting()
+    {
+        //if (playerLeft == null && playerRight != null)
+
+        if(parent.name == defaultRightPlayerName)
+        {
+            KeyCode shootKey = KeyCode.UpArrow;
+
+            // if right players presses the key to shoot
+            if (Input.GetKeyDown(shootKey))
+            {
+                Shoot();
+            }
+        }
+        
     }
 
     void Shoot()

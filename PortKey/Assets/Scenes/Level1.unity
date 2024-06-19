@@ -169,7 +169,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   playerLeft: {fileID: 0}
   playerRight: {fileID: 14367811}
-  rotationSpeed: 100
+  rotationSpeed: 30
   bulletPrefab: {fileID: 4751217107034662202, guid: 8884232069b0ca244b247978f20a926b, type: 3}
   bulletSpeed: 10
   bulletSpawnPoint: {fileID: 313270781}
@@ -352,7 +352,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   playerLeft: {fileID: 89833612}
   playerRight: {fileID: 0}
-  rotationSpeed: 100
+  rotationSpeed: 30
   bulletPrefab: {fileID: 4751217107034662202, guid: 8884232069b0ca244b247978f20a926b, type: 3}
   bulletSpeed: 10
   bulletSpawnPoint: {fileID: 505577310}
@@ -1846,7 +1846,7 @@ SpriteRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_Sprite: {fileID: 7482667652216324306, guid: 311925a002f4447b3a28927169b83ea6, type: 3}
-  m_Color: {r: 0.9169811, g: 0.16436444, b: 0.16436444, a: 1}
+  m_Color: {r: 0.044842422, g: 0.047169805, b: 0.0033374857, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
@@ -2206,7 +2206,7 @@ SpriteRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_Sprite: {fileID: 7482667652216324306, guid: 311925a002f4447b3a28927169b83ea6, type: 3}
-  m_Color: {r: 0.90188676, g: 0.14804552, b: 0.14804552, a: 1}
+  m_Color: {r: 0, g: 0, b: 0, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
