@@ -71,7 +71,7 @@ public class CarMove : MonoBehaviour
 
     void Update()
     {
-        ShootBullet();
+        //ShootBullet();
         if (!canMove)
         {
             return;
