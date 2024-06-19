@@ -15,7 +15,7 @@ GameObject:
   - component: {fileID: 357440221128332459}
   m_Layer: 5
   m_Name: ScoreUp
-  m_TagString: Untagged
+  m_TagString: ScoreUp
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
