@@ -209,6 +209,16 @@ public class CarMove : MonoBehaviour
             //destroy the obstacle on collision
             Destroy(other.gameObject);
 
+            // Collisions after Control Flip Metric #4
+            if (transform.name == "CarLeft")
+            {
+                gameController.collisionDueToCtrlFlipLeft += 1;
+            }
+            else
+            {
+                gameController.collisionDueToCtrlFlipRight += 1;
+            }
+
             //updates the ui if one of the players lost all of their hp
             if (playerLefthealth <= 0 || playerRighthealth <= 0)
             {
@@ -224,12 +234,12 @@ public class CarMove : MonoBehaviour
                 broadcastMsg.text = "GAME OVER";
                 broadcastMsg.color = Color.black;
 
-                // Deaths after Control Flip Metric #4
-                gameController.deathDueToControlsFlip = reversed;
-                // First Level Completion Metric #2 
-                gameController.reasonforFinshingLevel1 = 1;
+                // Level Completion Reason Metric #2 
+                gameController.reasonforFinshingLevel = 1;
 
                 gameController.StopScoreCalculation(transform.name);
+
+                
             }
 
 
@@ -242,7 +252,15 @@ public class CarMove : MonoBehaviour
             gameController.EnemyControlReverse(transform.name);
 
             // Metric #3
-            gameController.totalSwitchingPropCollected += 1;
+            if (transform.name == "CarLeft")
+            {
+                gameController.totalCtrlSwitchPropCollectedLeft += 1;
+            }
+            else
+            {
+                gameController.totalCtrlSwitchPropCollectedRight += 1;
+            }
+           
         }
 
         if (other.gameObject.name.Contains("ScoreUp"))

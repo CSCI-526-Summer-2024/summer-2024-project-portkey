@@ -12,11 +12,14 @@ using UnityEngine.SceneManagement;
 public class PlayerData
 {
     public string name;
-    public float score;
+    public float scoreLeft;
+    public float scoreRight;
     public int level;
-    public int reasonforFinshingLevel1; //1 = obstacle collision. 2= time up
-    public int totalSwitchingPropCollected;
-    public bool deathDueToControlsFlip;
+    public int reasonforFinshingLevel; //1 = obstacle collision. 2= time up
+    public int totalCtrlSwitchPropCollectedLeft;
+    public int totalCtrlSwitchPropCollectedRight;
+    public int collisionDueToCtrlFlipLeft;
+    public int collisionDueToCtrlFlipRight;
 }
 
 
@@ -75,13 +78,15 @@ public class GameController : MonoBehaviour
     private float gameDuration = 30f;
 
     //analytics helper variables
-    public int totalSwitchingPropCollected = 0;
+    public int totalCtrlSwitchPropCollectedRight = 0;
+    public int totalCtrlSwitchPropCollectedLeft = 0;
 
     public int level;
 
-    public int reasonforFinshingLevel1;
+    public int reasonforFinshingLevel;
 
-    public bool deathDueToControlsFlip;
+    public int collisionDueToCtrlFlipLeft;
+    public int collisionDueToCtrlFlipRight;
 
     public TextMeshProUGUI rightLostPointsMsg;
     public TextMeshProUGUI leftLostPointsMsg;
@@ -135,7 +140,7 @@ public class GameController : MonoBehaviour
         TimerMsg.text = "Time Remaining: 0s";
 
         //  Metric #2 
-        reasonforFinshingLevel1 = 2;
+        reasonforFinshingLevel = 2;
         //posting the analytics to the firebase
         Anaytics();
 
@@ -297,17 +302,33 @@ public class GameController : MonoBehaviour
 
     void Anaytics()
     {
+        //parsing the current level number
+        string levelName = SceneManager.GetActiveScene().name;
+        char levelLastChar = levelName[levelName.Length - 1];
+        int levelNumber;
+        if (int.TryParse(levelLastChar.ToString(), out levelNumber))
+        {
+            Debug.Log("The last character as an integer: " + levelNumber);
+        }
+        else
+        {
+            Debug.LogWarning("The last character is not a valid number.");
+        }
+
         //posting the analytics to the firebase
         PlayerData playerData = new PlayerData();
         playerData.name = "player";
-        playerData.level = level;
-        playerData.score = currentRightScore + currentLeftScore;
-        playerData.reasonforFinshingLevel1 = reasonforFinshingLevel1;
-        playerData.totalSwitchingPropCollected = totalSwitchingPropCollected;
-        playerData.deathDueToControlsFlip = deathDueToControlsFlip;
+        playerData.level = levelNumber;
+        playerData.scoreLeft = currentLeftScore;
+        playerData.scoreRight = currentRightScore;
+        playerData.reasonforFinshingLevel = reasonforFinshingLevel;
+        playerData.totalCtrlSwitchPropCollectedRight = totalCtrlSwitchPropCollectedRight;
+        playerData.totalCtrlSwitchPropCollectedLeft = totalCtrlSwitchPropCollectedLeft;
+        playerData.collisionDueToCtrlFlipLeft = collisionDueToCtrlFlipLeft;
+        playerData.collisionDueToCtrlFlipRight = collisionDueToCtrlFlipRight;
 
         string json = JsonUtility.ToJson(playerData);
-        RestClient.Post("https://portkey-2a1ae-default-rtdb.firebaseio.com/metric2_analytics.json", playerData);
+        RestClient.Post("https://portkey-2a1ae-default-rtdb.firebaseio.com/playtesting1_analytics.json", playerData);
         Debug.Log("Analytics sent to firebase");
     }
 
