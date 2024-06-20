@@ -207,16 +207,20 @@ public class GameController : MonoBehaviour
         {
             carRight.GetComponent<CarMove>().carSpeed *= -1;
             carRight.GetComponent<CarMove>().reversed = !carRight.GetComponent<CarMove>().reversed;
-            imageLeft.sprite = spriteRight;
-            imageRight.sprite = spriteLeft;
+            Sprite oldleft = imageLeft.sprite;
+            Sprite oldright = imageRight.sprite;
+            imageLeft.sprite = oldright;
+            imageRight.sprite = oldleft;
             StartCoroutine(Flashing(imageLeft, imageRight));
         }
         else
         {
             carLeft.GetComponent<CarMove>().carSpeed *= -1;
             carLeft.GetComponent<CarMove>().reversed = !carLeft.GetComponent<CarMove>().reversed;
-            imageA.sprite = spriteD;
-            imageD.sprite = spriteA;
+            Sprite oldA = imageA.sprite;
+            Sprite oldD = imageD.sprite;
+            imageA.sprite = oldD;
+            imageD.sprite = oldA;
             StartCoroutine(Flashing(imageA, imageD));
         }
     }
