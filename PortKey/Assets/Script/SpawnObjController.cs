@@ -9,6 +9,10 @@ public class SpawnObjController : MonoBehaviour
 
     public GameObject obstacleRight;
 
+    public GameObject obstacleGapLeft;
+
+    public GameObject obstacleGapRight;
+
     public GameObject EnemyControlReverse;
 
     public GameObject ScoreUp;
@@ -19,7 +23,7 @@ public class SpawnObjController : MonoBehaviour
 
     public float rightOffset = 200f;
 
-    private readonly float[] spawnObstacleTime = { 2, 3 };
+    private readonly float[] spawnObstacleTime = { 1, 2 };
 
     private readonly float[] spawnProp1Time = { 5, 8 };
 
@@ -56,35 +60,72 @@ public class SpawnObjController : MonoBehaviour
 
             if (!isStopSpawn)
             {
-                int leftOrRight = Random.Range(0, 2);
+                int leftOrRight = Random.Range(0, 3);
                 GameObject obstacle;
+                GameObject obstacle2;
                 if (leftOrRight == 0)
                 {
                     obstacle = obstacleLeft;
+                    obstacle2 = null;
+                }
+                else if (leftOrRight == 1)
+                {
+                    obstacle = obstacleRight;
+                    obstacle2 = null;
                 }
                 else
                 {
-                    obstacle = obstacleRight;
+                    obstacle = obstacleGapLeft;
+                    obstacle2 = obstacleGapRight;
                 }
                 if (firstSpawn)
                 {
-                    GameObject cloneObstacle = Instantiate(obstacle, transform);
-                    firstSpawn = false;
-                    lastPos = cloneObstacle;
-                }
-                else
-                {
-                    GameObject cloneObstacle = Instantiate(obstacle, transform);
-                    Debug.Log(lastPos.transform.position.y + " and " + cloneObstacle.transform.position.y);
-                    if (cloneObstacle.transform.position.y - lastPos.transform.position.y <= 2.50f)
+                    if (obstacle2 == null)
                     {
-                        Debug.Log("DO NOT PLACE");
-                        Destroy(cloneObstacle);
+                        GameObject cloneObstacle = Instantiate(obstacle, transform);
+                        lastPos = cloneObstacle;
                     }
                     else
                     {
-                        Debug.Log("PLACE");
-                        lastPos = cloneObstacle;
+                        GameObject cloneObstacle = Instantiate(obstacle, transform);
+                        GameObject cloneObstacle2 = Instantiate(obstacle2, transform);
+                        lastPos = cloneObstacle2;
+                    }
+                    firstSpawn = false;
+                }
+                else
+                {
+                    if (obstacle2 == null)
+                    {
+                        GameObject cloneObstacle = Instantiate(obstacle, transform);
+                        Debug.Log(lastPos.transform.position.y + " and " + cloneObstacle.transform.position.y);
+                        if (cloneObstacle.transform.position.y - lastPos.transform.position.y <= 4.0f)
+                        {
+                            Debug.Log("DO NOT PLACE");
+                            Destroy(cloneObstacle);
+                        }
+                        else
+                        {
+                            Debug.Log("PLACE");
+                            lastPos = cloneObstacle;
+                        }
+                    }
+                    else
+                    {
+                        GameObject cloneObstacle = Instantiate(obstacle, transform);
+                        GameObject cloneObstacle2 = Instantiate(obstacle2, transform);
+                        Debug.Log(lastPos.transform.position.y + " and " + cloneObstacle2.transform.position.y);
+                        if (cloneObstacle2.transform.position.y - lastPos.transform.position.y <= 4.0f)
+                        {
+                            Debug.Log("DO NOT PLACE");
+                            Destroy(cloneObstacle);
+                            Destroy(cloneObstacle2);
+                        }
+                        else
+                        {
+                            Debug.Log("PLACE");
+                            lastPos = cloneObstacle2;
+                        }
                     }
                 }
             }
