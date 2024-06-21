@@ -32,9 +32,10 @@ public class CarMove : MonoBehaviour
     public float bulletSpeed = 300f;
 
     //healthbar helper variables
-    public float playerLefthealth = 100;
-    public float playerRighthealth = 100;
-    public float maxHealth = 100;
+    float playerLefthealth = 100;
+    float playerRighthealth = 100;
+    float maxHealth = 100;
+    float obstacleImpact = 20f;
     private HealthBar leftHealthBar;
     private HealthBar rightHealthBar;
 
@@ -198,12 +199,12 @@ public class CarMove : MonoBehaviour
             //decrement healthbar accordingly
             if (transform.name == "CarLeft")
             {
-                playerLefthealth -= 15;
+                playerLefthealth -= obstacleImpact;
                 leftHealthBar.UpdateLeftPlayerHealthBar(playerLefthealth, maxHealth);
             }
             else
             {
-                playerRighthealth -= 15;
+                playerRighthealth -= obstacleImpact;
                 rightHealthBar.UpdateRightPlayerHealthBar(playerRighthealth, maxHealth);
             }
             //destroy the obstacle on collision
