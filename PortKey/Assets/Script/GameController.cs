@@ -332,7 +332,7 @@ public class GameController : MonoBehaviour
         playerData.collisionDueToCtrlFlipRight = collisionDueToCtrlFlipRight;
 
         string json = JsonUtility.ToJson(playerData);
-        RestClient.Post("https://portkey-2a1ae-default-rtdb.firebaseio.com/playtesting1_analytics.json", playerData);
+        //RestClient.Post("https://portkey-2a1ae-default-rtdb.firebaseio.com/playtesting1_analytics.json", playerData);
         Debug.Log("Analytics sent to firebase");
     }
 
