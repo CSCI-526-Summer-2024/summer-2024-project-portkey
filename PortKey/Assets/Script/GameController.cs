@@ -152,6 +152,8 @@ public class GameController : MonoBehaviour
             leftLostPointsMsg.gameObject.SetActive(false);
             rightLostPointsMsg.gameObject.SetActive(false);
         }
+        //making sure everything that might be falshing will be visible!
+        StopFlashing();
         if (currentLeftScore > currentRightScore)
         {
             broadcastMsg.text = "TIMES UP!";
@@ -180,6 +182,22 @@ public class GameController : MonoBehaviour
             broadcastMsg.color = Color.yellow;
         }
 
+    }
+
+    public void StopFlashing()
+    {
+        leftScore.color = Color.black;
+        leftScore.enabled = true;
+        rightScore.color = Color.black;
+        rightScore.enabled = true;
+        imageLeft.GetComponentInChildren<TextMeshProUGUI>().color = Color.black;
+        imageRight.GetComponentInChildren<TextMeshProUGUI>().color = Color.black;
+        imageLeft.enabled = true;
+        imageRight.enabled = true;
+        imageA.GetComponentInChildren<TextMeshProUGUI>().color = Color.black;
+        imageD.GetComponentInChildren<TextMeshProUGUI>().color = Color.black;
+        imageA.enabled = true;
+        imageD.enabled = true;
     }
 
     void PauseGame()

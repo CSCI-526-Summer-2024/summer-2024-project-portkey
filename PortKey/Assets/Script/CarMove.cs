@@ -224,6 +224,7 @@ public class CarMove : MonoBehaviour
             if (playerLefthealth <= 0 || playerRighthealth <= 0)
             {
                 Time.timeScale = 0;
+                gameController.StopFlashing();
                 deathText.gameObject.SetActive(true);
                 deathText.text = "YOU LOSE";
                 deathText.color = Color.red;
