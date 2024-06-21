@@ -195,7 +195,6 @@ public class CarMove : MonoBehaviour
 
         if (other.gameObject.tag == "Obstacle")
         {
-
             //decrement healthbar accordingly
             if (transform.name == "CarLeft")
             {

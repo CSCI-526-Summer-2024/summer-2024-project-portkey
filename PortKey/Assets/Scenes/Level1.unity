@@ -3518,8 +3518,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   carSpeed: 3.5
   actionAD: 1
-  boundaryLeft: -7.9
-  boundaryRight: -1
+  boundaryLeft: -8.4
+  boundaryRight: -0.54
   canMove: 1
   deathText: {fileID: 1093941148}
   winText: {fileID: 1556113888}
@@ -3528,9 +3528,6 @@ MonoBehaviour:
   reversed: 0
   bulletPrefab: {fileID: 0}
   bulletSpeed: 300
-  playerLefthealth: 100
-  playerRighthealth: 100
-  maxHealth: 100
 --- !u!222 &1439922488
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -5263,8 +5260,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   carSpeed: 3.5
   actionAD: 0
-  boundaryLeft: 1
-  boundaryRight: 7.9
+  boundaryLeft: 0.52
+  boundaryRight: 8.38
   canMove: 1
   deathText: {fileID: 1556113888}
   winText: {fileID: 1093941148}
@@ -5273,9 +5270,6 @@ MonoBehaviour:
   reversed: 0
   bulletPrefab: {fileID: 0}
   bulletSpeed: 300
-  playerLefthealth: 100
-  playerRighthealth: 100
-  maxHealth: 100
 --- !u!222 &1973918310
 CanvasRenderer:
   m_ObjectHideFlags: 0
