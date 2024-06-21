@@ -4,15 +4,30 @@ using UnityEngine;
 
 public class BulletShooter : MonoBehaviour
 {
+    void Update()
+    {
+        CheckBounds();
+    }
+
     void OnTriggerEnter2D(Collider2D collision)
     {
-        //  if collides with Obstacle, EnemyControlReverse, or ScoreUp prefabs
+        // If collides with Obstacle, EnemyControlReverse, or ScoreUp prefabs
         if (collision.CompareTag("Obstacle") || collision.gameObject.name.Contains("EnemyControlReverse") ||
             collision.gameObject.name.Contains("ScoreUp"))
         {
-            // destroy the objects
+            // Destroy the objects
             Destroy(collision.gameObject);
-            //Destroy(gameObject);
+            // Destroy this bullet
+            Destroy(gameObject);
+        }
+    }
+
+    //destroys bullets once out of bounds
+    void CheckBounds()
+    {
+        if (transform.position.x < -9 || transform.position.x > 9 || transform.position.y < -4 || transform.position.y > 4)
+        {
+            Destroy(gameObject);
         }
     }
 }
