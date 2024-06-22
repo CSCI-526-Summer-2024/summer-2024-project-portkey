@@ -13,6 +13,8 @@ public class SpawnObjController : MonoBehaviour
 
     public GameObject ScoreUp;
 
+    public GameObject Bullet;
+
     public bool isStopSpawn = false;
 
     public float leftOffset = -200f;
@@ -25,6 +27,8 @@ public class SpawnObjController : MonoBehaviour
 
     private readonly float[] spawnProp2Time = { 5, 8 };
 
+    private readonly float[] spawnProp3Time = { 5, 8 };
+
     private bool firstSpawn = true;
     GameObject lastPos;
 
@@ -34,6 +38,7 @@ public class SpawnObjController : MonoBehaviour
         StartCoroutine(SpawnObstacle());
         StartCoroutine(SpawnProp1());
         StartCoroutine(SpawnProp2());
+        StartCoroutine(SpawnBullets());
     }
 
     // Update is called once per frame
@@ -75,8 +80,8 @@ public class SpawnObjController : MonoBehaviour
                 else
                 {
                     GameObject cloneObstacle = Instantiate(obstacle, transform);
-                    Debug.Log(lastPos.transform.position.y + " and " + cloneObstacle.transform.position.y);
-                    if (cloneObstacle.transform.position.y - lastPos.transform.position.y <= 2.50f)
+                    // Debug.Log(lastPos.transform.position.y + " and " + cloneObstacle.transform.position.y);
+                    if (cloneObstacle != null && lastPos != null && cloneObstacle.transform.position.y - lastPos.transform.position.y <= 2.50f)
                     {
                         Debug.Log("DO NOT PLACE");
                         Destroy(cloneObstacle);
@@ -128,6 +133,26 @@ public class SpawnObjController : MonoBehaviour
         }
 
     }
+
+    IEnumerator SpawnBullets()
+    {
+
+        while (true)
+        {
+            yield return new WaitUntil(() => !isStopSpawn);
+            // Randomly spawn objects
+
+            yield return new WaitForSeconds(Random.Range(spawnProp3Time[0], spawnProp3Time[1]));
+
+            if (!isStopSpawn)
+            {
+                GameObject cloneProp3 = Instantiate(Bullet, transform);
+                cloneProp3.transform.position = new Vector2(Random.Range(leftOffset, rightOffset), 3.58f);
+            }
+        }
+
+    }
+
 
 
 }

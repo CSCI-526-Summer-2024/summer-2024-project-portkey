@@ -9,6 +9,7 @@ TagManager:
   - RightHealthBar
   - EnemyControlReverse
   - ScoreUp
+  - Bullet
   layers:
   - Default
   - TransparentFX

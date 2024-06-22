@@ -235,6 +235,30 @@ public class CarMove : MonoBehaviour
 
         }
 
+        if (other.gameObject.tag == "Bullet")
+        {
+            if (transform.name == "CarLeft")
+            {
+               
+                RotateBulletShooter shooter = GameObject.Find("PivotLeft").GetComponent<RotateBulletShooter>();
+                if (shooter != null)
+                {
+                   shooter.IncreaseBulletCountLeft();
+                }
+
+            }
+            else
+            {
+                RotateBulletShooter shooter = GameObject.Find("PivotRight").GetComponent<RotateBulletShooter>();
+                if (shooter != null)
+                {
+                   shooter.IncreaseBulletCountRight();
+                }
+            }
+            Destroy(other.gameObject); // Destroy the prop after collecting
+        }
+
+
         if (other.gameObject.name.Contains("EnemyControlReverse"))
         {
             DisplaySwithcMessage();
