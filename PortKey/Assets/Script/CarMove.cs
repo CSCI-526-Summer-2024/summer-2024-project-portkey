@@ -195,6 +195,7 @@ public class CarMove : MonoBehaviour
 
         if (other.gameObject.tag == "Obstacle")
         {
+            StartCoroutine(ShakePlayer());
             //decrement healthbar accordingly
             if (transform.name == "CarLeft")
             {
@@ -245,6 +246,25 @@ public class CarMove : MonoBehaviour
 
 
         }
+
+        IEnumerator ShakePlayer()
+        {
+            float time = 0.0f;
+            Quaternion originalRotation = transform.localRotation;
+            while (time < 0.5f)
+            {
+                float shake = Random.Range(-1f, 1f) * 10.0f;
+                transform.localRotation = Quaternion.Euler(0, 0, originalRotation.eulerAngles.z + shake);
+                time += Time.deltaTime;
+                if (Time.timeScale == 0)
+                {
+                    transform.localRotation = originalRotation;
+                }
+                yield return null;
+            }
+            transform.localRotation = originalRotation;
+        }
+
 
         if (other.gameObject.name.Contains("EnemyControlReverse"))
         {
