@@ -132,12 +132,12 @@ public class GameController : MonoBehaviour
     {
         while (gameDuration > 0)
         {
-            TimerMsg.text = "Time Remaining: " + Mathf.Ceil(gameDuration).ToString() + "s";
+            TimerMsg.text = "" + Mathf.Ceil(gameDuration).ToString() + "s";
             yield return new WaitForSeconds(1f);
             // Decrease game duration by 1 second
             gameDuration -= 1f;
         }
-        TimerMsg.text = "Time Remaining: 0s";
+        TimerMsg.text = "0s";
 
         //  Metric #2 
         reasonforFinshingLevel = 2;
@@ -357,13 +357,13 @@ public class GameController : MonoBehaviour
     void CalculateScoreLeft()
     {
         currentLeftScore += baseScore * scoreMultiplier;
-        leftScore.text = "Score: " + currentLeftScore.ToString("F0");
+        leftScore.text = "" + currentLeftScore.ToString("F0");
     }
 
     void CalculateScoreRight()
     {
         currentRightScore += baseScore * scoreMultiplier;
-        rightScore.text = "Score: " + currentRightScore.ToString("F0");
+        rightScore.text = "" + currentRightScore.ToString("F0");
     }
 
     public void OneTimeBonus(string carName)
@@ -371,13 +371,13 @@ public class GameController : MonoBehaviour
         if (carName == "CarLeft")
         {
             currentLeftScore += 5;
-            leftScore.text = "Score: " + currentLeftScore.ToString("F0");
+            leftScore.text = "" + currentLeftScore.ToString("F0");
             StartCoroutine(FlashScore(leftScore, Color.magenta));
         }
         else
         {
             currentRightScore += 5;
-            rightScore.text = "Score: " + currentRightScore.ToString("F0");
+            rightScore.text = "" + currentRightScore.ToString("F0");
             StartCoroutine(FlashScore(rightScore, Color.magenta));
         }
     }
