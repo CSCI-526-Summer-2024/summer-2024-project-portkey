@@ -65,8 +65,8 @@ def plot(levels, average_left, average_right, xlabel, ylabel, title, left_label,
 
 
 # metric 2 - Level Completion Reason
-levels, collisions, time_ups = parse_data(data, 'reasonforFinshingLevel', 'reasonforFinshingLevel')
-plot(levels, collisions, time_ups, 'Levels', 'Total Number of Game Completions', 'Level Completion Reason', 'Collision', 'Time Up')
+# levels, collisions, time_ups = parse_data(data, 'reasonforFinshingLevel', 'reasonforFinshingLevel')
+# plot(levels, collisions, time_ups, 'Levels', 'Total Number of Game Completions', 'Level Completion Reason', 'Collision', 'Time Up')
 
 # metric 1 - Scores Collected per Level
 levels, average_scores_left, average_scores_right = parse_data(data, 'scoreLeft', 'scoreRight')
