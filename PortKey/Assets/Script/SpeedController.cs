@@ -57,6 +57,8 @@ public class SpeedLimits
         switch (level)
         {
             case 1:
+                canIncreaseSpeed = true;
+                canIncreaseSpawnSpeed = true;
                 defaultCarSpeed = 3.0f;
                 defaultSpawnSpeed = 2.0f;
                 carSpeedMultiplier = 1.05f;
@@ -66,6 +68,8 @@ public class SpeedLimits
                 speedIncreaseDuration = 20.0f;
                 break;
             case 2:
+                canIncreaseSpeed = true;
+                canIncreaseSpawnSpeed = true;
                 defaultCarSpeed = 3.0f;
                 defaultSpawnSpeed = 2.0f;
                 carSpeedMultiplier = 1.08f;
@@ -75,6 +79,8 @@ public class SpeedLimits
                 speedIncreaseDuration = 30.0f;
                 break;
             case 3:
+                canIncreaseSpeed = true;
+                canIncreaseSpawnSpeed = true;
                 defaultCarSpeed = 3.0f;
                 defaultSpawnSpeed = 2.0f;
                 carSpeedMultiplier = 1.10f;
@@ -84,6 +90,8 @@ public class SpeedLimits
                 speedIncreaseDuration = 40.0f;
                 break;
             case 4:
+                canIncreaseSpeed = true;
+                canIncreaseSpawnSpeed = true;
                 defaultCarSpeed = 3.0f;
                 defaultSpawnSpeed = 2.0f;
                 carSpeedMultiplier = 1.12f;
