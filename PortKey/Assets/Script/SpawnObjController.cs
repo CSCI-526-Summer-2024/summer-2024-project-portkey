@@ -13,9 +13,11 @@ public class SpawnObjController : MonoBehaviour
 
     public GameObject obstacleGapRight;
 
-    public GameObject EnemyControlReverse;
+    public GameObject enemyControlReverse;
 
-    public GameObject ScoreUp;
+    public GameObject scoreUp;
+
+    public GameObject slowEnemy;
 
     public bool isStopSpawn = false;
 
@@ -25,9 +27,11 @@ public class SpawnObjController : MonoBehaviour
 
     private readonly float[] spawnObstacleTime = { 1, 2 };
 
-    private readonly float[] spawnProp1Time = { 5, 8 };
+    private readonly float[] enemyControlReverseTime = { 5, 8 };
 
-    private readonly float[] spawnProp2Time = { 5, 8 };
+    private readonly float[] scoreUpTime = { 5, 8 };
+
+    private readonly float[] slowEnemyTime = { 5, 8 };
 
     private bool firstSpawn = true;
     GameObject lastPos;
@@ -36,8 +40,9 @@ public class SpawnObjController : MonoBehaviour
     void Start()
     {
         StartCoroutine(SpawnObstacle());
-        StartCoroutine(SpawnProp1());
-        StartCoroutine(SpawnProp2());
+        StartCoroutine(SpawnEnemyControlReverse());
+        StartCoroutine(SpawnScoreUp());
+        StartCoroutine(SpawnSlowEnemy());
     }
 
     // Update is called once per frame
@@ -133,25 +138,25 @@ public class SpawnObjController : MonoBehaviour
 
     }
 
-    IEnumerator SpawnProp1()
+    IEnumerator SpawnEnemyControlReverse()
     {
         while (true)
         {
             yield return new WaitUntil(() => !isStopSpawn);
             // Randomly spawn objects
 
-            yield return new WaitForSeconds(Random.Range(spawnProp1Time[0], spawnProp1Time[1]));
+            yield return new WaitForSeconds(Random.Range(enemyControlReverseTime[0], enemyControlReverseTime[1]));
 
             if (!isStopSpawn)
             {
-                GameObject cloneProp1 = Instantiate(EnemyControlReverse, transform);
-                cloneProp1.transform.position = new Vector2(Random.Range(leftOffset, rightOffset), 3.58f);
+                GameObject cloneEnemyControlReverse = Instantiate(enemyControlReverse, transform);
+                cloneEnemyControlReverse.transform.position = new Vector2(Random.Range(leftOffset, rightOffset), 4.0f);
             }
         }
 
     }
 
-    IEnumerator SpawnProp2()
+    IEnumerator SpawnScoreUp()
     {
 
         while (true)
@@ -159,16 +164,32 @@ public class SpawnObjController : MonoBehaviour
             yield return new WaitUntil(() => !isStopSpawn);
             // Randomly spawn objects
 
-            yield return new WaitForSeconds(Random.Range(spawnProp2Time[0], spawnProp2Time[1]));
+            yield return new WaitForSeconds(Random.Range(scoreUpTime[0], scoreUpTime[1]));
 
             if (!isStopSpawn)
             {
-                GameObject cloneProp2 = Instantiate(ScoreUp, transform);
-                cloneProp2.transform.position = new Vector2(Random.Range(leftOffset, rightOffset), 3.58f);
+                GameObject cloneScoreUp = Instantiate(scoreUp, transform);
+                cloneScoreUp.transform.position = new Vector2(Random.Range(leftOffset, rightOffset), 4.0f);
             }
         }
 
     }
 
+    IEnumerator SpawnSlowEnemy()
+    {
+        while (true)
+        {
+            Debug.Log("Spawn Slow Enemy");
+            yield return new WaitUntil(() => !isStopSpawn);
+            // Randomly spawn objects
 
+            yield return new WaitForSeconds(Random.Range(slowEnemyTime[0], slowEnemyTime[1]));
+
+            if (!isStopSpawn)
+            {
+                GameObject cloneSlowEnemy = Instantiate(slowEnemy, transform);
+                cloneSlowEnemy.transform.position = new Vector2(Random.Range(leftOffset, rightOffset), 4.0f);
+            }
+        }
+    }
 }

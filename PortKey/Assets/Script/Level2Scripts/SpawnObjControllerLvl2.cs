@@ -19,6 +19,8 @@ public class SpawnObjControllerLvl2 : MonoBehaviour
 
     public GameObject ScoreUp;
 
+    public GameObject slowEnemy;
+
     public GameObject leftBulletPrefab;
 
     public GameObject rightBulletPrefab;
@@ -29,11 +31,15 @@ public class SpawnObjControllerLvl2 : MonoBehaviour
 
     public float rightOffset = 200f;
 
-    private readonly float[] spawnObstacleTime = { 1, 2};
+    private readonly float[] spawnObstacleTime = { 1, 2 };
 
-    private readonly float[] spawnProp1Time = { 5, 8 };
+    private readonly float[] enemyControlReverseTime = { 5, 8 };
 
-    private readonly float[] spawnProp2Time = { 5, 8 };
+    private readonly float[] scoreUpTime = { 5, 8 };
+
+    private readonly float[] slowEnemyTime = { 5, 8 };
+
+    public SpeedLimits speedLimits;
 
     private bool firstSpawn = true;
     GameObject lastPos;
@@ -47,10 +53,22 @@ public class SpawnObjControllerLvl2 : MonoBehaviour
         leftParent = GameObject.Find("ZoomLeft").transform;
         rightParent = GameObject.Find("ZoomRight").transform;
         StartCoroutine(SpawnObstacle());
-        StartCoroutine(SpawnProp1());
-        StartCoroutine(SpawnProp2());
+        StartCoroutine(SpawnEnemyControlReverse());
+        StartCoroutine(SpawnScoreUp());
+        StartCoroutine(SpawnSlowEnemy());
         InvokeRepeating("SpawnLeftBulletProps", 3f, 3f);
         InvokeRepeating("SpawnRightBulletProps", 3f, 3f);
+
+        speedLimits = GameObject.Find("SpeedController").GetComponent<SpeedLimits>();
+        if (speedLimits == null)
+        {
+            Debug.LogError("SpeedLimits is null");
+        }
+        else if (speedLimits.CanIncreaseSpawnSpeed)
+        {
+            StartCoroutine(UpdateSpawnSpeed());
+        }
+
     }
 
     // Update is called once per frame
@@ -71,7 +89,7 @@ public class SpawnObjControllerLvl2 : MonoBehaviour
     {
         if (isStopSpawn == false && leftBulletPrefab != null)
         {
-            Instantiate(leftBulletPrefab, RandomizeSpawnPosition(leftBulletPrefab), leftBulletPrefab.transform.rotation ,leftParent);
+            Instantiate(leftBulletPrefab, RandomizeSpawnPosition(leftBulletPrefab), leftBulletPrefab.transform.rotation, leftParent);
         }
     }
 
@@ -110,11 +128,13 @@ public class SpawnObjControllerLvl2 : MonoBehaviour
                 {
                     obstacle = obstacleRight;
                     obstacle2 = null;
-                } else if (leftOrRight == 2)
+                }
+                else if (leftOrRight == 2)
                 {
                     obstacle = obstacleMiddle;
                     obstacle2 = null;
-                } else
+                }
+                else
                 {
                     obstacle = obstacleGapLeft;
                     obstacle2 = obstacleGapRight;
@@ -174,25 +194,25 @@ public class SpawnObjControllerLvl2 : MonoBehaviour
 
     }
 
-    IEnumerator SpawnProp1()
+    IEnumerator SpawnEnemyControlReverse()
     {
         while (true)
         {
             yield return new WaitUntil(() => !isStopSpawn);
             // Randomly spawn objects
 
-            yield return new WaitForSeconds(Random.Range(spawnProp1Time[0], spawnProp1Time[1]));
+            yield return new WaitForSeconds(Random.Range(enemyControlReverseTime[0], enemyControlReverseTime[1]));
 
             if (!isStopSpawn)
             {
                 GameObject cloneProp1 = Instantiate(EnemyControlReverse, transform);
-                cloneProp1.transform.position = new Vector2(Random.Range(leftOffset, rightOffset), 3.58f);
+                cloneProp1.transform.position = new Vector2(Random.Range(leftOffset, rightOffset), 4.0f);
             }
         }
 
     }
 
-    IEnumerator SpawnProp2()
+    IEnumerator SpawnScoreUp()
     {
 
         while (true)
@@ -200,16 +220,43 @@ public class SpawnObjControllerLvl2 : MonoBehaviour
             yield return new WaitUntil(() => !isStopSpawn);
             // Randomly spawn objects
 
-            yield return new WaitForSeconds(Random.Range(spawnProp2Time[0], spawnProp2Time[1]));
+            yield return new WaitForSeconds(Random.Range(scoreUpTime[0], scoreUpTime[1]));
 
             if (!isStopSpawn)
             {
                 GameObject cloneProp2 = Instantiate(ScoreUp, transform);
-                cloneProp2.transform.position = new Vector2(Random.Range(leftOffset, rightOffset), 3.58f);
+                cloneProp2.transform.position = new Vector2(Random.Range(leftOffset, rightOffset), 4.0f);
             }
         }
 
     }
 
+    IEnumerator SpawnSlowEnemy()
+    {
+        while (true)
+        {
+            Debug.Log("Spawn Slow Enemy");
+            yield return new WaitUntil(() => !isStopSpawn);
+            // Randomly spawn objects
+
+            yield return new WaitForSeconds(Random.Range(slowEnemyTime[0], slowEnemyTime[1]));
+
+            if (!isStopSpawn)
+            {
+                GameObject cloneSlowEnemy = Instantiate(slowEnemy, transform);
+                cloneSlowEnemy.transform.position = new Vector2(Random.Range(leftOffset, rightOffset), 4.0f);
+            }
+        }
+    }
+
+
+    IEnumerator UpdateSpawnSpeed()
+    {
+        while (true)
+        {
+
+            yield return new WaitForSeconds(0.1f);
+        }
+    }
 
 }

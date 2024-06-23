@@ -241,7 +241,7 @@ public class CarMove : MonoBehaviour
 
                 gameController.StopScoreCalculation(transform.name);
 
-                
+
             }
 
 
@@ -281,7 +281,7 @@ public class CarMove : MonoBehaviour
             {
                 gameController.totalCtrlSwitchPropCollectedRight += 1;
             }
-           
+
         }
 
         if (other.gameObject.name.Contains("ScoreUp"))
@@ -289,6 +289,21 @@ public class CarMove : MonoBehaviour
             Destroy(other.gameObject);
             gameController.OneTimeBonus(transform.name);
         }
+
+        SpeedController speedController = FindObjectOfType<SpeedController>();
+        if (other.gameObject.name.Contains("SlowEnemy"))
+        {
+            Destroy(other.gameObject);
+            if (speedController == null)
+            {
+                Debug.LogError("SpeedController not found");
+            }
+            else
+            {
+                speedController.SlowDownCarTemporarily(transform.name, 0.5f, 4f);
+            }
+        }
+
     }
 
     void DisplaySwithcMessage()
