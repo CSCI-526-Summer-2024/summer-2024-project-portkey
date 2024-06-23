@@ -233,7 +233,10 @@ public class GameController : MonoBehaviour
         }
         else
         {
+            Debug.Log("CarRight");
+            Debug.Log("Before: " + carLeft.GetComponent<CarMove>().carSpeed);
             carLeft.GetComponent<CarMove>().carSpeed *= -1;
+            Debug.Log("After: " + carLeft.GetComponent<CarMove>().carSpeed);
             carLeft.GetComponent<CarMove>().reversed = !carLeft.GetComponent<CarMove>().reversed;
             Sprite oldA = imageA.sprite;
             Sprite oldD = imageD.sprite;
