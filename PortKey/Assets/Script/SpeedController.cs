@@ -237,9 +237,9 @@ public class SpeedController : MonoBehaviour
         }
     }
 
-    public void SlowDownCarTemporarily(string carName, float Factor, float duration)
+    public void SlowDownCarTemporarily(string carName, float factor, float duration)
     {
-        slowDownFactor = Factor;
+        slowDownFactor = factor;
         if (carName == "CarLeft" && carRightMove != null)
         {
             rightCarSlowDown = true;
@@ -274,10 +274,10 @@ public class SpeedController : MonoBehaviour
         {
             speedLimits.UpdateCarElapsedTime(carFrequency);
 
-            float[] leftCarSpeeds = SetCarSpeed(carSpeed, carLeftMove.carSpeed, speedLimits.carMaxSpeed, speedLimits.carSpeedMultiplier, leftCarSlowDown, 0.5f);
+            float[] leftCarSpeeds = SetCarSpeed(carSpeed, carLeftMove.carSpeed, speedLimits.carMaxSpeed, speedLimits.carSpeedMultiplier, leftCarSlowDown, slowDownFactor);
             carLeftMove.carSpeed = leftCarSpeeds[1];
 
-            float[] rightCarSpeeds = SetCarSpeed(carSpeed, carRightMove.carSpeed, speedLimits.carMaxSpeed, speedLimits.carSpeedMultiplier, rightCarSlowDown, 0.5f);
+            float[] rightCarSpeeds = SetCarSpeed(carSpeed, carRightMove.carSpeed, speedLimits.carMaxSpeed, speedLimits.carSpeedMultiplier, rightCarSlowDown, slowDownFactor);
             carRightMove.carSpeed = rightCarSpeeds[1];
 
             carSpeed = leftCarSpeeds[0];
