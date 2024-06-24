@@ -40,6 +40,7 @@ public class SpeedLimits
         if (elapsedTime > speedIncreaseDuration)
         {
             canIncreaseSpeed = false;
+            Debug.Log("Time to stop increasing car speed");
         }
     }
 
@@ -49,6 +50,7 @@ public class SpeedLimits
         if (elapsedTime > speedIncreaseDuration)
         {
             canIncreaseSpawnSpeed = false;
+            Debug.Log("Time to stop increasing spawn speed");
         }
     }
 

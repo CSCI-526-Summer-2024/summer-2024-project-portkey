@@ -42,10 +42,12 @@ public class SpawnObjControllerLvl2 : MonoBehaviour
     public SpeedLimits speedLimits;
 
     private bool firstSpawn = true;
-    GameObject lastPos;
-    Transform leftParent;
-    Transform rightParent;
 
+    GameObject lastPos;
+
+    Transform leftParent;
+
+    Transform rightParent;
 
     // Start is called before the first frame update
     void Start()
@@ -58,17 +60,6 @@ public class SpawnObjControllerLvl2 : MonoBehaviour
         StartCoroutine(SpawnSlowEnemy());
         InvokeRepeating("SpawnLeftBulletProps", 3f, 3f);
         InvokeRepeating("SpawnRightBulletProps", 3f, 3f);
-
-        speedLimits = GameObject.Find("SpeedController").GetComponent<SpeedLimits>();
-        if (speedLimits == null)
-        {
-            Debug.LogError("SpeedLimits is null");
-        }
-        else if (speedLimits.CanIncreaseSpawnSpeed)
-        {
-            StartCoroutine(UpdateSpawnSpeed());
-        }
-
     }
 
     // Update is called once per frame
@@ -248,15 +239,4 @@ public class SpawnObjControllerLvl2 : MonoBehaviour
             }
         }
     }
-
-
-    IEnumerator UpdateSpawnSpeed()
-    {
-        while (true)
-        {
-
-            yield return new WaitForSeconds(0.1f);
-        }
-    }
-
 }
