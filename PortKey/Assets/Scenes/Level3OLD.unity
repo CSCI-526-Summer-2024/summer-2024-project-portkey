@@ -1194,8 +1194,8 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 5afa1c5497ac44ee597527fa5150f864, type: 3}
---- !u!224 &486925481 stripped
-RectTransform:
+--- !u!4 &486925481 stripped
+Transform:
   m_CorrespondingSourceObject: {fileID: 6843849109545065604, guid: 5afa1c5497ac44ee597527fa5150f864, type: 3}
   m_PrefabInstance: {fileID: 486925480}
   m_PrefabAsset: {fileID: 0}
@@ -1392,8 +1392,8 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: d496f14fc299b4031b8ffb94c6996825, type: 3}
---- !u!224 &526581785 stripped
-RectTransform:
+--- !u!4 &526581785 stripped
+Transform:
   m_CorrespondingSourceObject: {fileID: 8200760795101418415, guid: d496f14fc299b4031b8ffb94c6996825, type: 3}
   m_PrefabInstance: {fileID: 526581784}
   m_PrefabAsset: {fileID: 0}
@@ -1506,8 +1506,8 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 982af5e4f5dce4ec3b7c86e088c816d3, type: 3}
---- !u!224 &620239981 stripped
-RectTransform:
+--- !u!4 &620239981 stripped
+Transform:
   m_CorrespondingSourceObject: {fileID: 8013834637219093177, guid: 982af5e4f5dce4ec3b7c86e088c816d3, type: 3}
   m_PrefabInstance: {fileID: 620239980}
   m_PrefabAsset: {fileID: 0}
@@ -1888,8 +1888,8 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 864e998f6f3784e408abae5a70b2f135, type: 3}
---- !u!224 &762415097 stripped
-RectTransform:
+--- !u!4 &762415097 stripped
+Transform:
   m_CorrespondingSourceObject: {fileID: 8013834637219093177, guid: 864e998f6f3784e408abae5a70b2f135, type: 3}
   m_PrefabInstance: {fileID: 762415096}
   m_PrefabAsset: {fileID: 0}
@@ -1980,7 +1980,7 @@ GameObject:
   - component: {fileID: 860185019}
   - component: {fileID: 860185018}
   m_Layer: 0
-  m_Name: GameContorller
+  m_Name: GameController
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2018,10 +2018,15 @@ MonoBehaviour:
   spriteRight: {fileID: 21300000, guid: e05a17222a5ce491e88a953902e86407, type: 3}
   imageLeft: {fileID: 1307826517}
   imageRight: {fileID: 1988485967}
-  totalSwitchingPropCollected: 0
+  navArea: {fileID: 0}
+  totalCtrlSwitchPropCollectedRight: 0
+  totalCtrlSwitchPropCollectedLeft: 0
   level: 0
-  reasonforFinshingLevel1: 0
-  deathDueToControlsFlip: 0
+  reasonforFinshingLevel: 0
+  collisionDueToCtrlFlipLeft: 0
+  collisionDueToCtrlFlipRight: 0
+  rightLostPointsMsg: {fileID: 0}
+  leftLostPointsMsg: {fileID: 0}
 --- !u!4 &860185019
 Transform:
   m_ObjectHideFlags: 0
@@ -2168,6 +2173,8 @@ MonoBehaviour:
   canMove: 1
   deathText: {fileID: 1869021221}
   winText: {fileID: 1912610947}
+  broadcastMsg: {fileID: 0}
+  navArea: {fileID: 0}
   reversed: 0
   bulletPrefab: {fileID: 6583924229241873081, guid: 24e9b0219c813422bb48437b3d15c37f, type: 3}
   bulletSpeed: 300
@@ -2930,8 +2937,8 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: dc0412c1c3bfe46b7874b302aab22540, type: 3}
---- !u!224 &1119607793 stripped
-RectTransform:
+--- !u!4 &1119607793 stripped
+Transform:
   m_CorrespondingSourceObject: {fileID: 8013834637219093177, guid: dc0412c1c3bfe46b7874b302aab22540, type: 3}
   m_PrefabInstance: {fileID: 1119607792}
   m_PrefabAsset: {fileID: 0}
@@ -3741,8 +3748,8 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 9fb9d5b0297f845f39794a3055e0bc70, type: 3}
---- !u!224 &1455893595 stripped
-RectTransform:
+--- !u!4 &1455893595 stripped
+Transform:
   m_CorrespondingSourceObject: {fileID: 7002122008742535489, guid: 9fb9d5b0297f845f39794a3055e0bc70, type: 3}
   m_PrefabInstance: {fileID: 1455893594}
   m_PrefabAsset: {fileID: 0}
@@ -3997,8 +4004,8 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: e3f02dda14ca642869097756636cbdfa, type: 3}
---- !u!224 &1526475901 stripped
-RectTransform:
+--- !u!4 &1526475901 stripped
+Transform:
   m_CorrespondingSourceObject: {fileID: 6511432589945642328, guid: e3f02dda14ca642869097756636cbdfa, type: 3}
   m_PrefabInstance: {fileID: 1526475900}
   m_PrefabAsset: {fileID: 0}
@@ -4462,8 +4469,8 @@ PrefabInstance:
       insertIndex: -1
       addedObject: {fileID: 1570276606}
   m_SourcePrefab: {fileID: 100100000, guid: b96a8d71d3e0c46df96f230c93f3da0c, type: 3}
---- !u!224 &1570276604 stripped
-RectTransform:
+--- !u!4 &1570276604 stripped
+Transform:
   m_CorrespondingSourceObject: {fileID: 6929434701563367059, guid: b96a8d71d3e0c46df96f230c93f3da0c, type: 3}
   m_PrefabInstance: {fileID: 1570276603}
   m_PrefabAsset: {fileID: 0}
@@ -4594,12 +4601,12 @@ RectTransform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
-  - {fileID: 2088208120}
-  - {fileID: 1570276604}
-  - {fileID: 1526475901}
   - {fileID: 1119607793}
   - {fileID: 762415097}
   - {fileID: 633614494}
+  - {fileID: 2088208120}
+  - {fileID: 1570276604}
+  - {fileID: 1526475901}
   m_Father: {fileID: 1116537254}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
@@ -4622,8 +4629,13 @@ MonoBehaviour:
   obstacleLeft: {fileID: 3161231708506072461, guid: 797e4a642a0cd4080af51bb12e3f3744, type: 3}
   obstacleRight: {fileID: 5501790547788042364, guid: 927ec6477b9c648f599bf543ed85c253, type: 3}
   obstacleMiddle: {fileID: 3161231708506072461, guid: 97670b5c1799c4684815c2d0223cb415, type: 3}
-  EnemyControlReverse: {fileID: 1682798608209473767, guid: e92c77db6268f42ffa94a9fe292512a3, type: 3}
+  obstacleGapLeft: {fileID: 0}
+  obstacleGapRight: {fileID: 0}
+  enemyControlReverse: {fileID: 0}
   ScoreUp: {fileID: 1682798608209473767, guid: a058b6dc1781a43f3a061738809a898a, type: 3}
+  slowEnemy: {fileID: 0}
+  leftBulletPrefab: {fileID: 0}
+  rightBulletPrefab: {fileID: 0}
   isStopSpawn: 0
   leftOffset: -400
   rightOffset: 400
@@ -4641,8 +4653,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   obstacleLeft: {fileID: 3161231708506072461, guid: 797e4a642a0cd4080af51bb12e3f3744, type: 3}
   obstacleRight: {fileID: 5501790547788042364, guid: 927ec6477b9c648f599bf543ed85c253, type: 3}
-  EnemyControlReverse: {fileID: 1682798608209473767, guid: e92c77db6268f42ffa94a9fe292512a3, type: 3}
-  ScoreUp: {fileID: 1682798608209473767, guid: a058b6dc1781a43f3a061738809a898a, type: 3}
+  obstacleGapLeft: {fileID: 0}
+  obstacleGapRight: {fileID: 0}
+  enemyControlReverse: {fileID: 0}
+  scoreUp: {fileID: 0}
+  slowEnemy: {fileID: 0}
   isStopSpawn: 0
   leftOffset: -400
   rightOffset: 400
@@ -5078,6 +5093,8 @@ MonoBehaviour:
   canMove: 1
   deathText: {fileID: 1912610947}
   winText: {fileID: 1869021221}
+  broadcastMsg: {fileID: 0}
+  navArea: {fileID: 0}
   reversed: 0
   bulletPrefab: {fileID: 6583924229241873081, guid: 24e9b0219c813422bb48437b3d15c37f, type: 3}
   bulletSpeed: 300
@@ -5283,12 +5300,12 @@ RectTransform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
-  - {fileID: 526581785}
-  - {fileID: 2073852028}
   - {fileID: 1455893595}
   - {fileID: 486925481}
   - {fileID: 620239981}
   - {fileID: 1150196416}
+  - {fileID: 526581785}
+  - {fileID: 2073852028}
   m_Father: {fileID: 1116537254}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
@@ -5311,8 +5328,13 @@ MonoBehaviour:
   obstacleLeft: {fileID: 2038414143752184709, guid: d89f1fa07ce7544918ef74174e2b1e6e, type: 3}
   obstacleRight: {fileID: 2802853550590688207, guid: dff5d6d5cb5884c878f47f20584f0215, type: 3}
   obstacleMiddle: {fileID: 3161231708506072461, guid: 4f643ae0bdc754578a0fd4513916444c, type: 3}
-  EnemyControlReverse: {fileID: 6872324455893141424, guid: 7e2d40bef32824823963f35e4890c200, type: 3}
+  obstacleGapLeft: {fileID: 0}
+  obstacleGapRight: {fileID: 0}
+  enemyControlReverse: {fileID: 0}
   ScoreUp: {fileID: 1682798608209473767, guid: 65ae6bb9ff72b484a8f2445d9c2ea8f1, type: 3}
+  slowEnemy: {fileID: 0}
+  leftBulletPrefab: {fileID: 0}
+  rightBulletPrefab: {fileID: 0}
   isStopSpawn: 0
   leftOffset: -400
   rightOffset: 400
@@ -5330,8 +5352,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   obstacleLeft: {fileID: 2038414143752184709, guid: d89f1fa07ce7544918ef74174e2b1e6e, type: 3}
   obstacleRight: {fileID: 2802853550590688207, guid: dff5d6d5cb5884c878f47f20584f0215, type: 3}
-  EnemyControlReverse: {fileID: 6872324455893141424, guid: 7e2d40bef32824823963f35e4890c200, type: 3}
-  ScoreUp: {fileID: 1682798608209473767, guid: 65ae6bb9ff72b484a8f2445d9c2ea8f1, type: 3}
+  obstacleGapLeft: {fileID: 0}
+  obstacleGapRight: {fileID: 0}
+  enemyControlReverse: {fileID: 0}
+  scoreUp: {fileID: 0}
+  slowEnemy: {fileID: 0}
   isStopSpawn: 0
   leftOffset: -400
   rightOffset: 400
@@ -5669,8 +5694,8 @@ PrefabInstance:
       insertIndex: -1
       addedObject: {fileID: 2073852030}
   m_SourcePrefab: {fileID: 100100000, guid: b96a8d71d3e0c46df96f230c93f3da0c, type: 3}
---- !u!224 &2073852028 stripped
-RectTransform:
+--- !u!4 &2073852028 stripped
+Transform:
   m_CorrespondingSourceObject: {fileID: 6929434701563367059, guid: b96a8d71d3e0c46df96f230c93f3da0c, type: 3}
   m_PrefabInstance: {fileID: 2073852027}
   m_PrefabAsset: {fileID: 0}
@@ -5946,8 +5971,8 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: b96a8d71d3e0c46df96f230c93f3da0c, type: 3}
---- !u!224 &2088208120 stripped
-RectTransform:
+--- !u!4 &2088208120 stripped
+Transform:
   m_CorrespondingSourceObject: {fileID: 6929434701563367059, guid: b96a8d71d3e0c46df96f230c93f3da0c, type: 3}
   m_PrefabInstance: {fileID: 2088208119}
   m_PrefabAsset: {fileID: 0}
