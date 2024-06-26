@@ -15,7 +15,7 @@ public class SpeedLimits
 
     public float carMaxSpeed = 10.0f;
 
-    public float spawnMaxSpeed = 5.0f;
+    public float obstacleMaxSpeed = 5.0f;
 
     public float speedIncreaseDuration = 30.0f;
 
@@ -67,7 +67,7 @@ public class SpeedLimits
                 carSpeedMultiplier = 1.05f;
                 spawnSpeedMultiplier = 1.01f;
                 carMaxSpeed = 6.0f;
-                spawnMaxSpeed = 5.0f;
+                obstacleMaxSpeed = 4.0f;
                 speedIncreaseDuration = 30.0f;
                 break;
             case 2:
@@ -78,18 +78,18 @@ public class SpeedLimits
                 carSpeedMultiplier = 1.08f;
                 spawnSpeedMultiplier = 1.02f;
                 carMaxSpeed = 7.0f;
-                spawnMaxSpeed = 6.0f;
+                obstacleMaxSpeed = 4.5f;
                 speedIncreaseDuration = 30.0f;
                 break;
             case 3:
                 canIncreaseSpeed = true;
                 canIncreaseSpawnSpeed = true;
-                defaultCarSpeed = 3.0f;
+                defaultCarSpeed = 4.0f;
                 defaultSpawnSpeed = 2.0f;
-                carSpeedMultiplier = 1.10f;
+                carSpeedMultiplier = 1.15f;
                 spawnSpeedMultiplier = 1.03f;
-                carMaxSpeed = 8.0f;
-                spawnMaxSpeed = 7.0f;
+                carMaxSpeed = 10.0f;
+                obstacleMaxSpeed = 5.0f;
                 speedIncreaseDuration = 40.0f;
                 break;
             case 4:
@@ -100,7 +100,7 @@ public class SpeedLimits
                 carSpeedMultiplier = 1.12f;
                 spawnSpeedMultiplier = 1.04f;
                 carMaxSpeed = 9.0f;
-                spawnMaxSpeed = 8.0f;
+                obstacleMaxSpeed = 5.5f;
                 speedIncreaseDuration = 50.0f;
                 break;
             default:
@@ -111,7 +111,7 @@ public class SpeedLimits
                 carSpeedMultiplier = 1.05f;
                 spawnSpeedMultiplier = 1.01f;
                 carMaxSpeed = 6.0f;
-                spawnMaxSpeed = 5.0f;
+                obstacleMaxSpeed = 5.0f;
                 speedIncreaseDuration = 30.0f;
                 Debug.LogError("Unknown level: " + level);
                 break;
@@ -296,9 +296,9 @@ public class SpeedController : MonoBehaviour
                 speedLimits.UpdateSpawnElapsedTime(spawnFrequency);
             }
 
-            if (Mathf.Abs(spawnSpeed) > speedLimits.spawnMaxSpeed)
+            if (Mathf.Abs(spawnSpeed) > speedLimits.obstacleMaxSpeed)
             {
-                spawnSpeed = speedLimits.spawnMaxSpeed;
+                spawnSpeed = speedLimits.obstacleMaxSpeed;
             }
 
             if (zoomLeft != null)
