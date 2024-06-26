@@ -91,19 +91,17 @@ public class GameController : MonoBehaviour
 
     public int collisionDueToCtrlFlipRight;
 
-    public TextMeshProUGUI rightLostPointsMsg;
+    public TextMeshProUGUI rightLostHealthMsg;
 
-    public TextMeshProUGUI leftLostPointsMsg;
-
-    private int reduceScore = 6;
+    public TextMeshProUGUI leftLostHealthMsg;
 
     void Awake()
     {
-        if (rightLostPointsMsg != null)
-        { rightLostPointsMsg.gameObject.SetActive(false); }
+        if (rightLostHealthMsg != null)
+        { rightLostHealthMsg.gameObject.SetActive(false); }
 
-        if (leftLostPointsMsg != null)
-        { leftLostPointsMsg.gameObject.SetActive(false); }
+        if (leftLostHealthMsg != null)
+        { leftLostHealthMsg.gameObject.SetActive(false); }
     }
 
     void Start()
@@ -151,10 +149,10 @@ public class GameController : MonoBehaviour
         // Pause the game when the game duration is over
         PauseGame();
         navArea.gameObject.SetActive(true);
-        if (rightLostPointsMsg != null && leftLostPointsMsg != null)
+        if (rightLostHealthMsg != null && leftLostHealthMsg != null)
         {
-            leftLostPointsMsg.gameObject.SetActive(false);
-            rightLostPointsMsg.gameObject.SetActive(false);
+            leftLostHealthMsg.gameObject.SetActive(false);
+            rightLostHealthMsg.gameObject.SetActive(false);
         }
         //making sure everything that might be falshing will be visible!
         StopFlashing();
@@ -237,10 +235,7 @@ public class GameController : MonoBehaviour
         }
         else
         {
-            Debug.Log("CarRight");
-            Debug.Log("Before: " + carLeft.GetComponent<CarMove>().carSpeed);
             carLeft.GetComponent<CarMove>().carSpeed *= -1;
-            Debug.Log("After: " + carLeft.GetComponent<CarMove>().carSpeed);
             carLeft.GetComponent<CarMove>().reversed = !carLeft.GetComponent<CarMove>().reversed;
             Sprite oldA = imageA.sprite;
             Sprite oldD = imageD.sprite;
@@ -388,7 +383,7 @@ public class GameController : MonoBehaviour
 
         //!!UNCOMMENT BEFORE BUILD!!
         //RestClient.Post("https://portkey-2a1ae-default-rtdb.firebaseio.com/playtesting1_analytics.json", playerData);
-        Debug.Log("Analytics sent to firebase");
+        //Debug.Log("Analytics sent to firebase");
     }
 
     void CalculateScoreLeft()
@@ -445,52 +440,27 @@ public class GameController : MonoBehaviour
     }
 
 
-    public void ReduceLeftCarLostPoints()
+    public void DisplayHealthStolenMsgForLeftPlayer()
     {
-        ReduceScoreForLeftPlayer();
-        leftLostPointsMsg.color = Color.blue;
-        leftLostPointsMsg.gameObject.SetActive(true);
+        leftLostHealthMsg.text = "Opponent Stole Your Health";
+        leftLostHealthMsg.color = Color.blue;
+        leftLostHealthMsg.gameObject.SetActive(true);
         StartCoroutine(HideSwitchMessage(1f));
     }
 
-    void ReduceScoreForLeftPlayer()
-    {
-        if (currentLeftScore - reduceScore < 0)
-        {
-            currentLeftScore = 0f;
-        }
-        else
-        {
-            currentLeftScore -= reduceScore;
-        }
-        StartCoroutine(FlashScore(leftScore, Color.blue));
-    }
 
-    public void ReduceRightCarLostPoints()
+    public void DisplayHealthStolenMsgForRightPlayer()
     {
-        ReduceScoreForRightPlayer();
-        rightLostPointsMsg.color = Color.blue;
-        rightLostPointsMsg.gameObject.SetActive(true);
+        rightLostHealthMsg.text = "Opponent Stole Your Health";
+        rightLostHealthMsg.color = Color.blue;
+        rightLostHealthMsg.gameObject.SetActive(true);
         StartCoroutine(HideSwitchMessage(1f));
-    }
-
-    void ReduceScoreForRightPlayer()
-    {
-        if (currentRightScore - reduceScore < 0)
-        {
-            currentRightScore = 0f;
-        }
-        else
-        {
-            currentRightScore -= reduceScore;
-        }
-        StartCoroutine(FlashScore(rightScore, Color.blue));
     }
 
     IEnumerator HideSwitchMessage(float delay)
     {
         yield return new WaitForSeconds(delay);
-        rightLostPointsMsg.gameObject.SetActive(false);
-        leftLostPointsMsg.gameObject.SetActive(false);
+        rightLostHealthMsg.gameObject.SetActive(false);
+        leftLostHealthMsg.gameObject.SetActive(false);
     }
 }
