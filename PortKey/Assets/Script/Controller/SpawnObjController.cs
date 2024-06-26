@@ -105,7 +105,7 @@ public class SpawnObjController : MonoBehaviour
 
     public GameObject slowEnemy;
 
-    public GameObject reduceEnemyScore;
+    public GameObject reduceEnemyHealth;
 
     public bool isStopSpawn = false;
 
@@ -151,9 +151,9 @@ public class SpawnObjController : MonoBehaviour
             StartCoroutine(SpawnScoreUp());
         }
 
-        if (reduceEnemyScore != null)
+        if (reduceEnemyHealth != null)
         {
-            StartCoroutine(SpawnReduceEnemyScore());
+            StartCoroutine(SpawnReduceEnemyHealth());
         }
 
 
@@ -345,7 +345,7 @@ public class SpawnObjController : MonoBehaviour
         }
     }
 
-    IEnumerator SpawnReduceEnemyScore()
+    IEnumerator SpawnReduceEnemyHealth()
     {
         while (true)
         {
@@ -355,7 +355,7 @@ public class SpawnObjController : MonoBehaviour
             yield return new WaitForSeconds(Random.Range(interval.reduceEnemyHealthSpawnTimeRange[0], interval.reduceEnemyHealthSpawnTimeRange[1]));
             if (!isStopSpawn)
             {
-                GameObject cloneReduceEnemyScore = Instantiate(reduceEnemyScore, transform);
+                GameObject cloneReduceEnemyScore = Instantiate(reduceEnemyHealth, transform);
                 cloneReduceEnemyScore.transform.position = new Vector2(Random.Range(leftOffset, rightOffset), showUpYPos);
             }
         }

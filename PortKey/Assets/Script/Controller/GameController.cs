@@ -6,6 +6,8 @@ using UnityEngine.UI;
 
 using Proyecto26;
 using UnityEngine.SceneManagement;
+using PortKey.Assets.Script.SwitchLevel;
+using PortKey.Assets.Script;
 
 // for firebase analytics
 [System.Serializable]
@@ -25,6 +27,8 @@ public class PlayerData
 
 public class GameController : MonoBehaviour
 {
+    public bool disableAnalytics = true;
+
     public Transform zoom1;
 
     public Transform zoom2;
@@ -91,24 +95,24 @@ public class GameController : MonoBehaviour
 
     public int collisionDueToCtrlFlipRight;
 
-    public TextMeshProUGUI rightLostHealthMsg;
+    public TextMeshProUGUI LostHealthMsgRight;
 
-    public TextMeshProUGUI leftLostHealthMsg;
+    public TextMeshProUGUI LostHealthMsgLeft;
 
     void Awake()
     {
-        if (rightLostHealthMsg != null)
-        { rightLostHealthMsg.gameObject.SetActive(false); }
+        if (LostHealthMsgRight != null)
+        { LostHealthMsgRight.gameObject.SetActive(false); }
 
-        if (leftLostHealthMsg != null)
-        { leftLostHealthMsg.gameObject.SetActive(false); }
+        if (LostHealthMsgLeft != null)
+        { LostHealthMsgLeft.gameObject.SetActive(false); }
     }
 
     void Start()
     {
         navArea.gameObject.SetActive(false);
 
-        level = GameLevelsManager.Instance.Level; // setting the level using GameLevelsManager.cs
+        level = LevelInfo.Instance.Level;
 
         Time.timeScale = 1;
 
@@ -149,10 +153,10 @@ public class GameController : MonoBehaviour
         // Pause the game when the game duration is over
         PauseGame();
         navArea.gameObject.SetActive(true);
-        if (rightLostHealthMsg != null && leftLostHealthMsg != null)
+        if (LostHealthMsgRight != null && LostHealthMsgLeft != null)
         {
-            leftLostHealthMsg.gameObject.SetActive(false);
-            rightLostHealthMsg.gameObject.SetActive(false);
+            LostHealthMsgLeft.gameObject.SetActive(false);
+            LostHealthMsgRight.gameObject.SetActive(false);
         }
         //making sure everything that might be falshing will be visible!
         StopFlashing();
@@ -211,7 +215,7 @@ public class GameController : MonoBehaviour
 
     public void SwitchScreen(string carName)
     {
-        if (carName == "CarLeft")
+        if (carName == ConstName.carLeft)
         {
             CarLeftStop();
         }
@@ -223,7 +227,7 @@ public class GameController : MonoBehaviour
 
     public void EnemyControlReverse(string carName)
     {
-        if (carName == "CarLeft")
+        if (carName == ConstName.carLeft)
         {
             carRight.GetComponent<CarMove>().carSpeed *= -1;
             carRight.GetComponent<CarMove>().reversed = !carRight.GetComponent<CarMove>().reversed;
@@ -235,6 +239,8 @@ public class GameController : MonoBehaviour
         }
         else
         {
+            Debug.Log(ConstName.carRight);
+            Debug.Log("Before: " + carLeft.GetComponent<CarMove>().carSpeed);
             carLeft.GetComponent<CarMove>().carSpeed *= -1;
             carLeft.GetComponent<CarMove>().reversed = !carLeft.GetComponent<CarMove>().reversed;
             Sprite oldA = imageA.sprite;
@@ -247,7 +253,7 @@ public class GameController : MonoBehaviour
 
     public void ShowSpeedSlowMsg(string carName)
     {
-        if (carName == "CarLeft")
+        if (carName == ConstName.carLeft)
         {
             broadcastMsgRight.text = "Your speed has been reduced!";
             broadcastMsgRight.gameObject.SetActive(true);
@@ -338,11 +344,11 @@ public class GameController : MonoBehaviour
 
     public void StopScoreCalculation(string carName)
     {
-        if (carName == "CarLeft")
+        if (carName == ConstName.carLeft)
         {
             CancelInvoke("CalculateScoreLeft");
         }
-        else if (carName == "CarRight")
+        else if (carName == ConstName.carRight)
         {
             CancelInvoke("CalculateScoreRight");
         }
@@ -379,11 +385,14 @@ public class GameController : MonoBehaviour
         playerData.collisionDueToCtrlFlipLeft = collisionDueToCtrlFlipLeft;
         playerData.collisionDueToCtrlFlipRight = collisionDueToCtrlFlipRight;
 
-        string json = JsonUtility.ToJson(playerData);
+        //string json = JsonUtility.ToJson(playerData);
 
         //!!UNCOMMENT BEFORE BUILD!!
-        //RestClient.Post("https://portkey-2a1ae-default-rtdb.firebaseio.com/playtesting1_analytics.json", playerData);
-        //Debug.Log("Analytics sent to firebase");
+        if (disableAnalytics == false)
+        {
+            RestClient.Post("https://portkey-2a1ae-default-rtdb.firebaseio.com/playtesting1_analytics.json", playerData);
+            Debug.Log("Analytics sent to firebase");
+        }
     }
 
     void CalculateScoreLeft()
@@ -400,7 +409,7 @@ public class GameController : MonoBehaviour
 
     public void OneTimeBonus(string carName)
     {
-        if (carName == "CarLeft")
+        if (carName == ConstName.carLeft)
         {
             currentLeftScore += 5;
             leftScore.text = "" + currentLeftScore.ToString("F0");
@@ -427,40 +436,47 @@ public class GameController : MonoBehaviour
         score.color = Color.black;
     }
 
-    public void ActivateBonus()
-    {
-        StartCoroutine(Prop2BonusScore());
-    }
 
-    IEnumerator Prop2BonusScore()
+    public void DisplayRightLostHealthMsg()
     {
-        scoreMultiplier = 2.0f;
-        yield return new WaitForSeconds(5.0f);
-        scoreMultiplier = 1.0f;
-    }
-
-
-    public void DisplayHealthStolenMsgForLeftPlayer()
-    {
-        leftLostHealthMsg.text = "Opponent Stole Your Health";
-        leftLostHealthMsg.color = Color.blue;
-        leftLostHealthMsg.gameObject.SetActive(true);
+        //BulletImpactForRightPlayer();
+        LostHealthMsgRight.color = Color.blue;
+        LostHealthMsgRight.gameObject.SetActive(true);
         StartCoroutine(HideSwitchMessage(1f));
     }
 
-
-    public void DisplayHealthStolenMsgForRightPlayer()
+    public void DisplayLeftLostHealthMsg()
     {
-        rightLostHealthMsg.text = "Opponent Stole Your Health";
-        rightLostHealthMsg.color = Color.blue;
-        rightLostHealthMsg.gameObject.SetActive(true);
+        //BulletImpactForLeftPlayer();
+        LostHealthMsgLeft.color = Color.blue;
+        LostHealthMsgLeft.gameObject.SetActive(true);
         StartCoroutine(HideSwitchMessage(1f));
     }
+
 
     IEnumerator HideSwitchMessage(float delay)
     {
         yield return new WaitForSeconds(delay);
-        rightLostHealthMsg.gameObject.SetActive(false);
-        leftLostHealthMsg.gameObject.SetActive(false);
+        LostHealthMsgRight.gameObject.SetActive(false);
+        LostHealthMsgLeft.gameObject.SetActive(false);
+    }
+
+    public void UpdateHealthBarOnCollision(string carName, float impact, bool onSelf)
+    {
+        //decrement healthBar accordingly
+        if (carName == ConstName.carLeft && onSelf)
+        {
+            carLeft.GetComponent<CarMove>().playerHealth += impact;
+            float currentHealth = carLeft.GetComponent<CarMove>().playerHealth;
+            float maxHealth = carLeft.GetComponent<CarMove>().maxHealth;
+            carLeft.GetComponent<CarMove>().healthBar.UpdateLeftPlayerHealthBar(currentHealth, maxHealth);
+        }
+        else
+        {
+            carRight.GetComponent<CarMove>().playerHealth += impact;
+            float currentHealth = carRight.GetComponent<CarMove>().playerHealth;
+            float maxHealth = carRight.GetComponent<CarMove>().maxHealth;
+            carRight.GetComponent<CarMove>().healthBar.UpdateRightPlayerHealthBar(currentHealth, maxHealth);
+        }
     }
 }

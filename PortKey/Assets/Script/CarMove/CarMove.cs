@@ -2,6 +2,45 @@ using System.Collections;
 using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
+using PortKey.Assets.Script;
+using PortKey.Assets.Script.SwitchLevel;
+
+public class HealthParameter
+{
+
+    public float obstacleImpactOnHealth = -15f;
+
+    public float minusPropImpactOnHealth = -5f;
+
+    public void SetParametersByLevel(int level)
+    {
+        switch (level)
+        {
+            case 1:
+
+                obstacleImpactOnHealth = -15f;
+                minusPropImpactOnHealth = -5f;
+                break;
+            case 2:
+                obstacleImpactOnHealth = -15f;
+                minusPropImpactOnHealth = -5f;
+                break;
+            case 3:
+                obstacleImpactOnHealth = -15f;
+                minusPropImpactOnHealth = -5f;
+                break;
+            case 4:
+                obstacleImpactOnHealth = -15f;
+                minusPropImpactOnHealth = -5f;
+                break;
+            default:
+                obstacleImpactOnHealth = -15f;
+                minusPropImpactOnHealth = -5f;
+                break;
+        }
+    }
+
+}
 
 public class CarMove : MonoBehaviour
 {
@@ -62,27 +101,20 @@ public class CarMove : MonoBehaviour
 
     void UploadHealthBars()
     {
-
-        leftHealthBar = GameObject.FindWithTag("LeftHealthBar").GetComponent<HealthBar>();
-        rightHealthBar = GameObject.FindWithTag("RightHealthBar").GetComponent<HealthBar>();
-
-
-        if (leftHealthBar != null)
+        if (transform.name == ConstName.carLeft)
         {
-            leftHealthBar.UpdateLeftPlayerHealthBar(playerLefthealth, maxHealth);
+            healthBar = GameObject.FindWithTag("LeftHealthBar").GetComponent<HealthBar>();
+            healthBar.UpdateLeftPlayerHealthBar(playerHealth, maxHealth);
+
+        }
+        else if (transform.name == ConstName.carRight)
+        {
+            healthBar = GameObject.FindWithTag("RightHealthBar").GetComponent<HealthBar>();
+            healthBar.UpdateRightPlayerHealthBar(playerHealth, maxHealth);
         }
         else
         {
-            Debug.LogError("Left HealthBar component not found.");
-        }
-
-        if (rightHealthBar != null)
-        {
-            rightHealthBar.UpdateRightPlayerHealthBar(playerRighthealth, maxHealth);
-        }
-        else
-        {
-            Debug.LogError("Left HealthBar component not found.");
+            Debug.LogError("HealthBar component not found.");
         }
     }
 
@@ -275,7 +307,7 @@ public class CarMove : MonoBehaviour
                 GameObject.Find(LEFT_CAR).GetComponent<CarMove>().ShakePlayerObjectOnHealthLoss();
 
             }
-            else
+            else if (transform.name == ConstName.carRight)
             {
                 Debug.Log("Left player collected minus prop , reducing right health ");
                 playerRighthealth -= obstacleImpact;
