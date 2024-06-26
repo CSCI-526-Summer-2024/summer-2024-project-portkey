@@ -259,9 +259,9 @@ public class CarMove : MonoBehaviour
                 UpdateHealthBarOnCollision(minusPropImpactOnHealth, false);
                 gameController.GetComponent<GameController>().DisplayRightLostHealthMsg();
             }
-            else
+            else if (transform.name == ConstName.carRight)
             {
-                UpdateHealthBarOnCollision(minusPropImpactOnHealth, true);
+                UpdateHealthBarOnCollision(minusPropImpactOnHealth, false);
                 gameController.GetComponent<GameController>().DisplayLeftLostHealthMsg();
             }
         }
@@ -337,6 +337,7 @@ public class CarMove : MonoBehaviour
             playerRightHealth -= impact;
             rightHealthBar.UpdateRightPlayerHealthBar(playerRightHealth, maxHealth);
         }
+
     }
 
 
