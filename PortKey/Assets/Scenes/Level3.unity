@@ -305,7 +305,7 @@ MonoBehaviour:
   enemyControlReverse: {fileID: 1682798608209473767, guid: 699800b96e7894a46a2cac29d09c23eb, type: 3}
   scoreUp: {fileID: 1682798608209473767, guid: cc97f0af5346643e4832434807960c07, type: 3}
   slowEnemy: {fileID: 0}
-  reduceEnemyScore: {fileID: 1389686929274457625, guid: 291b92b52700245eb981f55edd297c09, type: 3}
+  reduceEnemyHealth: {fileID: 1389686929274457625, guid: 291b92b52700245eb981f55edd297c09, type: 3}
   isStopSpawn: 0
   leftOffset: -8
   rightOffset: -0.5
@@ -610,8 +610,6 @@ MonoBehaviour:
   broadcastMsg: {fileID: 1540988716}
   navArea: {fileID: 630451825}
   reversed: 0
-  bulletPrefab: {fileID: 6583924229241873081, guid: 24e9b0219c813422bb48437b3d15c37f, type: 3}
-  bulletSpeed: 3
 --- !u!222 &163273983
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -2893,7 +2891,7 @@ MonoBehaviour:
   enemyControlReverse: {fileID: 6872324455893141424, guid: ac4895e29b28d46e6ba16007cb7d0d96, type: 3}
   scoreUp: {fileID: 1682798608209473767, guid: a5b28d95be93e4d178f24f33995a10c0, type: 3}
   slowEnemy: {fileID: 0}
-  reduceEnemyScore: {fileID: 2404250421653184721, guid: c024d3d0682374d3b934f90699800437, type: 3}
+  reduceEnemyHealth: {fileID: 2404250421653184721, guid: c024d3d0682374d3b934f90699800437, type: 3}
   isStopSpawn: 0
   leftOffset: 0.5
   rightOffset: 8
@@ -3417,6 +3415,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2a4afc9cbad3446988489f44001037b4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  disableAnalytics: 0
   zoom1: {fileID: 132748651}
   zoom2: {fileID: 0}
   leftScore: {fileID: 378369955}
@@ -3444,8 +3443,8 @@ MonoBehaviour:
   reasonforFinshingLevel: 0
   collisionDueToCtrlFlipLeft: 0
   collisionDueToCtrlFlipRight: 0
-  rightLostPointsMsg: {fileID: 1253475798}
-  leftLostPointsMsg: {fileID: 1744025627}
+  LostHealthMsgRight: {fileID: 1253475798}
+  LostHealthMsgLeft: {fileID: 1744025627}
 --- !u!4 &1093581753
 Transform:
   m_ObjectHideFlags: 0
@@ -3762,8 +3761,6 @@ MonoBehaviour:
   broadcastMsg: {fileID: 1540988716}
   navArea: {fileID: 630451825}
   reversed: 0
-  bulletPrefab: {fileID: 6583924229241873081, guid: 24e9b0219c813422bb48437b3d15c37f, type: 3}
-  bulletSpeed: 3
 --- !u!222 &1119357939
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -4083,7 +4080,7 @@ GameObject:
   - component: {fileID: 1253475799}
   - component: {fileID: 1253475798}
   m_Layer: 5
-  m_Name: Right-LostPointsMsg
+  m_Name: LostHealthMsgRight
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -4128,7 +4125,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Lost Points
+  m_text: Opponent Stole Your Health
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2100000, guid: e73a58f6e2794ae7b1b7e50b7fb811b0, type: 2}
@@ -5197,7 +5194,7 @@ GameObject:
   - component: {fileID: 1744025628}
   - component: {fileID: 1744025627}
   m_Layer: 5
-  m_Name: Left-LostPointsMsg
+  m_Name: LostHealthMsgLeft
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -5242,7 +5239,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Lost Points
+  m_text: Opponent Stole Your Health
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2100000, guid: e73a58f6e2794ae7b1b7e50b7fb811b0, type: 2}

@@ -12,7 +12,7 @@ public class SpawnObjInterval
 
     public readonly float[] scoreUpTime = { 5, 8 };
 
-    public readonly float[] reduceEnemyScoreTime = { 5, 8 };
+    public readonly float[] reduceEnemyHealthTime = { 5, 8 };
 
     public readonly float[] slowEnemyTime = { 5, 8 };
 
@@ -27,8 +27,8 @@ public class SpawnObjInterval
                 enemyControlReverseTime[1] = 8;
                 scoreUpTime[0] = 5;
                 scoreUpTime[1] = 8;
-                reduceEnemyScoreTime[0] = 5;
-                reduceEnemyScoreTime[1] = 8;
+                reduceEnemyHealthTime[0] = 5;
+                reduceEnemyHealthTime[1] = 8;
                 slowEnemyTime[0] = 5;
                 slowEnemyTime[1] = 8;
                 break;
@@ -39,8 +39,8 @@ public class SpawnObjInterval
                 enemyControlReverseTime[1] = 7.8f;
                 scoreUpTime[0] = 4.8f;
                 scoreUpTime[1] = 7.8f;
-                reduceEnemyScoreTime[0] = 4.8f;
-                reduceEnemyScoreTime[1] = 7.8f;
+                reduceEnemyHealthTime[0] = 4.8f;
+                reduceEnemyHealthTime[1] = 7.8f;
                 slowEnemyTime[0] = 4.8f;
                 slowEnemyTime[1] = 7.8f;
                 break;
@@ -51,8 +51,8 @@ public class SpawnObjInterval
                 enemyControlReverseTime[1] = 7.6f;
                 scoreUpTime[0] = 4.6f;
                 scoreUpTime[1] = 7.6f;
-                reduceEnemyScoreTime[0] = 4.6f;
-                reduceEnemyScoreTime[1] = 7.6f;
+                reduceEnemyHealthTime[0] = 4.6f;
+                reduceEnemyHealthTime[1] = 7.6f;
                 slowEnemyTime[0] = 4.6f;
                 slowEnemyTime[1] = 7.6f;
                 break;
@@ -63,8 +63,8 @@ public class SpawnObjInterval
                 enemyControlReverseTime[1] = 6;
                 scoreUpTime[0] = 3;
                 scoreUpTime[1] = 6;
-                reduceEnemyScoreTime[0] = 3;
-                reduceEnemyScoreTime[1] = 6;
+                reduceEnemyHealthTime[0] = 3;
+                reduceEnemyHealthTime[1] = 6;
                 slowEnemyTime[0] = 3;
                 slowEnemyTime[1] = 6;
                 break;
@@ -76,8 +76,8 @@ public class SpawnObjInterval
                 enemyControlReverseTime[1] = 8;
                 scoreUpTime[0] = 5;
                 scoreUpTime[1] = 8;
-                reduceEnemyScoreTime[0] = 5;
-                reduceEnemyScoreTime[1] = 8;
+                reduceEnemyHealthTime[0] = 5;
+                reduceEnemyHealthTime[1] = 8;
                 slowEnemyTime[0] = 5;
                 slowEnemyTime[1] = 8;
                 break;
@@ -105,7 +105,7 @@ public class SpawnObjController : MonoBehaviour
 
     public GameObject slowEnemy;
 
-    public GameObject reduceEnemyScore;
+    public GameObject reduceEnemyHealth;
 
     public bool isStopSpawn = false;
 
@@ -151,9 +151,9 @@ public class SpawnObjController : MonoBehaviour
             StartCoroutine(SpawnScoreUp());
         }
 
-        if (reduceEnemyScore != null)
+        if (reduceEnemyHealth != null)
         {
-            StartCoroutine(SpawnReduceEnemyScore());
+            StartCoroutine(SpawnReduceEnemyHealth());
         }
 
 
@@ -345,17 +345,17 @@ public class SpawnObjController : MonoBehaviour
         }
     }
 
-    IEnumerator SpawnReduceEnemyScore()
+    IEnumerator SpawnReduceEnemyHealth()
     {
         while (true)
         {
             yield return new WaitUntil(() => !isStopSpawn);
             // Randomly spawn objects
 
-            yield return new WaitForSeconds(Random.Range(interval.reduceEnemyScoreTime[0], interval.reduceEnemyScoreTime[1]));
+            yield return new WaitForSeconds(Random.Range(interval.reduceEnemyHealthTime[0], interval.reduceEnemyHealthTime[1]));
             if (!isStopSpawn)
             {
-                GameObject cloneReduceEnemyScore = Instantiate(reduceEnemyScore, transform);
+                GameObject cloneReduceEnemyScore = Instantiate(reduceEnemyHealth, transform);
                 cloneReduceEnemyScore.transform.position = new Vector2(Random.Range(leftOffset, rightOffset), showUpYPos);
             }
         }

@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 2660973904637815455}
   - component: {fileID: 3513798133823626162}
   m_Layer: 5
-  m_Name: ReduceEnemyScore
+  m_Name: ReduceEnemyHealth
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
