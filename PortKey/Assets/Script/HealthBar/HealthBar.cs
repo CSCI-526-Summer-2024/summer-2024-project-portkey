@@ -13,13 +13,11 @@ public class HealthBar : MonoBehaviour
     public void UpdateLeftPlayerHealthBar(float currentHealth, float maxHealth)
     {
         leftSlider.value = currentHealth / maxHealth;
-        Debug.Log("Left Player Health: " + leftSlider.value + "currentHealth: " + currentHealth + "maxHealth: " + maxHealth);
     }
 
     public void UpdateRightPlayerHealthBar(float currentHealth, float maxHealth)
     {
         rightSlider.value = currentHealth / maxHealth;
-        Debug.Log("Right Player Health: " + rightSlider.value + "currentHealth: " + currentHealth + "maxHealth: " + maxHealth);
     }
 
 

@@ -461,4 +461,23 @@ public class GameController : MonoBehaviour
         LostHealthMsgRight.gameObject.SetActive(false);
         LostHealthMsgLeft.gameObject.SetActive(false);
     }
+
+    public void UpdateHealthBarOnCollision(string carName, float impact, bool onSelf)
+    {
+        //decrement healthBar accordingly
+        if (carName == ConstName.carLeft && onSelf)
+        {
+            carLeft.GetComponent<CarMove>().playerHealth += impact;
+            float currentHealth = carLeft.GetComponent<CarMove>().playerHealth;
+            float maxHealth = carLeft.GetComponent<CarMove>().maxHealth;
+            carLeft.GetComponent<CarMove>().healthBar.UpdateLeftPlayerHealthBar(currentHealth, maxHealth);
+        }
+        else
+        {
+            carRight.GetComponent<CarMove>().playerHealth += impact;
+            float currentHealth = carRight.GetComponent<CarMove>().playerHealth;
+            float maxHealth = carRight.GetComponent<CarMove>().maxHealth;
+            carRight.GetComponent<CarMove>().healthBar.UpdateRightPlayerHealthBar(currentHealth, maxHealth);
+        }
+    }
 }

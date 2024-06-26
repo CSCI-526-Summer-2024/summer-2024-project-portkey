@@ -8,9 +8,9 @@ using PortKey.Assets.Script.SwitchLevel;
 public class HealthParameter
 {
 
-    public float obstacleImpactOnHealth = 15f;
+    public float obstacleImpactOnHealth = -15f;
 
-    public float minusPropImpactOnHealth = 5f;
+    public float minusPropImpactOnHealth = -5f;
 
     public void SetParametersByLevel(int level)
     {
@@ -18,24 +18,24 @@ public class HealthParameter
         {
             case 1:
 
-                obstacleImpactOnHealth = 15f;
-                minusPropImpactOnHealth = 5f;
+                obstacleImpactOnHealth = -15f;
+                minusPropImpactOnHealth = -5f;
                 break;
             case 2:
-                obstacleImpactOnHealth = 15f;
-                minusPropImpactOnHealth = 5f;
+                obstacleImpactOnHealth = -15f;
+                minusPropImpactOnHealth = -5f;
                 break;
             case 3:
-                obstacleImpactOnHealth = 15f;
-                minusPropImpactOnHealth = 5f;
+                obstacleImpactOnHealth = -15f;
+                minusPropImpactOnHealth = -5f;
                 break;
             case 4:
-                obstacleImpactOnHealth = 15f;
-                minusPropImpactOnHealth = 5f;
+                obstacleImpactOnHealth = -15f;
+                minusPropImpactOnHealth = -5f;
                 break;
             default:
-                obstacleImpactOnHealth = 15f;
-                minusPropImpactOnHealth = 5f;
+                obstacleImpactOnHealth = -15f;
+                minusPropImpactOnHealth = -5f;
                 break;
         }
     }
@@ -66,17 +66,15 @@ public class CarMove : MonoBehaviour
 
     public bool reversed = false;
 
-    float obstacleImpactOnHealth = 15f;
+    float obstacleImpactOnHealth = -15f;
 
-    float minusPropImpactOnHealth = 5f;
+    float minusPropImpactOnHealth = -5f;
 
     Quaternion originalRotation;
 
     float originalYPosition;
 
-    private HealthBar leftHealthBar;
-
-    private HealthBar rightHealthBar;
+    public HealthBar healthBar;
 
     private int level;
 
@@ -84,9 +82,7 @@ public class CarMove : MonoBehaviour
 
     SpeedController speedController;
 
-    public float playerLeftHealth = 100;
-
-    public float playerRightHealth = 100;
+    public float playerHealth = 100;
 
     public float maxHealth = 100;
 
@@ -118,27 +114,20 @@ public class CarMove : MonoBehaviour
 
     void UploadHealthBars()
     {
-
-        leftHealthBar = GameObject.FindWithTag("LeftHealthBar").GetComponent<HealthBar>();
-        rightHealthBar = GameObject.FindWithTag("RightHealthBar").GetComponent<HealthBar>();
-
-
-        if (leftHealthBar != null)
+        if (transform.name == ConstName.carLeft)
         {
-            leftHealthBar.UpdateLeftPlayerHealthBar(playerLeftHealth, maxHealth);
+            healthBar = GameObject.FindWithTag("LeftHealthBar").GetComponent<HealthBar>();
+            healthBar.UpdateLeftPlayerHealthBar(playerHealth, maxHealth);
+
+        }
+        else if (transform.name == ConstName.carRight)
+        {
+            healthBar = GameObject.FindWithTag("RightHealthBar").GetComponent<HealthBar>();
+            healthBar.UpdateRightPlayerHealthBar(playerHealth, maxHealth);
         }
         else
         {
-            Debug.LogError("Left HealthBar component not found.");
-        }
-
-        if (rightHealthBar != null)
-        {
-            rightHealthBar.UpdateRightPlayerHealthBar(playerRightHealth, maxHealth);
-        }
-        else
-        {
-            Debug.LogError("Left HealthBar component not found.");
+            Debug.LogError("HealthBar component not found.");
         }
     }
 
@@ -215,7 +204,7 @@ public class CarMove : MonoBehaviour
             StartCoroutine(ShakePlayer());
 
             //decrement healthBar accordingly
-            UpdateHealthBarOnCollision(obstacleImpactOnHealth, true);
+            gameController.UpdateHealthBarOnCollision(transform.name, obstacleImpactOnHealth, true);
 
             //destroy the obstacle on collision
             Destroy(other.gameObject);
@@ -256,12 +245,12 @@ public class CarMove : MonoBehaviour
             Destroy(other.gameObject);
             if (transform.name == ConstName.carLeft)
             {
-                UpdateHealthBarOnCollision(minusPropImpactOnHealth, false);
+                gameController.UpdateHealthBarOnCollision(transform.name, minusPropImpactOnHealth, false);
                 gameController.GetComponent<GameController>().DisplayRightLostHealthMsg();
             }
             else if (transform.name == ConstName.carRight)
             {
-                UpdateHealthBarOnCollision(minusPropImpactOnHealth, false);
+                gameController.UpdateHealthBarOnCollision(transform.name, minusPropImpactOnHealth, false);
                 gameController.GetComponent<GameController>().DisplayLeftLostHealthMsg();
             }
         }
@@ -324,23 +313,6 @@ public class CarMove : MonoBehaviour
         }
     }
 
-    public void UpdateHealthBarOnCollision(float impact, bool onSelf)
-    {
-        //decrement healthbar accordingly
-        if (transform.name == ConstName.carLeft && onSelf)
-        {
-            playerLeftHealth -= impact;
-            leftHealthBar.UpdateLeftPlayerHealthBar(playerLeftHealth, maxHealth);
-        }
-        else
-        {
-            playerRightHealth -= impact;
-            rightHealthBar.UpdateRightPlayerHealthBar(playerRightHealth, maxHealth);
-        }
-
-    }
-
-
     void UpdateDataForAnalytics()
     {
         // Collisions after Control Flip Metric #4
@@ -357,7 +329,7 @@ public class CarMove : MonoBehaviour
     void CheckIfPlayerIsHealthyOrNot()
     {
         //updates the ui if one of the players lost all of their health
-        if (playerLeftHealth <= 0 || playerRightHealth <= 0)
+        if (playerHealth <= 0)
         {
             Time.timeScale = 0;
             gameController.StopFlashing();
