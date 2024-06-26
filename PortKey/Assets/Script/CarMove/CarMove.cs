@@ -66,10 +66,6 @@ public class CarMove : MonoBehaviour
 
     public bool reversed = false;
 
-    float obstacleImpactOnHealth = -15f;
-
-    float minusPropImpactOnHealth = -5f;
-
     Quaternion originalRotation;
 
     float originalYPosition;
@@ -204,7 +200,7 @@ public class CarMove : MonoBehaviour
             StartCoroutine(ShakePlayer());
 
             //decrement healthBar accordingly
-            gameController.UpdateHealthBarOnCollision(transform.name, obstacleImpactOnHealth, true);
+            gameController.UpdateHealthBarOnCollision(transform.name, hp.obstacleImpactOnHealth, true);
 
             //destroy the obstacle on collision
             Destroy(other.gameObject);
@@ -245,12 +241,12 @@ public class CarMove : MonoBehaviour
             Destroy(other.gameObject);
             if (transform.name == ConstName.carLeft)
             {
-                gameController.UpdateHealthBarOnCollision(transform.name, minusPropImpactOnHealth, false);
+                gameController.UpdateHealthBarOnCollision(transform.name, hp.minusPropImpactOnHealth, false);
                 gameController.GetComponent<GameController>().DisplayRightLostHealthMsg();
             }
             else if (transform.name == ConstName.carRight)
             {
-                gameController.UpdateHealthBarOnCollision(transform.name, minusPropImpactOnHealth, false);
+                gameController.UpdateHealthBarOnCollision(transform.name, hp.minusPropImpactOnHealth, false);
                 gameController.GetComponent<GameController>().DisplayLeftLostHealthMsg();
             }
         }
