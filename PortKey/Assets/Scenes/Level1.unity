@@ -4414,7 +4414,7 @@ MonoBehaviour:
   reduceEnemyScore: {fileID: 0}
   isStopSpawn: 0
   leftOffset: 0.5
-  rightOffset: -8
+  rightOffset: 8
 --- !u!1 &1636209643
 GameObject:
   m_ObjectHideFlags: 0
