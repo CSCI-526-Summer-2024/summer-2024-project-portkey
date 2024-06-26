@@ -83,8 +83,8 @@ public class SpeedLimits
                 speedIncreaseDuration = 30.0f;
                 break;
             case 3:
-                canIncreaseSpeed = false;
-                canIncreaseSpawnSpeed = false;
+                canIncreaseSpeed = true;
+                canIncreaseSpawnSpeed = true;
                 defaultCarSpeed = 3.0f;
                 defaultSpawnSpeed = 2.0f;
                 carSpeedMultiplier = 1.10f;
