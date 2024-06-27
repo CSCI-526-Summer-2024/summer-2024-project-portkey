@@ -81,7 +81,7 @@ public class GameControllerTut : MonoBehaviour
     private readonly float baseScore = 1.0f;
 
     // game duration, unit is second
-    private float gameDuration = 40f;
+    private float gameDuration = 42f;
 
     //analytics helper variables
     public int totalCtrlSwitchPropCollectedRight = 0;
@@ -117,6 +117,8 @@ public class GameControllerTut : MonoBehaviour
         spotlightIconLeft2.enabled = false;
         spotlightIconRight1.enabled = false;
         spotlightIconRight2.enabled = false;
+
+        navArea.gameObject.SetActive(false);
 
         Time.timeScale = 1;
 
@@ -163,17 +165,17 @@ public class GameControllerTut : MonoBehaviour
         while (gameDuration > 0)
         {
             TimerMsg.text = "" + Mathf.Ceil(gameDuration).ToString() + "s";
-            if (gameDuration == 35)
+            if (gameDuration == 37)
             {
                 StartCoroutine(FadeOutText(player1));
                 StartCoroutine(FadeOutText(player2));
                 move = true;
             }
-            if(gameDuration == 3)
+            if (gameDuration < 6)
             {
-                broadcastMsg.text = "  ON TO LEVEL 1";
-                broadcastMsg.color = new Color(0, 0, 0.5f);
-                broadcastMsg.gameObject.SetActive(true);
+                navArea.gameObject.SetActive(true);
+                broadcastMsg.text = "ON TO LEVEL 1 in\n" + Mathf.Ceil(gameDuration).ToString() + "s";
+                broadcastMsg.color = Color.black;
             }
             yield return new WaitForSeconds(1f);
             // Decrease game duration by 1 second
