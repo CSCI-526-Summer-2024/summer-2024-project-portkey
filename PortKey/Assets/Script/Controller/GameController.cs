@@ -468,23 +468,21 @@ public class GameController : MonoBehaviour
     public void UpdateHealthBarOnCollision(string carName, float impact)
     {
         //decrement healthBar accordingly
-
-        CarMove carObj;
         if (carName == ConstName.carLeft)
         {
-            carObj = carLeft.GetComponent<CarMove>();
-
+            carLeft.GetComponent<CarMove>().playerHealth += impact;
+            float currentHealth = carLeft.GetComponent<CarMove>().playerHealth;
+            float maxHealth = carLeft.GetComponent<CarMove>().maxHealth;
+            carLeft.GetComponent<CarMove>().healthBar.UpdateLeftPlayerHealthBar(currentHealth, maxHealth);
+            carLeft.GetComponent<CarMove>().ShakePlayerOnHealthLoss();
         }
         else
         {
-            carObj = carRight.GetComponent<CarMove>();
+            carRight.GetComponent<CarMove>().playerHealth += impact;
+            float currentHealth = carRight.GetComponent<CarMove>().playerHealth;
+            float maxHealth = carRight.GetComponent<CarMove>().maxHealth;
+            carRight.GetComponent<CarMove>().healthBar.UpdateRightPlayerHealthBar(currentHealth, maxHealth);
+            carRight.GetComponent<CarMove>().ShakePlayerOnHealthLoss();
         }
-
-        carObj.playerHealth += impact;
-        float currentHealth = carObj.playerHealth;
-        float maxHealth = carObj.maxHealth;
-        carObj.healthBar.UpdateLeftPlayerHealthBar(currentHealth, maxHealth);
-        carObj.ShakePlayerOnHealthLoss();
-        Debug.Log("currentHealth:" + currentHealth);
     }
 }
