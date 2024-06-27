@@ -102,6 +102,9 @@ public class GameController : MonoBehaviour
     public Image CountDownNavArea;
     public TextMeshProUGUI CountDownLeftText;
 
+
+    public RectTransform winningTrophy;
+
     void Awake()
     {
         if (LostHealthMsgRight != null)
@@ -127,15 +130,15 @@ public class GameController : MonoBehaviour
         string msgToDisplay;
         if (timeLeft == 3)
         {
-            msgToDisplay = timeLeft.ToString() + "\n" + "READY";
+            msgToDisplay = timeLeft.ToString() ;
         }
         else if (timeLeft == 2)
         {
-            msgToDisplay = timeLeft.ToString() + "\n" + "SET";
+            msgToDisplay = timeLeft.ToString() ;
         }
         else if (timeLeft == 1)
         {
-            msgToDisplay = timeLeft.ToString() + "\n" + "GO";
+            msgToDisplay = timeLeft.ToString();
         }
         else
         {
@@ -148,7 +151,7 @@ public class GameController : MonoBehaviour
     {
         if (CountDownLeftText != null)
         {
-            CountDownLeftText.text = "SURVIVE AND SCORE HIGHER";
+            CountDownLeftText.text = "";
             yield return new WaitForSeconds(0.5f);
             int time = countDownBeforeStartDuration;
             while (time > 0)
@@ -213,9 +216,13 @@ public class GameController : MonoBehaviour
         StartGame();
     }
 
+ 
+
     void Update()
     {
+        UpdateTrophyPlacement(-8,8,3, Vector3.one);
     }
+
 
     void StartGame()
     {
@@ -289,7 +296,6 @@ public class GameController : MonoBehaviour
             broadcastMsg.text = "TIMES UP!\nTIE!";
             broadcastMsg.color = Color.yellow;
         }
-
     }
 
     public void StopFlashing()
@@ -457,6 +463,7 @@ public class GameController : MonoBehaviour
 
         //posting the analytics to the firebase
         Anaytics();
+        
 
     }
 
@@ -610,5 +617,30 @@ public class GameController : MonoBehaviour
             }
         }
 
+    }
+
+
+    //update the position of trophy to the winning side's screen
+    void UpdateTrophyPlacement(float xLeft, float xRight, float y, Vector3 scale)
+    {
+        Vector3 newPosition = winningTrophy.localPosition;
+        newPosition.y = y;
+        if (currentLeftScore > currentRightScore)
+        {
+            newPosition.x = xLeft;
+            winningTrophy.localPosition = newPosition;
+            winningTrophy.localScale = scale;
+        }
+        else if (currentLeftScore < currentRightScore)
+        {
+            newPosition.x = xRight;
+            winningTrophy.localPosition = newPosition;
+            winningTrophy.localScale = scale;
+        }
+        else
+        {
+            //make it invisible if tie
+            winningTrophy.localScale = Vector3.zero;
+        }
     }
 }
