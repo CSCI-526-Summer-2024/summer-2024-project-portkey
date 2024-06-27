@@ -197,7 +197,7 @@ public class CarMove : MonoBehaviour
         /************************* For Obstacle Collision *************************/
         if (other.gameObject.tag == "Obstacle")
         {
-            StartCoroutine(ShakePlayer());
+            ShakePlayerOnHealthLoss();
 
             //decrement healthBar accordingly
             gameController.UpdateHealthBarOnCollision(transform.name, hp.obstacleImpactOnHealth);
@@ -271,6 +271,13 @@ public class CarMove : MonoBehaviour
         /************************* For SlowEnemy Collision *************************/
 
     }
+
+
+    public void ShakePlayerOnHealthLoss()
+    {
+        StartCoroutine(ShakePlayer());
+    }
+
 
     IEnumerator ShakePlayer()
     {
