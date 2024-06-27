@@ -26,16 +26,16 @@ public class HealthParameter
                 minusPropImpactOnHealth = -5f;
                 break;
             case 3:
-                obstacleImpactOnHealth = -15f;
-                minusPropImpactOnHealth = -5f;
+                obstacleImpactOnHealth = -10f;
+                minusPropImpactOnHealth = -10f;
                 break;
             case 4:
-                obstacleImpactOnHealth = -15f;
-                minusPropImpactOnHealth = -5f;
+                obstacleImpactOnHealth = -10f;
+                minusPropImpactOnHealth = -10f;
                 break;
             default:
-                obstacleImpactOnHealth = -15f;
-                minusPropImpactOnHealth = -5f;
+                obstacleImpactOnHealth = -10f;
+                minusPropImpactOnHealth = -10f;
                 break;
         }
     }
@@ -110,13 +110,13 @@ public class CarMove : MonoBehaviour
 
     void UploadHealthBars()
     {
-        if (transform.name == ConstName.carLeft)
+        if (transform.name == ConstName.LEFT_CAR)
         {
             healthBar = GameObject.FindWithTag("LeftHealthBar").GetComponent<HealthBar>();
             healthBar.UpdateLeftPlayerHealthBar(playerHealth, maxHealth);
 
         }
-        else if (transform.name == ConstName.carRight)
+        else if (transform.name == ConstName.RIGHT_CAR)
         {
             healthBar = GameObject.FindWithTag("RightHealthBar").GetComponent<HealthBar>();
             healthBar.UpdateRightPlayerHealthBar(playerHealth, maxHealth);
@@ -137,7 +137,7 @@ public class CarMove : MonoBehaviour
 
         float posX = transform.position.x;
 
-        if (transform.name == ConstName.carLeft)
+        if (transform.name == ConstName.LEFT_CAR)
         {
             if (!reversed)
             {
@@ -197,10 +197,10 @@ public class CarMove : MonoBehaviour
         /************************* For Obstacle Collision *************************/
         if (other.gameObject.tag == "Obstacle")
         {
-            StartCoroutine(ShakePlayer());
+            ShakePlayerOnHealthLoss();
 
             //decrement healthBar accordingly
-            gameController.UpdateHealthBarOnCollision(transform.name, hp.obstacleImpactOnHealth, true);
+            gameController.UpdateHealthBarOnCollision(transform.name, hp.obstacleImpactOnHealth);
 
             //destroy the obstacle on collision
             Destroy(other.gameObject);
@@ -239,15 +239,15 @@ public class CarMove : MonoBehaviour
         if (other.gameObject.name.Contains("ReduceEnemyHealth"))
         {
             Destroy(other.gameObject);
-            if (transform.name == ConstName.carLeft)
+
+            gameController.UpdateHealthBarOnCollision(transform.name, hp.minusPropImpactOnHealth, true);
+            if (transform.name == ConstName.LEFT_CAR)
             {
-                gameController.UpdateHealthBarOnCollision(transform.name, hp.minusPropImpactOnHealth, false);
-                gameController.GetComponent<GameController>().DisplayRightLostHealthMsg();
+                gameController.DisplayRightLostHealthMsg();
             }
-            else if (transform.name == ConstName.carRight)
+            else if (transform.name == ConstName.RIGHT_CAR)
             {
-                gameController.UpdateHealthBarOnCollision(transform.name, hp.minusPropImpactOnHealth, false);
-                gameController.GetComponent<GameController>().DisplayLeftLostHealthMsg();
+                gameController.DisplayLeftLostHealthMsg();
             }
         }
         /************************* For ReduceEnemyHealth Collision *************************/
@@ -271,8 +271,16 @@ public class CarMove : MonoBehaviour
 
     }
 
+
+    public void ShakePlayerOnHealthLoss()
+    {
+        StartCoroutine(ShakePlayer());
+    }
+
+
     IEnumerator ShakePlayer()
     {
+        //Debug.Log("Shaking "+gameObject.name);
         float time = 0.0f;
         //Quaternion originalRotation = transform.localRotation;
         while (time < 0.5f)
@@ -299,7 +307,7 @@ public class CarMove : MonoBehaviour
         gameController.EnemyControlReverse(transform.name);
 
         // Metric #3
-        if (transform.name == ConstName.carLeft)
+        if (transform.name == ConstName.LEFT_CAR)
         {
             gameController.totalCtrlSwitchPropCollectedLeft += 1;
         }
@@ -312,7 +320,7 @@ public class CarMove : MonoBehaviour
     void UpdateDataForAnalytics()
     {
         // Collisions after Control Flip Metric #4
-        if (transform.name == ConstName.carLeft)
+        if (transform.name == ConstName.LEFT_CAR)
         {
             gameController.collisionDueToCtrlFlipLeft += 1;
         }
@@ -330,7 +338,7 @@ public class CarMove : MonoBehaviour
             Time.timeScale = 0;
             gameController.StopFlashing();
             deathText.gameObject.SetActive(true);
-            deathText.text = "YOU LOSE";
+            deathText.text = "YOU DIE";
             deathText.color = Color.red;
             winText.gameObject.SetActive(true);
             winText.text = "YOU WIN";

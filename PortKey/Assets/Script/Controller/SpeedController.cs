@@ -16,7 +16,7 @@ public class SpeedLimits
 
     public float carMaxSpeed = 10.0f;
 
-    public float spawnMaxSpeed = 5.0f;
+    public float obstacleMaxSpeed = 5.0f;
 
     public float speedIncreaseDuration = 30.0f;
 
@@ -68,7 +68,7 @@ public class SpeedLimits
                 carSpeedMultiplier = 1.05f;
                 spawnSpeedMultiplier = 1.01f;
                 carMaxSpeed = 6.0f;
-                spawnMaxSpeed = 5.0f;
+                obstacleMaxSpeed = 4.0f;
                 speedIncreaseDuration = 30.0f;
                 break;
             case 2:
@@ -79,18 +79,18 @@ public class SpeedLimits
                 carSpeedMultiplier = 1.08f;
                 spawnSpeedMultiplier = 1.02f;
                 carMaxSpeed = 7.0f;
-                spawnMaxSpeed = 6.0f;
+                obstacleMaxSpeed = 4.5f;
                 speedIncreaseDuration = 30.0f;
                 break;
             case 3:
                 canIncreaseSpeed = true;
                 canIncreaseSpawnSpeed = true;
-                defaultCarSpeed = 3.0f;
+                defaultCarSpeed = 4.0f;
                 defaultSpawnSpeed = 2.0f;
-                carSpeedMultiplier = 1.10f;
+                carSpeedMultiplier = 1.15f;
                 spawnSpeedMultiplier = 1.03f;
-                carMaxSpeed = 8.0f;
-                spawnMaxSpeed = 7.0f;
+                carMaxSpeed = 10.0f;
+                obstacleMaxSpeed = 5.0f;
                 speedIncreaseDuration = 40.0f;
                 break;
             case 4:
@@ -101,7 +101,7 @@ public class SpeedLimits
                 carSpeedMultiplier = 1.12f;
                 spawnSpeedMultiplier = 1.04f;
                 carMaxSpeed = 9.0f;
-                spawnMaxSpeed = 8.0f;
+                obstacleMaxSpeed = 5.5f;
                 speedIncreaseDuration = 50.0f;
                 break;
             default:
@@ -112,7 +112,7 @@ public class SpeedLimits
                 carSpeedMultiplier = 1.05f;
                 spawnSpeedMultiplier = 1.01f;
                 carMaxSpeed = 6.0f;
-                spawnMaxSpeed = 5.0f;
+                obstacleMaxSpeed = 5.0f;
                 speedIncreaseDuration = 30.0f;
                 Debug.LogError("Unknown level: " + level);
                 break;
@@ -156,8 +156,8 @@ public class SpeedController : MonoBehaviour
         Debug.Log("Level: " + level);
         speedLimits.SetLevelParameters(level);
 
-        GameObject carLeft = GameObject.Find(ConstName.carLeft);
-        GameObject carRight = GameObject.Find(ConstName.carRight);
+        GameObject carLeft = GameObject.Find(ConstName.LEFT_CAR);
+        GameObject carRight = GameObject.Find(ConstName.RIGHT_CAR);
 
         if (carLeft != null)
         {
@@ -186,13 +186,13 @@ public class SpeedController : MonoBehaviour
         }
 
         // Initialize zoomLeft and zoomRight
-        zoomLeft = GameObject.Find(ConstName.zoomLeft).transform;
+        zoomLeft = GameObject.Find(ConstName.ZOOM_LEFT).transform;
         if (zoomLeft == null)
         {
             Debug.LogError("ZoomLeft object not found!");
         }
 
-        zoomRight = GameObject.Find(ConstName.zoomRight).transform;
+        zoomRight = GameObject.Find(ConstName.ZOOM_RIGHT).transform;
         if (zoomRight == null)
         {
             Debug.LogError("ZoomRight object not found!");
@@ -215,12 +215,12 @@ public class SpeedController : MonoBehaviour
     public void SlowDownCarTemporarily(string carName, float factor, float duration)
     {
         slowDownFactor = factor;
-        if (carName == ConstName.carLeft && carRightMove != null)
+        if (carName == ConstName.LEFT_CAR && carRightMove != null)
         {
             rightCarSlowDown = true;
             StartCoroutine(SlowDownCoroutine(carRightMove, duration));
         }
-        else if (carName == ConstName.carRight && carLeftMove != null)
+        else if (carName == ConstName.RIGHT_CAR && carLeftMove != null)
         {
             leftCarSlowDown = true;
             StartCoroutine(SlowDownCoroutine(carLeftMove, duration));
@@ -297,9 +297,9 @@ public class SpeedController : MonoBehaviour
                 speedLimits.UpdateSpawnElapsedTime(spawnFrequency);
             }
 
-            if (Mathf.Abs(spawnSpeed) > speedLimits.spawnMaxSpeed)
+            if (Mathf.Abs(spawnSpeed) > speedLimits.obstacleMaxSpeed)
             {
-                spawnSpeed = speedLimits.spawnMaxSpeed;
+                spawnSpeed = speedLimits.obstacleMaxSpeed;
             }
 
             if (zoomLeft != null)

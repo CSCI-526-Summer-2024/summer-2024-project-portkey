@@ -7,9 +7,10 @@ namespace PortKey.Assets.Script
 {
     public class ConstName
     {
-        public const string carLeft = "CarLeft";
-        public const string carRight = "CarRight";
-        public const string zoomLeft = "ZoomLeft";
-        public const string zoomRight = "ZoomRight";
+        public const string LEFT_CAR = "CarLeft";
+        public const string RIGHT_CAR = "CarRight";
+        public const string ZOOM_LEFT = "ZoomLeft";
+        public const string ZOOM_RIGHT = "ZoomRight";
+        public const bool SEND_ANALYTICS = false;
     }
 }

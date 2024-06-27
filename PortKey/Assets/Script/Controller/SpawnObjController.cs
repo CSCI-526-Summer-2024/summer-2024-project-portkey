@@ -12,7 +12,7 @@ public class SpawnObjInterval
 
     public readonly float[] scoreUpTime = { 5, 8 };
 
-    public readonly float[] reduceEnemyHealthTime = { 5, 8 };
+    public readonly float[] reduceEnemyHealthSpawnTimeRange = { 5, 8 };
 
     public readonly float[] slowEnemyTime = { 5, 8 };
 
@@ -27,8 +27,8 @@ public class SpawnObjInterval
                 enemyControlReverseTime[1] = 8;
                 scoreUpTime[0] = 5;
                 scoreUpTime[1] = 8;
-                reduceEnemyHealthTime[0] = 5;
-                reduceEnemyHealthTime[1] = 8;
+                reduceEnemyHealthSpawnTimeRange[0] = 5;
+                reduceEnemyHealthSpawnTimeRange[1] = 8;
                 slowEnemyTime[0] = 5;
                 slowEnemyTime[1] = 8;
                 break;
@@ -39,20 +39,20 @@ public class SpawnObjInterval
                 enemyControlReverseTime[1] = 7.8f;
                 scoreUpTime[0] = 4.8f;
                 scoreUpTime[1] = 7.8f;
-                reduceEnemyHealthTime[0] = 4.8f;
-                reduceEnemyHealthTime[1] = 7.8f;
+                reduceEnemyHealthSpawnTimeRange[0] = 4.8f;
+                reduceEnemyHealthSpawnTimeRange[1] = 7.8f;
                 slowEnemyTime[0] = 4.8f;
                 slowEnemyTime[1] = 7.8f;
                 break;
             case 3:
                 spawnObstacleTime[0] = 0.6f;
                 spawnObstacleTime[1] = 1.6f;
-                enemyControlReverseTime[0] = 4.6f;
-                enemyControlReverseTime[1] = 7.6f;
+                enemyControlReverseTime[0] = 7.6f;
+                enemyControlReverseTime[1] = 10.6f;
                 scoreUpTime[0] = 4.6f;
                 scoreUpTime[1] = 7.6f;
-                reduceEnemyHealthTime[0] = 4.6f;
-                reduceEnemyHealthTime[1] = 7.6f;
+                reduceEnemyHealthSpawnTimeRange[0] = 2.6f;
+                reduceEnemyHealthSpawnTimeRange[1] = 7.6f;
                 slowEnemyTime[0] = 4.6f;
                 slowEnemyTime[1] = 7.6f;
                 break;
@@ -63,8 +63,8 @@ public class SpawnObjInterval
                 enemyControlReverseTime[1] = 6;
                 scoreUpTime[0] = 3;
                 scoreUpTime[1] = 6;
-                reduceEnemyHealthTime[0] = 3;
-                reduceEnemyHealthTime[1] = 6;
+                reduceEnemyHealthSpawnTimeRange[0] = 3;
+                reduceEnemyHealthSpawnTimeRange[1] = 6;
                 slowEnemyTime[0] = 3;
                 slowEnemyTime[1] = 6;
                 break;
@@ -76,8 +76,8 @@ public class SpawnObjInterval
                 enemyControlReverseTime[1] = 8;
                 scoreUpTime[0] = 5;
                 scoreUpTime[1] = 8;
-                reduceEnemyHealthTime[0] = 5;
-                reduceEnemyHealthTime[1] = 8;
+                reduceEnemyHealthSpawnTimeRange[0] = 5;
+                reduceEnemyHealthSpawnTimeRange[1] = 8;
                 slowEnemyTime[0] = 5;
                 slowEnemyTime[1] = 8;
                 break;
@@ -275,13 +275,13 @@ public class SpawnObjController : MonoBehaviour
                         GameObject relevantObstacle = cloneObstacle2 ?? cloneObstacle;
                         if (Mathf.Abs(relevantObstacle.transform.position.y - lastPos.transform.position.y) <= 4.0f)
                         {
-                            Debug.Log("DO NOT PLACE");
+                            //Debug.Log("DO NOT PLACE");
                             Destroy(relevantObstacle);
                             if (cloneObstacle2 != null) Destroy(cloneObstacle2);
                         }
                         else
                         {
-                            Debug.Log("PLACE");
+                            //Debug.Log("PLACE");
                             lastPos = relevantObstacle;
                         }
                     }
@@ -352,7 +352,7 @@ public class SpawnObjController : MonoBehaviour
             yield return new WaitUntil(() => !isStopSpawn);
             // Randomly spawn objects
 
-            yield return new WaitForSeconds(Random.Range(interval.reduceEnemyHealthTime[0], interval.reduceEnemyHealthTime[1]));
+            yield return new WaitForSeconds(Random.Range(interval.reduceEnemyHealthSpawnTimeRange[0], interval.reduceEnemyHealthSpawnTimeRange[1]));
             if (!isStopSpawn)
             {
                 GameObject cloneReduceEnemyScore = Instantiate(reduceEnemyHealth, transform);
