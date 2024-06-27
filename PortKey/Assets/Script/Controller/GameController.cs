@@ -27,8 +27,6 @@ public class PlayerData
 
 public class GameController : MonoBehaviour
 {
-    public bool disableAnalytics = true;
-
     public Transform zoom1;
 
     public Transform zoom2;
@@ -491,7 +489,7 @@ public class GameController : MonoBehaviour
 
         //string json = JsonUtility.ToJson(playerData);
 
-        if (disableAnalytics == false)
+        if (ConstName.SEND_ANALYTICS == true)
         {
             RestClient.Post("https://portkey-2a1ae-default-rtdb.firebaseio.com/playtesting1_analytics.json", playerData);
             Debug.Log("Analytics sent to firebase");
