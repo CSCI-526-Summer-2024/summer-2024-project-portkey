@@ -5,7 +5,7 @@
 [Ll]ibrary/
 [Tt]emp/
 [Oo]bj/
-/[Bb]uilds/
+[Bb]uilds/
 [Ll]ogs/
 [Uu]ser[Ss]ettings/
 
@@ -71,5 +71,3 @@ crashlytics-build.properties
 /[Aa]ssets/[Ss]treamingAssets/aa/*
 
 .DS_Store
-*.meta
-/PortKey/TmpLocalBuilds
