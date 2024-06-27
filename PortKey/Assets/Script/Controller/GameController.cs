@@ -124,7 +124,7 @@ public class GameController : MonoBehaviour
 
     }
 
-    string MessageToDisplay(int timeLeft)
+    string GetMessageToDisplay(int timeLeft)
     {
         string msgToDisplay;
         if (timeLeft == 3)
@@ -155,7 +155,7 @@ public class GameController : MonoBehaviour
             int time = countDownBeforeStartDuration;
             while (time > 0)
             {
-                CountDownLeftText.text = MessageToDisplay(time);
+                CountDownLeftText.text = GetMessageToDisplay(time);
                 yield return new WaitForSeconds(1f);
                 time -= 1;
             }
