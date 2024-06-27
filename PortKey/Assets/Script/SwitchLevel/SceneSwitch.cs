@@ -54,4 +54,9 @@ public class SceneSwitch : MonoBehaviour
     {
         SceneManager.LoadScene("Menu");
     }
+
+    public void loaderStarter()
+    {
+        SceneManager.LoadScene("Starter");
+    }
 }
