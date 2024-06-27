@@ -27,11 +27,11 @@ public class HealthParameter
                 break;
             case 3:
                 obstacleImpactOnHealth = -15f;
-                minusPropImpactOnHealth = -5f;
+                minusPropImpactOnHealth = -8f;
                 break;
             case 4:
                 obstacleImpactOnHealth = -15f;
-                minusPropImpactOnHealth = -5f;
+                minusPropImpactOnHealth = -8f;
                 break;
             default:
                 obstacleImpactOnHealth = -15f;
