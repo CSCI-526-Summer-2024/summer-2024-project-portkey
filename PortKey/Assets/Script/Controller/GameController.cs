@@ -465,24 +465,48 @@ public class GameController : MonoBehaviour
         }
     }
 
-    public void UpdateHealthBarOnCollision(string carName, float impact)
+    public void UpdateHealthBarOnCollision(string carName, float impact, bool impactOppositePlayer = false)
     {
         //decrement healthBar accordingly
-        if (carName == ConstName.carLeft)
+        if (impactOppositePlayer == false)
         {
-            carLeft.GetComponent<CarMove>().playerHealth += impact;
-            float currentHealth = carLeft.GetComponent<CarMove>().playerHealth;
-            float maxHealth = carLeft.GetComponent<CarMove>().maxHealth;
-            carLeft.GetComponent<CarMove>().healthBar.UpdateLeftPlayerHealthBar(currentHealth, maxHealth);
-            carLeft.GetComponent<CarMove>().ShakePlayerOnHealthLoss();
+
+            if (carName == ConstName.carLeft)
+            {
+                carLeft.GetComponent<CarMove>().playerHealth += impact;
+                float currentHealth = carLeft.GetComponent<CarMove>().playerHealth;
+                float maxHealth = carLeft.GetComponent<CarMove>().maxHealth;
+                carLeft.GetComponent<CarMove>().healthBar.UpdateLeftPlayerHealthBar(currentHealth, maxHealth);
+                carLeft.GetComponent<CarMove>().ShakePlayerOnHealthLoss();
+            }
+            else
+            {
+                carRight.GetComponent<CarMove>().playerHealth += impact;
+                float currentHealth = carRight.GetComponent<CarMove>().playerHealth;
+                float maxHealth = carRight.GetComponent<CarMove>().maxHealth;
+                carRight.GetComponent<CarMove>().healthBar.UpdateRightPlayerHealthBar(currentHealth, maxHealth);
+                carRight.GetComponent<CarMove>().ShakePlayerOnHealthLoss();
+            }
         }
         else
         {
-            carRight.GetComponent<CarMove>().playerHealth += impact;
-            float currentHealth = carRight.GetComponent<CarMove>().playerHealth;
-            float maxHealth = carRight.GetComponent<CarMove>().maxHealth;
-            carRight.GetComponent<CarMove>().healthBar.UpdateRightPlayerHealthBar(currentHealth, maxHealth);
-            carRight.GetComponent<CarMove>().ShakePlayerOnHealthLoss();
+            if (carName != ConstName.carLeft)
+            {
+                carLeft.GetComponent<CarMove>().playerHealth += impact;
+                float currentHealth = carLeft.GetComponent<CarMove>().playerHealth;
+                float maxHealth = carLeft.GetComponent<CarMove>().maxHealth;
+                carLeft.GetComponent<CarMove>().healthBar.UpdateLeftPlayerHealthBar(currentHealth, maxHealth);
+                carLeft.GetComponent<CarMove>().ShakePlayerOnHealthLoss();
+            }
+            else
+            {
+                carRight.GetComponent<CarMove>().playerHealth += impact;
+                float currentHealth = carRight.GetComponent<CarMove>().playerHealth;
+                float maxHealth = carRight.GetComponent<CarMove>().maxHealth;
+                carRight.GetComponent<CarMove>().healthBar.UpdateRightPlayerHealthBar(currentHealth, maxHealth);
+                carRight.GetComponent<CarMove>().ShakePlayerOnHealthLoss();
+            }
         }
+
     }
 }
