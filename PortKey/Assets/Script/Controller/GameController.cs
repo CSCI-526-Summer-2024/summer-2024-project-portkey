@@ -99,6 +99,11 @@ public class GameController : MonoBehaviour
 
     public TextMeshProUGUI LostHealthMsgLeft;
 
+    int countDownBeforeStartDuration = 5;
+
+    public Image CountDownNavArea;
+    public TextMeshProUGUI CountDownLeftText;
+
     void Awake()
     {
         if (LostHealthMsgRight != null)
@@ -108,13 +113,116 @@ public class GameController : MonoBehaviour
         { LostHealthMsgLeft.gameObject.SetActive(false); }
     }
 
+
     void Start()
     {
+        DisplayCountDown();
         navArea.gameObject.SetActive(false);
-
         level = LevelInfo.Instance.Level;
-
         Time.timeScale = 1;
+        AddDelayAndStartGame();
+
+    }
+
+    string MessageToDisplay(int timeLeft)
+    {
+        string msgToDisplay;
+        if (timeLeft == 3)
+        {
+            msgToDisplay = timeLeft.ToString() + "\n" + "READY";
+        }
+        else if (timeLeft == 2)
+        {
+            msgToDisplay = timeLeft.ToString() + "\n" + "SET";
+        }
+        else if (timeLeft == 1)
+        {
+            msgToDisplay = timeLeft.ToString() + "\n" + "GO";
+        }
+        else
+        {
+            msgToDisplay = timeLeft.ToString();
+        }
+        return msgToDisplay;
+    }
+
+    IEnumerator HideCountDownMsg()
+    {
+        if (CountDownLeftText != null)
+        {
+            CountDownLeftText.text = "SURVIVE AND SCORE HIGHER";
+            yield return new WaitForSeconds(0.5f);
+            int time = countDownBeforeStartDuration;
+            while (time > 0)
+            {
+                CountDownLeftText.text = MessageToDisplay(time);
+                yield return new WaitForSeconds(1f);
+                time -= 1;
+            }
+            CountDownLeftText.gameObject.SetActive(false);
+
+        }
+        if (CountDownNavArea != null)
+        {
+            CountDownNavArea.gameObject.SetActive(false);
+        }
+    }
+
+    void DisplayCountDown()
+    {
+        StartCoroutine(HideCountDownMsg());
+    }
+
+    void AddDelayAndStartGame()
+    {
+        StartCoroutine(WaitAndStartGame());
+    }
+
+    void StopGame()
+    {
+        StopPlayer();
+        StopSpawingProps();
+    }
+
+    void StartPlayer()
+    {
+        carLeft.GetComponent<CarMove>().canMove = true;
+        carRight.GetComponent<CarMove>().canMove = true;
+    }
+
+    void StartSpawingProps()
+    {
+        zoom1.GetComponent<SpawnObjController>().isStopSpawn = false;
+        zoom2.GetComponent<SpawnObjController>().isStopSpawn = false;
+    }
+
+    void StopPlayer()
+    {
+        carLeft.GetComponent<CarMove>().canMove = false;
+        carRight.GetComponent<CarMove>().canMove = false;
+    }
+
+    void StopSpawingProps()
+    {
+        zoom1.GetComponent<SpawnObjController>().isStopSpawn = true;
+        zoom2.GetComponent<SpawnObjController>().isStopSpawn = true;
+    }
+
+    IEnumerator WaitAndStartGame()
+    {
+        StopGame();
+        yield return new WaitForSeconds(countDownBeforeStartDuration);
+        StartGame();
+    }
+
+    void Update()
+    {
+    }
+
+    void StartGame()
+    {
+        StartPlayer();
+        StartSpawingProps();
 
         if (leftScore != null)
         {
@@ -129,10 +237,6 @@ public class GameController : MonoBehaviour
         StartCoroutine(CountdownTimer());
     }
 
-
-    void Update()
-    {
-    }
 
     IEnumerator CountdownTimer()
     {
@@ -215,7 +319,7 @@ public class GameController : MonoBehaviour
 
     public void SwitchScreen(string carName)
     {
-        if (carName == ConstName.carLeft)
+        if (carName == ConstName.LEFT_CAR)
         {
             CarLeftStop();
         }
@@ -227,7 +331,7 @@ public class GameController : MonoBehaviour
 
     public void EnemyControlReverse(string carName)
     {
-        if (carName == ConstName.carLeft)
+        if (carName == ConstName.LEFT_CAR)
         {
             carRight.GetComponent<CarMove>().carSpeed *= -1;
             carRight.GetComponent<CarMove>().reversed = !carRight.GetComponent<CarMove>().reversed;
@@ -239,8 +343,8 @@ public class GameController : MonoBehaviour
         }
         else
         {
-            Debug.Log(ConstName.carRight);
-            Debug.Log("Before: " + carLeft.GetComponent<CarMove>().carSpeed);
+            //Debug.Log(ConstName.RIGHT_CAR);
+            //Debug.Log("Before: " + carLeft.GetComponent<CarMove>().carSpeed);
             carLeft.GetComponent<CarMove>().carSpeed *= -1;
             carLeft.GetComponent<CarMove>().reversed = !carLeft.GetComponent<CarMove>().reversed;
             Sprite oldA = imageA.sprite;
@@ -253,7 +357,7 @@ public class GameController : MonoBehaviour
 
     public void ShowSpeedSlowMsg(string carName)
     {
-        if (carName == ConstName.carLeft)
+        if (carName == ConstName.LEFT_CAR)
         {
             broadcastMsgRight.text = "Your speed has been reduced!";
             broadcastMsgRight.gameObject.SetActive(true);
@@ -344,11 +448,11 @@ public class GameController : MonoBehaviour
 
     public void StopScoreCalculation(string carName)
     {
-        if (carName == ConstName.carLeft)
+        if (carName == ConstName.LEFT_CAR)
         {
             CancelInvoke("CalculateScoreLeft");
         }
-        else if (carName == ConstName.carRight)
+        else if (carName == ConstName.RIGHT_CAR)
         {
             CancelInvoke("CalculateScoreRight");
         }
@@ -408,7 +512,7 @@ public class GameController : MonoBehaviour
 
     public void OneTimeBonus(string carName)
     {
-        if (carName == ConstName.carLeft)
+        if (carName == ConstName.LEFT_CAR)
         {
             currentLeftScore += 5;
             leftScore.text = "" + currentLeftScore.ToString("F0");
@@ -471,7 +575,7 @@ public class GameController : MonoBehaviour
         if (impactOppositePlayer == false)
         {
 
-            if (carName == ConstName.carLeft)
+            if (carName == ConstName.LEFT_CAR)
             {
                 carLeft.GetComponent<CarMove>().playerHealth += impact;
                 float currentHealth = carLeft.GetComponent<CarMove>().playerHealth;
@@ -490,7 +594,7 @@ public class GameController : MonoBehaviour
         }
         else
         {
-            if (carName != ConstName.carLeft)
+            if (carName != ConstName.LEFT_CAR)
             {
                 carLeft.GetComponent<CarMove>().playerHealth += impact;
                 float currentHealth = carLeft.GetComponent<CarMove>().playerHealth;
