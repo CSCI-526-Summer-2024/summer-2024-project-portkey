@@ -387,7 +387,6 @@ public class GameController : MonoBehaviour
 
         //string json = JsonUtility.ToJson(playerData);
 
-        //!!UNCOMMENT BEFORE BUILD!!
         if (disableAnalytics == false)
         {
             RestClient.Post("https://portkey-2a1ae-default-rtdb.firebaseio.com/playtesting1_analytics.json", playerData);
@@ -443,7 +442,7 @@ public class GameController : MonoBehaviour
         LostHealthMsgRight.text = "Opponent Stole Your Health";
         LostHealthMsgRight.color = Color.blue;
         LostHealthMsgRight.gameObject.SetActive(true);
-        StartCoroutine(HideSwitchMessage(1f));
+        StartCoroutine(HideStolenHealthMessage(1f));
     }
 
     public void DisplayLeftLostHealthMsg()
@@ -452,38 +451,40 @@ public class GameController : MonoBehaviour
         LostHealthMsgLeft.text = "Opponent Stole Your Health";
         LostHealthMsgLeft.color = Color.blue;
         LostHealthMsgLeft.gameObject.SetActive(true);
-        StartCoroutine(HideSwitchMessage(1f));
+        StartCoroutine(HideStolenHealthMessage(1f));
     }
 
 
-    IEnumerator HideSwitchMessage(float delay)
+    IEnumerator HideStolenHealthMessage(float delay)
     {
         yield return new WaitForSeconds(delay);
-        LostHealthMsgRight.gameObject.SetActive(false);
-        LostHealthMsgLeft.gameObject.SetActive(false);
+        if (LostHealthMsgRight != null && LostHealthMsgLeft != null)
+        {
+            LostHealthMsgLeft.gameObject.SetActive(false);
+            LostHealthMsgRight.gameObject.SetActive(false);
+        }
     }
 
     public void UpdateHealthBarOnCollision(string carName, float impact)
     {
         //decrement healthBar accordingly
-        Debug.Log("In UpdateHealthBarOnCollision for : " + carName + " with impact " + impact);
+
+        CarMove carObj;
         if (carName == ConstName.carLeft)
         {
-            carLeft.GetComponent<CarMove>().playerHealth += impact;
-            float currentHealth = carLeft.GetComponent<CarMove>().playerHealth;
-            float maxHealth = carLeft.GetComponent<CarMove>().maxHealth;
-            carLeft.GetComponent<CarMove>().healthBar.UpdateLeftPlayerHealthBar(currentHealth, maxHealth);
+            carObj = carLeft.GetComponent<CarMove>();
 
-            Debug.Log("Left : currentHealth:" + currentHealth);
         }
         else
         {
-            carRight.GetComponent<CarMove>().playerHealth += impact;
-            float currentHealth = carRight.GetComponent<CarMove>().playerHealth;
-            float maxHealth = carRight.GetComponent<CarMove>().maxHealth;
-            carRight.GetComponent<CarMove>().healthBar.UpdateRightPlayerHealthBar(currentHealth, maxHealth);
-
-            Debug.Log("Right : currentHealth:" + currentHealth);
+            carObj = carRight.GetComponent<CarMove>();
         }
+
+        carObj.playerHealth += impact;
+        float currentHealth = carObj.playerHealth;
+        float maxHealth = carObj.maxHealth;
+        carObj.healthBar.UpdateLeftPlayerHealthBar(currentHealth, maxHealth);
+        carObj.ShakePlayerOnHealthLoss();
+        Debug.Log("currentHealth:" + currentHealth);
     }
 }
