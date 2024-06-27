@@ -1737,6 +1737,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2a4afc9cbad3446988489f44001037b4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  disableAnalytics: 1
   zoom1: {fileID: 837390430}
   zoom2: {fileID: 1630896778}
   leftScore: {fileID: 2058561034}
@@ -1764,8 +1765,8 @@ MonoBehaviour:
   reasonforFinshingLevel: 0
   collisionDueToCtrlFlipLeft: 0
   collisionDueToCtrlFlipRight: 0
-  rightLostPointsMsg: {fileID: 0}
-  leftLostPointsMsg: {fileID: 0}
+  LostHealthMsgRight: {fileID: 0}
+  LostHealthMsgLeft: {fileID: 0}
 --- !u!4 &799866738
 Transform:
   m_ObjectHideFlags: 0
@@ -1915,7 +1916,7 @@ MonoBehaviour:
   enemyControlReverse: {fileID: 1682798608209473767, guid: dc0412c1c3bfe46b7874b302aab22540, type: 3}
   scoreUp: {fileID: 1682798608209473767, guid: 864e998f6f3784e408abae5a70b2f135, type: 3}
   slowEnemy: {fileID: 0}
-  reduceEnemyScore: {fileID: 0}
+  reduceEnemyHealth: {fileID: 0}
   isStopSpawn: 0
   leftOffset: -8
   rightOffset: -0.5
@@ -2908,10 +2909,10 @@ MonoBehaviour:
     m_SelectOnRight: {fileID: 0}
   m_Transition: 1
   m_Colors:
-    m_NormalColor: {r: 1, g: 1, b: 1, a: 1}
-    m_HighlightedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 1}
+    m_NormalColor: {r: 0, g: 0.9245283, b: 0.8398078, a: 1}
+    m_HighlightedColor: {r: 0.52799034, g: 0.990566, b: 0.9385832, a: 1}
     m_PressedColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 1}
-    m_SelectedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 1}
+    m_SelectedColor: {r: 0.947024, g: 0.990566, b: 0.4719206, a: 1}
     m_DisabledColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 0.5019608}
     m_ColorMultiplier: 1
     m_FadeDuration: 0.1
@@ -3844,8 +3845,9 @@ MonoBehaviour:
   broadcastMsg: {fileID: 215277778}
   navArea: {fileID: 253477012}
   reversed: 0
-  bulletPrefab: {fileID: 0}
-  bulletSpeed: 300
+  healthBar: {fileID: 0}
+  playerHealth: 100
+  maxHealth: 100
 --- !u!222 &1439922488
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -4411,7 +4413,7 @@ MonoBehaviour:
   enemyControlReverse: {fileID: 6872324455893141424, guid: 5afa1c5497ac44ee597527fa5150f864, type: 3}
   scoreUp: {fileID: 1682798608209473767, guid: 982af5e4f5dce4ec3b7c86e088c816d3, type: 3}
   slowEnemy: {fileID: 0}
-  reduceEnemyScore: {fileID: 0}
+  reduceEnemyHealth: {fileID: 0}
   isStopSpawn: 0
   leftOffset: 0.5
   rightOffset: 8
@@ -5589,8 +5591,9 @@ MonoBehaviour:
   broadcastMsg: {fileID: 215277778}
   navArea: {fileID: 253477012}
   reversed: 0
-  bulletPrefab: {fileID: 0}
-  bulletSpeed: 300
+  healthBar: {fileID: 0}
+  playerHealth: 100
+  maxHealth: 100
 --- !u!222 &1973918310
 CanvasRenderer:
   m_ObjectHideFlags: 0

@@ -1081,8 +1081,9 @@ MonoBehaviour:
   broadcastMsg: {fileID: 1463386254}
   navArea: {fileID: 1319886176}
   reversed: 0
-  bulletPrefab: {fileID: 0}
-  bulletSpeed: 300
+  healthBar: {fileID: 0}
+  playerHealth: 100
+  maxHealth: 100
 --- !u!222 &300422254
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -3831,10 +3832,10 @@ MonoBehaviour:
     m_SelectOnRight: {fileID: 0}
   m_Transition: 1
   m_Colors:
-    m_NormalColor: {r: 1, g: 1, b: 1, a: 1}
-    m_HighlightedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 1}
-    m_PressedColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 1}
-    m_SelectedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 1}
+    m_NormalColor: {r: 0.031772893, g: 0.95266, b: 0.9622642, a: 1}
+    m_HighlightedColor: {r: 0.5229619, g: 0.9811321, b: 0.954781, a: 1}
+    m_PressedColor: {r: 0.89323616, g: 0.990566, b: 0.5186454, a: 1}
+    m_SelectedColor: {r: 0.8748367, g: 0.9528302, b: 0.4179868, a: 1}
     m_DisabledColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 0.5019608}
     m_ColorMultiplier: 1
     m_FadeDuration: 0.1
@@ -5012,8 +5013,9 @@ MonoBehaviour:
   broadcastMsg: {fileID: 1463386254}
   navArea: {fileID: 1319886176}
   reversed: 0
-  bulletPrefab: {fileID: 0}
-  bulletSpeed: 300
+  healthBar: {fileID: 0}
+  playerHealth: 100
+  maxHealth: 100
 --- !u!222 &1567920593
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -5215,7 +5217,7 @@ MonoBehaviour:
   enemyControlReverse: {fileID: 6872324455893141424, guid: 3a76f709e7d3642a293bb87cf5a8e1b4, type: 3}
   scoreUp: {fileID: 1682798608209473767, guid: 34c5a97e2788242d795e6dd461c1991b, type: 3}
   slowEnemy: {fileID: 0}
-  reduceEnemyScore: {fileID: 0}
+  reduceEnemyHealth: {fileID: 0}
   isStopSpawn: 0
   leftOffset: 0.5
   rightOffset: 8
@@ -5463,6 +5465,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2a4afc9cbad3446988489f44001037b4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  disableAnalytics: 1
   zoom1: {fileID: 1857266096}
   zoom2: {fileID: 1580547981}
   leftScore: {fileID: 811072175}
@@ -5490,8 +5493,8 @@ MonoBehaviour:
   reasonforFinshingLevel: 0
   collisionDueToCtrlFlipLeft: 0
   collisionDueToCtrlFlipRight: 0
-  rightLostPointsMsg: {fileID: 0}
-  leftLostPointsMsg: {fileID: 0}
+  LostHealthMsgRight: {fileID: 0}
+  LostHealthMsgLeft: {fileID: 0}
 --- !u!4 &1624071023
 Transform:
   m_ObjectHideFlags: 0
@@ -6210,7 +6213,7 @@ MonoBehaviour:
   enemyControlReverse: {fileID: 1682798608209473767, guid: d3b2218d2de2b4f3aa1f4467dc4096f5, type: 3}
   scoreUp: {fileID: 1682798608209473767, guid: 953c256a8673340a59b64718359dcd9b, type: 3}
   slowEnemy: {fileID: 0}
-  reduceEnemyScore: {fileID: 0}
+  reduceEnemyHealth: {fileID: 0}
   isStopSpawn: 0
   leftOffset: -8
   rightOffset: -0.5
