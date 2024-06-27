@@ -69,6 +69,10 @@ public class GameController : MonoBehaviour
 
     public Image navArea;
 
+    public Image leftMud;
+
+    public Image rightMud;
+
     private float currentLeftScore = 0f;
 
     private float currentRightScore = 0f;
@@ -116,6 +120,11 @@ public class GameController : MonoBehaviour
     {
         DisplayCountDown();
         navArea.gameObject.SetActive(false);
+        if (leftMud != null && rightMud != null)
+        {
+            leftMud.enabled = false;
+            rightMud.enabled = false;
+        }
         level = LevelInfo.Instance.Level;
         Time.timeScale = 1;
         AddDelayAndStartGame();
@@ -357,15 +366,19 @@ public class GameController : MonoBehaviour
     {
         if (carName == ConstName.LEFT_CAR)
         {
-            broadcastMsgRight.text = "Your speed has been reduced!";
-            broadcastMsgRight.gameObject.SetActive(true);
-            StartCoroutine(HideRightMessage());
+            //broadcastMsgRight.text = "Your speed has been reduced!";
+            //broadcastMsgRight.gameObject.SetActive(true);
+            //StartCoroutine(HideRightMessage());
+            rightMud.enabled = true;
+            StartCoroutine(HideMud(rightMud));
         }
         else
         {
-            broadcastMsgLeft.text = "Your speed has been reduced!";
-            broadcastMsgLeft.gameObject.SetActive(true);
-            StartCoroutine(HideLeftMessage());
+            //broadcastMsgLeft.text = "Your speed has been reduced!";
+            //broadcastMsgLeft.gameObject.SetActive(true);
+            //StartCoroutine(HideLeftMessage());
+            leftMud.enabled = true;
+            StartCoroutine(HideMud(leftMud));
         }
     }
 
@@ -379,6 +392,12 @@ public class GameController : MonoBehaviour
     {
         yield return new WaitForSeconds(1f);
         broadcastMsgLeft.gameObject.SetActive(false);
+    }
+
+    IEnumerator HideMud(Image mud)
+    {
+        yield return new WaitForSeconds(4f);
+        mud.enabled = false;
     }
 
     IEnumerator Flashing(Image left, Image right)
@@ -491,7 +510,7 @@ public class GameController : MonoBehaviour
 
         if (ConstName.SEND_ANALYTICS == true)
         {
-            RestClient.Post("https://portkey-2a1ae-default-rtdb.firebaseio.com/playtesting1_analytics.json", playerData);
+            //RestClient.Post("https://portkey-2a1ae-default-rtdb.firebaseio.com/playtesting1_analytics.json", playerData);
             Debug.Log("Analytics sent to firebase");
         }
     }
