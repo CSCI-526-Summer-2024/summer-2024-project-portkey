@@ -44,9 +44,7 @@ public class HealthParameter
 
 public class CarMove : MonoBehaviour
 {
-    private string LEFT_CAR = "CarLeft";
-
-    private string RIGHT_CAR = "CarRight";
+    private HealthParameter hp = new HealthParameter();
 
     public float carSpeed = 300f;
 
@@ -69,34 +67,45 @@ public class CarMove : MonoBehaviour
     public bool reversed = false;
 
     Quaternion originalRotation;
-    Rigidbody2D playerRb;
 
-    //healthbar helper variables
-    float playerLefthealth = 100;
-    float playerRighthealth = 100;
-    float maxHealth = 100;
-    float obstacleImpact = 15f;
-    private HealthBar leftHealthBar;
-    private HealthBar rightHealthBar;
+    float originalYPosition;
+
+    public HealthBar healthBar;
+
+    private int level;
+
     GameController gameController;
+
+    SpeedController speedController;
+
+    public float playerHealth = 100;
+
+    public float maxHealth = 100;
 
     void Start()
     {
-        originalRotation = transform.localRotation;
+        level = LevelInfo.Instance.Level;
+        if (level == -1)
+        {
+            Debug.LogError("Level not found");
+        }
+        hp.SetParametersByLevel(level);
+
         gameController = FindObjectOfType<GameController>();
+        if (gameController == null)
+        {
+            Debug.LogError("GameController not found");
+        }
+
+        speedController = FindObjectOfType<SpeedController>();
+        if (speedController == null)
+        {
+            Debug.LogError("SpeedController not found");
+        }
+
+        originalRotation = transform.localRotation;
+        originalYPosition = transform.localPosition.y;
         UploadHealthBars();
-        FreezeRigidbodyMovements();
-    }
-
-    void Update()
-    {
-        MovePlayerCar();
-    }
-
-    void FreezeRigidbodyMovements()
-    {
-        playerRb = GetComponent<Rigidbody2D>();
-        playerRb.constraints = RigidbodyConstraints2D.FreezePositionY | RigidbodyConstraints2D.FreezePosition;
     }
 
     void UploadHealthBars()
@@ -118,99 +127,193 @@ public class CarMove : MonoBehaviour
         }
     }
 
-
-    void MovePlayerCar()
+    void Update()
     {
-        if (canMove == true)
+        //ShootBullet();
+        if (!canMove)
         {
-            float posX = transform.position.x;
-            if (transform.name == LEFT_CAR)
-            {
-                ReadLeftCarMovementInput(posX);
+            return;
+        }
 
+        float posX = transform.position.x;
+
+        if (transform.name == ConstName.carLeft)
+        {
+            if (!reversed)
+            {
+                if (Input.GetKey(KeyCode.A) && posX > boundaryLeft)
+                {
+                    transform.Translate(Vector3.left * carSpeed * Time.deltaTime);
+                }
+                if (Input.GetKey(KeyCode.D) && posX < boundaryRight)
+                {
+                    transform.Translate(Vector3.right * carSpeed * Time.deltaTime);
+                }
             }
-
-            if (transform.name == RIGHT_CAR)
+            else
             {
-                ReadRightCarMovementInput(posX);
+                if (Input.GetKey(KeyCode.A) && posX < boundaryRight)
+                {
+                    transform.Translate(Vector3.left * carSpeed * Time.deltaTime);
+                }
+                if (Input.GetKey(KeyCode.D) && posX > boundaryLeft)
+                {
+                    transform.Translate(Vector3.right * carSpeed * Time.deltaTime);
+                }
             }
         }
+
+        if (transform.name == "CarRight")
+        {
+            if (!reversed)
+            {
+                if (Input.GetKey(KeyCode.LeftArrow) && posX > boundaryLeft)
+                {
+                    transform.Translate(Vector3.left * carSpeed * Time.deltaTime);
+                }
+                if (Input.GetKey(KeyCode.RightArrow) && posX < boundaryRight)
+                {
+                    transform.Translate(Vector3.right * carSpeed * Time.deltaTime);
+                }
+            }
+            else
+            {
+                if (Input.GetKey(KeyCode.LeftArrow) && posX < boundaryRight)
+                {
+                    transform.Translate(Vector3.left * carSpeed * Time.deltaTime);
+                }
+                if (Input.GetKey(KeyCode.RightArrow) && posX > boundaryLeft)
+                {
+                    transform.Translate(Vector3.right * carSpeed * Time.deltaTime);
+                }
+            }
+        }
+
+
+    }
+
+    void OnTriggerEnter2D(Collider2D other)
+    {
+        /************************* For Obstacle Collision *************************/
+        if (other.gameObject.tag == "Obstacle")
+        {
+            StartCoroutine(ShakePlayer());
+
+            //decrement healthBar accordingly
+            gameController.UpdateHealthBarOnCollision(transform.name, hp.obstacleImpactOnHealth);
+
+            //destroy the obstacle on collision
+            Destroy(other.gameObject);
+
+            // Collisions after Control Flip Metric #4
+            UpdateDataForAnalytics();
+
+            // Check if player is healthy or not
+            CheckIfPlayerIsHealthyOrNot();
+
+            //destroy the obstacle on collision
+            Destroy(other.gameObject);
+        }
+        /************************* For Obstacle Collision *************************/
+
+        /************************* For EnemyControlReverse Collision *************************/
+        if (other.gameObject.name.Contains("EnemyControlReverse"))
+        {
+            DisplaySwitchMessage();
+            Destroy(other.gameObject);
+            UpdateAnalyticsOnControlInversion();
+        }
+        /************************* For EnemyControlReverse Collision *************************/
+
+
+        /************************* For ScoreUp Collision *************************/
+        if (other.gameObject.name.Contains("ScoreUp"))
+        {
+            Destroy(other.gameObject);
+            gameController.OneTimeBonus(transform.name);
+        }
+        /************************* For ScoreUp Collision *************************/
+
+
+        /************************* For ReduceEnemyHealth Collision *************************/
+        if (other.gameObject.name.Contains("ReduceEnemyHealth"))
+        {
+            Destroy(other.gameObject);
+            if (transform.name == ConstName.carLeft)
+            {
+
+                gameController.UpdateHealthBarOnCollision(transform.name, hp.minusPropImpactOnHealth);
+                gameController.DisplayRightLostHealthMsg();
+            }
+            else if (transform.name == ConstName.carRight)
+            {
+                gameController.UpdateHealthBarOnCollision(transform.name, hp.minusPropImpactOnHealth);
+                gameController.DisplayLeftLostHealthMsg();
+            }
+        }
+        /************************* For ReduceEnemyHealth Collision *************************/
+
+
+        /************************* For SlowEnemy Collision *************************/
+        if (other.gameObject.name.Contains("SlowEnemy"))
+        {
+            Destroy(other.gameObject);
+            if (speedController == null)
+            {
+                Debug.LogError("SpeedController not found");
+            }
+            else
+            {
+                speedController.SlowDownCarTemporarily(transform.name, 0.5f, 4f);
+                gameController.ShowSpeedSlowMsg(transform.name);
+            }
+        }
+        /************************* For SlowEnemy Collision *************************/
+
+    }
+
+    IEnumerator ShakePlayer()
+    {
+        float time = 0.0f;
+        //Quaternion originalRotation = transform.localRotation;
+        while (time < 0.5f)
+        {
+            float shake = Random.Range(-1f, 1f) * 10.0f;
+            transform.localRotation = Quaternion.Euler(0, 0, originalRotation.eulerAngles.z + shake);
+            time += Time.deltaTime;
+            if (Time.timeScale == 0)
+            {
+                Vector3 currentPosition = transform.localPosition;
+                transform.localPosition = new Vector3(currentPosition.x, originalYPosition, currentPosition.z);
+                transform.localRotation = originalRotation;
+            }
+            yield return null;
+        }
+        Vector3 finalPosition = transform.localPosition;
+        transform.localPosition = new Vector3(finalPosition.x, originalYPosition, finalPosition.z);
+        transform.localRotation = originalRotation;
     }
 
 
-    void ReadLeftCarMovementInput(float posX)
+    void UpdateAnalyticsOnControlInversion()
     {
-        if (!reversed)
+        gameController.EnemyControlReverse(transform.name);
+
+        // Metric #3
+        if (transform.name == ConstName.carLeft)
         {
-            if (Input.GetKey(KeyCode.A) && posX > boundaryLeft)
-            {
-                transform.Translate(Vector3.left * carSpeed * Time.deltaTime);
-            }
-            if (Input.GetKey(KeyCode.D) && posX < boundaryRight)
-            {
-                transform.Translate(Vector3.right * carSpeed * Time.deltaTime);
-            }
+            gameController.totalCtrlSwitchPropCollectedLeft += 1;
         }
         else
         {
-            if (Input.GetKey(KeyCode.A) && posX < boundaryRight)
-            {
-                transform.Translate(Vector3.left * carSpeed * Time.deltaTime);
-            }
-            if (Input.GetKey(KeyCode.D) && posX > boundaryLeft)
-            {
-                transform.Translate(Vector3.right * carSpeed * Time.deltaTime);
-            }
+            gameController.totalCtrlSwitchPropCollectedRight += 1;
         }
     }
 
-    void ReadRightCarMovementInput(float posX)
-    {
-        if (!reversed)
-        {
-            if (Input.GetKey(KeyCode.LeftArrow) && posX > boundaryLeft)
-            {
-                transform.Translate(Vector3.left * carSpeed * Time.deltaTime);
-            }
-            if (Input.GetKey(KeyCode.RightArrow) && posX < boundaryRight)
-            {
-                transform.Translate(Vector3.right * carSpeed * Time.deltaTime);
-            }
-        }
-        else
-        {
-            if (Input.GetKey(KeyCode.LeftArrow) && posX < boundaryRight)
-            {
-                transform.Translate(Vector3.left * carSpeed * Time.deltaTime);
-            }
-            if (Input.GetKey(KeyCode.RightArrow) && posX > boundaryLeft)
-            {
-                transform.Translate(Vector3.right * carSpeed * Time.deltaTime);
-            }
-        }
-    }
-
-
-
-    void UpdateHealthBars()
-    {
-        //decrement healthbar accordingly
-        if (transform.name == LEFT_CAR)
-        {
-            playerLefthealth -= obstacleImpact;
-            leftHealthBar.UpdateLeftPlayerHealthBar(playerLefthealth, maxHealth);
-        }
-        else
-        {
-            playerRighthealth -= obstacleImpact;
-            rightHealthBar.UpdateRightPlayerHealthBar(playerRighthealth, maxHealth);
-        }
-    }
-
-    void UpdateControlFlipMetric()
+    void UpdateDataForAnalytics()
     {
         // Collisions after Control Flip Metric #4
-        if (transform.name == LEFT_CAR)
+        if (transform.name == ConstName.carLeft)
         {
             gameController.collisionDueToCtrlFlipLeft += 1;
         }
@@ -220,10 +323,10 @@ public class CarMove : MonoBehaviour
         }
     }
 
-    void CheckPlayerHealth()
+    void CheckIfPlayerIsHealthyOrNot()
     {
-        //updates the ui if one of the players lost all of their hp
-        if (playerLefthealth <= 0 || playerRighthealth <= 0)
+        //updates the ui if one of the players lost all of their health
+        if (playerHealth <= 0)
         {
             Time.timeScale = 0;
             gameController.StopFlashing();
@@ -244,124 +347,6 @@ public class CarMove : MonoBehaviour
             gameController.StopScoreCalculation(transform.name);
         }
     }
-    void OnTriggerEnter2D(Collider2D other)
-    {
-        
-        if (other.gameObject.tag == "Obstacle") //For Obstacle Collision
-        {
-            
-            ShakePlayerObjectOnHealthLoss();
-            UpdateHealthBars();
-            Destroy(other.gameObject); //destroy the obstacle on collision
-            UpdateControlFlipMetric();
-            CheckPlayerHealth();
-        }
-
-        HandleEnemyControlReverseCollision(other); //For EnemyControlReverse Collision
-
-        if (other.gameObject.name.Contains("ScoreUp")) //For ScoreUp Collision 
-        {
-            Destroy(other.gameObject);
-            gameController.OneTimeBonus(transform.name);
-        }
-
-        HandleReduceEnemyHealthCollision(other); //For ReduceEnemyScore Collision 
-
-        HandleSlowEnemyCollision(other); // For SlowEnemy Collision
-    }
-
-    void HandleEnemyControlReverseCollision(Collider2D other)
-    {
-        if (other.gameObject.name.Contains("EnemyControlReverse"))
-        {
-            DisplaySwitchMessage();
-            Destroy(other.gameObject);
-            gameController.EnemyControlReverse(transform.name);
-
-            // Metric #3
-            if (transform.name == LEFT_CAR)
-            {
-                gameController.totalCtrlSwitchPropCollectedLeft += 1;
-            }
-            else
-            {
-                gameController.totalCtrlSwitchPropCollectedRight += 1;
-            }
-
-        }
-
-    }
-
-    void HandleReduceEnemyHealthCollision(Collider2D other)
-    { 
-        if (other.gameObject.name.Contains("ReduceEnemyScore"))
-        {
-            Destroy(other.gameObject);
-            //decrement opponents healthbar accordingly
-            if (gameObject.name == RIGHT_CAR)
-            {
-                Debug.Log("Right player collected minus prop , reducing left health ");
-                playerLefthealth -= obstacleImpact;
-                leftHealthBar.UpdateLeftPlayerHealthBar(playerLefthealth, maxHealth);
-                gameController.DisplayHealthStolenMsgForLeftPlayer();
-                GameObject.Find(LEFT_CAR).GetComponent<CarMove>().ShakePlayerObjectOnHealthLoss();
-
-            }
-            else if (transform.name == ConstName.carRight)
-            {
-                Debug.Log("Left player collected minus prop , reducing right health ");
-                playerRighthealth -= obstacleImpact;
-                rightHealthBar.UpdateRightPlayerHealthBar(playerRighthealth, maxHealth);
-                gameController.DisplayHealthStolenMsgForRightPlayer();
-                GameObject.Find(RIGHT_CAR).GetComponent<CarMove>().ShakePlayerObjectOnHealthLoss();
-            }
-        }
-    }
-
-
-    void HandleSlowEnemyCollision(Collider2D other)
-    {
-        SpeedController speedController = FindObjectOfType<SpeedController>();
-        if (other.gameObject.name.Contains("SlowEnemy"))
-        {
-            Destroy(other.gameObject);
-            if (speedController == null)
-            {
-                Debug.LogError("SpeedController not found");
-            }
-            else
-            {
-                speedController.SlowDownCarTemporarily(transform.name, 0.5f, 4f);
-                gameController.ShowSpeedSlowMsg(transform.name);
-            }
-        }
-    }
-
-    public void ShakePlayerObjectOnHealthLoss()
-    {
-        StartCoroutine(ShakePlayer());
-    }
-
-    IEnumerator ShakePlayer()
-    {
-        float time = 0.0f;
-        //Quaternion originalRotation = transform.localRotation;
-        float yLocation = transform.position.y;
-        while (time < 0.5f)
-        {
-            float shake = Random.Range(-1f, 1f) * 6.0f;
-            transform.localRotation = Quaternion.Euler(0, 0, originalRotation.eulerAngles.z + shake);
-            time += Time.deltaTime;
-            if (Time.timeScale == 0)
-            {
-                transform.localRotation = originalRotation;
-            }
-            yield return null;
-        }
-        transform.localRotation = originalRotation;
-        transform.position =  new Vector2(transform.position.x,  yLocation);
-    }
-
 
     void DisplaySwitchMessage()
     {

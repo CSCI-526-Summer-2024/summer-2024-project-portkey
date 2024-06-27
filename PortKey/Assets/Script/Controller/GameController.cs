@@ -440,6 +440,7 @@ public class GameController : MonoBehaviour
     public void DisplayRightLostHealthMsg()
     {
         //BulletImpactForRightPlayer();
+        LostHealthMsgRight.text = "Opponent Stole Your Health";
         LostHealthMsgRight.color = Color.blue;
         LostHealthMsgRight.gameObject.SetActive(true);
         StartCoroutine(HideSwitchMessage(1f));
@@ -448,6 +449,7 @@ public class GameController : MonoBehaviour
     public void DisplayLeftLostHealthMsg()
     {
         //BulletImpactForLeftPlayer();
+        LostHealthMsgLeft.text = "Opponent Stole Your Health";
         LostHealthMsgLeft.color = Color.blue;
         LostHealthMsgLeft.gameObject.SetActive(true);
         StartCoroutine(HideSwitchMessage(1f));
@@ -461,15 +463,18 @@ public class GameController : MonoBehaviour
         LostHealthMsgLeft.gameObject.SetActive(false);
     }
 
-    public void UpdateHealthBarOnCollision(string carName, float impact, bool onSelf)
+    public void UpdateHealthBarOnCollision(string carName, float impact)
     {
         //decrement healthBar accordingly
-        if (carName == ConstName.carLeft && onSelf)
+        Debug.Log("In UpdateHealthBarOnCollision for : " + carName + " with impact " + impact);
+        if (carName == ConstName.carLeft)
         {
             carLeft.GetComponent<CarMove>().playerHealth += impact;
             float currentHealth = carLeft.GetComponent<CarMove>().playerHealth;
             float maxHealth = carLeft.GetComponent<CarMove>().maxHealth;
             carLeft.GetComponent<CarMove>().healthBar.UpdateLeftPlayerHealthBar(currentHealth, maxHealth);
+
+            Debug.Log("Left : currentHealth:" + currentHealth);
         }
         else
         {
@@ -477,6 +482,8 @@ public class GameController : MonoBehaviour
             float currentHealth = carRight.GetComponent<CarMove>().playerHealth;
             float maxHealth = carRight.GetComponent<CarMove>().maxHealth;
             carRight.GetComponent<CarMove>().healthBar.UpdateRightPlayerHealthBar(currentHealth, maxHealth);
+
+            Debug.Log("Right : currentHealth:" + currentHealth);
         }
     }
 }
