@@ -156,8 +156,8 @@ public class SpeedController : MonoBehaviour
         Debug.Log("Level: " + level);
         speedLimits.SetLevelParameters(level);
 
-        GameObject carLeft = GameObject.Find(ConstName.carLeft);
-        GameObject carRight = GameObject.Find(ConstName.carRight);
+        GameObject carLeft = GameObject.Find(ConstName.LEFT_CAR);
+        GameObject carRight = GameObject.Find(ConstName.RIGHT_CAR);
 
         if (carLeft != null)
         {
@@ -186,13 +186,13 @@ public class SpeedController : MonoBehaviour
         }
 
         // Initialize zoomLeft and zoomRight
-        zoomLeft = GameObject.Find(ConstName.zoomLeft).transform;
+        zoomLeft = GameObject.Find(ConstName.ZOOM_LEFT).transform;
         if (zoomLeft == null)
         {
             Debug.LogError("ZoomLeft object not found!");
         }
 
-        zoomRight = GameObject.Find(ConstName.zoomRight).transform;
+        zoomRight = GameObject.Find(ConstName.ZOOM_RIGHT).transform;
         if (zoomRight == null)
         {
             Debug.LogError("ZoomRight object not found!");
@@ -215,12 +215,12 @@ public class SpeedController : MonoBehaviour
     public void SlowDownCarTemporarily(string carName, float factor, float duration)
     {
         slowDownFactor = factor;
-        if (carName == ConstName.carLeft && carRightMove != null)
+        if (carName == ConstName.LEFT_CAR && carRightMove != null)
         {
             rightCarSlowDown = true;
             StartCoroutine(SlowDownCoroutine(carRightMove, duration));
         }
-        else if (carName == ConstName.carRight && carLeftMove != null)
+        else if (carName == ConstName.RIGHT_CAR && carLeftMove != null)
         {
             leftCarSlowDown = true;
             StartCoroutine(SlowDownCoroutine(carLeftMove, duration));
