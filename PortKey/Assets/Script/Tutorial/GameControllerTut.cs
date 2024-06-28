@@ -7,6 +7,7 @@ using UnityEngine.UI;
 using Proyecto26;
 using UnityEngine.SceneManagement;
 
+using PortKey.Assets.Script;
 
 
 public class GameControllerTut : MonoBehaviour
@@ -81,7 +82,7 @@ public class GameControllerTut : MonoBehaviour
     private readonly float baseScore = 1.0f;
 
     // game duration, unit is second
-    private float gameDuration = 42f;
+    private float gameDuration = 40f;
 
     //analytics helper variables
     public int totalCtrlSwitchPropCollectedRight = 0;
@@ -165,26 +166,25 @@ public class GameControllerTut : MonoBehaviour
         while (gameDuration > 0)
         {
             TimerMsg.text = "" + Mathf.Ceil(gameDuration).ToString() + "s";
-            if (gameDuration == 37)
+            if (gameDuration == 35)
             {
                 StartCoroutine(FadeOutText(player1));
                 StartCoroutine(FadeOutText(player2));
                 move = true;
-            }
-            if (gameDuration < 6)
-            {
-                navArea.gameObject.SetActive(true);
-                broadcastMsg.text = "ON TO LEVEL 1 in\n" + Mathf.Ceil(gameDuration).ToString() + "s";
-                broadcastMsg.color = Color.black;
             }
             yield return new WaitForSeconds(1f);
             // Decrease game duration by 1 second
             gameDuration -= 1f;
         }
         TimerMsg.text = "0s";
-        SceneManager.LoadScene("Level1");
         // Pause the game when the game duration is over
         PauseGame();
+        reasonforFinshingLevel = 2;
+        Anaytics();
+        navArea.gameObject.SetActive(true);
+        broadcastMsg.text = "CONTINUE TO\nLEVEL 1";
+        broadcastMsg.color = Color.black;
+        //SceneManager.LoadScene("Level1");
     }
 
     IEnumerator FadeOutText(TextMeshProUGUI text)
@@ -232,6 +232,42 @@ public class GameControllerTut : MonoBehaviour
         else
         {
             CarRightStop();
+        }
+    }
+
+    void Anaytics()
+    {
+        //parsing the current level number
+        string levelName = SceneManager.GetActiveScene().name;
+        char levelLastChar = levelName[levelName.Length - 1];
+        int levelNumber;
+        if (int.TryParse(levelLastChar.ToString(), out levelNumber))
+        {
+            Debug.Log("The last character as an integer: " + levelNumber);
+        }
+        else
+        {
+            Debug.LogWarning("The last character is not a valid number.");
+        }
+
+        //posting the analytics to the firebase
+        PlayerData playerData = new PlayerData();
+        playerData.name = "player";
+        playerData.level = 0;
+        playerData.scoreLeft = currentLeftScore;
+        playerData.scoreRight = currentRightScore;
+        playerData.reasonforFinshingLevel = reasonforFinshingLevel;
+        playerData.totalCtrlSwitchPropCollectedRight = totalCtrlSwitchPropCollectedRight;
+        playerData.totalCtrlSwitchPropCollectedLeft = totalCtrlSwitchPropCollectedLeft;
+        playerData.collisionDueToCtrlFlipLeft = collisionDueToCtrlFlipLeft;
+        playerData.collisionDueToCtrlFlipRight = collisionDueToCtrlFlipRight;
+
+        //string json = JsonUtility.ToJson(playerData);
+
+        if (ConstName.SEND_ANALYTICS == true)
+        {
+            RestClient.Post("https://portkey-2a1ae-default-rtdb.firebaseio.com/playtesting1_analytics.json", playerData);
+            Debug.Log("Analytics sent to firebase");
         }
     }
 

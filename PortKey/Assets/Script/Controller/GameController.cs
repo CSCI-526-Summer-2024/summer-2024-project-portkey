@@ -510,7 +510,7 @@ public class GameController : MonoBehaviour
 
         if (ConstName.SEND_ANALYTICS == true)
         {
-            //RestClient.Post("https://portkey-2a1ae-default-rtdb.firebaseio.com/playtesting1_analytics.json", playerData);
+            RestClient.Post("https://portkey-2a1ae-default-rtdb.firebaseio.com/playtesting1_analytics.json", playerData);
             Debug.Log("Analytics sent to firebase");
         }
     }
