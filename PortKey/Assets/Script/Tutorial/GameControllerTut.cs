@@ -60,6 +60,11 @@ public class GameControllerTut : MonoBehaviour
     public Image controlLeft2;
     public Image controlRight2;
 
+    public Image flipLeft;
+    public Image flipRight;
+    public TextMeshProUGUI fiveLeft;
+    public TextMeshProUGUI fiveRight;
+
     public Image spotlightLeft;
     public Image spotlightRight;
     public Image spotlightIconLeft1;
@@ -118,6 +123,11 @@ public class GameControllerTut : MonoBehaviour
         spotlightIconLeft2.enabled = false;
         spotlightIconRight1.enabled = false;
         spotlightIconRight2.enabled = false;
+
+        flipLeft.enabled = false;
+        flipRight.enabled = false;
+        fiveLeft.gameObject.SetActive(false);
+        fiveRight.gameObject.SetActive(false);
 
         navArea.gameObject.SetActive(false);
 
@@ -277,43 +287,47 @@ public class GameControllerTut : MonoBehaviour
         {
             carRight.GetComponent<CarMoveTut>().carSpeed *= -1;
             carRight.GetComponent<CarMoveTut>().reversed = !carRight.GetComponent<CarMoveTut>().reversed;
-            Sprite oldleft = imageLeft.sprite;
-            Sprite oldright = imageRight.sprite;
-            imageLeft.sprite = oldright;
-            imageRight.sprite = oldleft;
-            StartCoroutine(Flashing(imageLeft, imageRight));
-            StartCoroutine(Spotlight(spotlightIconRight1, 1.5f));
-            StartCoroutine(Spotlight(spotlightIconRight2, 1.5f));
+            Time.timeScale = 0;
+            StartCoroutine(Flashing(imageLeft, imageRight, flipRight));
+            StartCoroutine(Spotlight(spotlightIconRight1, 4f));
+            StartCoroutine(Spotlight(spotlightIconRight2, 4f));
         }
         else
         {
             carLeft.GetComponent<CarMoveTut>().carSpeed *= -1;
             carLeft.GetComponent<CarMoveTut>().reversed = !carLeft.GetComponent<CarMoveTut>().reversed;
-            Sprite oldA = imageA.sprite;
-            Sprite oldD = imageD.sprite;
-            imageA.sprite = oldD;
-            imageD.sprite = oldA;
-            StartCoroutine(Flashing(imageA, imageD));
-            StartCoroutine(Spotlight(spotlightIconLeft1, 1.5f));
-            StartCoroutine(Spotlight(spotlightIconLeft2, 1.5f));
+            Time.timeScale = 0;
+            StartCoroutine(Flashing(imageA, imageD, flipLeft));
+            StartCoroutine(Spotlight(spotlightIconLeft1, 4f));
+            StartCoroutine(Spotlight(spotlightIconLeft2, 4f));
         }
     }
 
-    IEnumerator Flashing(Image left, Image right)
-    {
-        left.GetComponentInChildren<TextMeshProUGUI>().color = Color.green;
-        right.GetComponentInChildren<TextMeshProUGUI>().color = Color.green;
-        for (int i = 0; i < 3; i++)
+    IEnumerator Flashing(Image left, Image right, Image flip)
+    { 
+        for (int i = 0; i < 5; i++)
         {
+            if (i == 2)
+            {
+                left.GetComponentInChildren<TextMeshProUGUI>().color = Color.green;
+                right.GetComponentInChildren<TextMeshProUGUI>().color = Color.green;
+                Sprite oldleft = left.sprite;
+                Sprite oldright = right.sprite;
+                left.sprite = oldright;
+                right.sprite = oldleft;
+                flip.enabled = true;
+            }
             left.enabled = false;
             right.enabled = false;
-            yield return new WaitForSeconds(0.2f);
+            yield return new WaitForSecondsRealtime(0.4f);
             left.enabled = true;
             right.enabled = true;
-            yield return new WaitForSeconds(0.2f);
+            yield return new WaitForSecondsRealtime(0.4f);
         }
         left.GetComponentInChildren<TextMeshProUGUI>().color = Color.black;
         right.GetComponentInChildren<TextMeshProUGUI>().color = Color.black;
+        flip.enabled = false;
+        Time.timeScale = 1;
     }
 
     public void CarLeftStop()
@@ -392,38 +406,52 @@ public class GameControllerTut : MonoBehaviour
     {
         if (carName == "CarLeft")
         {
-            currentLeftScore += 5;
-            leftScore.text = "" + currentLeftScore.ToString("F0");
-            StartCoroutine(FlashScore(leftScore, Color.magenta));
-            StartCoroutine(Spotlight(spotlightLeft, 1.5f));
+            Time.timeScale = 0;
+            StartCoroutine(FlashScore(leftScore, Color.magenta, true, fiveLeft));
+            StartCoroutine(Spotlight(spotlightLeft, 4f));
         }
         else
         {
-            currentRightScore += 5;
-            rightScore.text = "" + currentRightScore.ToString("F0");
-            StartCoroutine(FlashScore(rightScore, Color.magenta));
-            StartCoroutine(Spotlight(spotlightRight, 1.5f));
+            Time.timeScale = 0;
+            StartCoroutine(FlashScore(rightScore, Color.magenta, false, fiveRight));
+            StartCoroutine(Spotlight(spotlightRight, 4f));
         }
     }
 
     private IEnumerator Spotlight(Image spotlight, float delay)
     {
         spotlight.enabled = true;
-        yield return new WaitForSeconds(delay);
+        yield return new WaitForSecondsRealtime(delay);
         spotlight.enabled = false;
     }
 
-    IEnumerator FlashScore(TextMeshProUGUI score, Color col)
+    IEnumerator FlashScore(TextMeshProUGUI score, Color col, bool left, TextMeshProUGUI five)
     {
-        score.color = col;
-        for (int i = 0; i < 3; i++)
+        for (int i = 0; i < 5; i++)
         {
+            if (i ==2)
+            {
+                score.color = col;
+                if (left)
+                {
+                    currentLeftScore += 5;
+                    score.text = currentLeftScore.ToString("F0");
+                }
+                else
+                {
+                    currentRightScore += 5;
+                    score.text = currentRightScore.ToString("F0");
+                }
+                five.gameObject.SetActive(true);
+            }
             score.enabled = false;
-            yield return new WaitForSeconds(0.2f);
+            yield return new WaitForSecondsRealtime(0.4f);
             score.enabled = true;
-            yield return new WaitForSeconds(0.2f);
+            yield return new WaitForSecondsRealtime(0.4f);
         }
         score.color = Color.black;
+        five.gameObject.SetActive(false);
+        Time.timeScale = 1;
     }
 
     public void ActivateBonus()
@@ -439,47 +467,47 @@ public class GameControllerTut : MonoBehaviour
     }
 
 
-    public void DisplayLeftLostPointsMsg()
-    {
-        BulletImpactForLeftPlayer();
-        leftLostPointsMsg.color = Color.blue;
-        leftLostPointsMsg.gameObject.SetActive(true);
-        StartCoroutine(HideSwitchMessage(1f));
-    }
+    //public void DisplayLeftLostPointsMsg()
+    //{
+    //    BulletImpactForLeftPlayer();
+    //    leftLostPointsMsg.color = Color.blue;
+    //    leftLostPointsMsg.gameObject.SetActive(true);
+    //    StartCoroutine(HideSwitchMessage(1f));
+    //}
 
-    void BulletImpactForLeftPlayer()
-    {
-        if (currentLeftScore - bulletPropImpact < 0)
-        {
-            currentLeftScore = 0f;
-        }
-        else
-        {
-            currentLeftScore -= bulletPropImpact;
-        }
-        StartCoroutine(FlashScore(leftScore, Color.blue));
-    }
+    //void BulletImpactForLeftPlayer()
+    //{
+    //    if (currentLeftScore - bulletPropImpact < 0)
+    //    {
+    //        currentLeftScore = 0f;
+    //    }
+    //    else
+    //    {
+    //        currentLeftScore -= bulletPropImpact;
+    //    }
+    //    StartCoroutine(FlashScore(leftScore, Color.blue));
+    //}
 
-    public void DisplayRightLostPointsMsg()
-    {
-        BulletImpactForRightPlayer();
-        rightLostPointsMsg.color = Color.blue;
-        rightLostPointsMsg.gameObject.SetActive(true);
-        StartCoroutine(HideSwitchMessage(1f));
-    }
+    //public void DisplayRightLostPointsMsg()
+    //{
+    //    BulletImpactForRightPlayer();
+    //    rightLostPointsMsg.color = Color.blue;
+    //    rightLostPointsMsg.gameObject.SetActive(true);
+    //    StartCoroutine(HideSwitchMessage(1f));
+    //}
 
-    void BulletImpactForRightPlayer()
-    {
-        if (currentRightScore - bulletPropImpact < 0)
-        {
-            currentRightScore = 0f;
-        }
-        else
-        {
-            currentRightScore -= bulletPropImpact;
-        }
-        StartCoroutine(FlashScore(rightScore, Color.blue));
-    }
+    //void BulletImpactForRightPlayer()
+    //{
+    //    if (currentRightScore - bulletPropImpact < 0)
+    //    {
+    //        currentRightScore = 0f;
+    //    }
+    //    else
+    //    {
+    //        currentRightScore -= bulletPropImpact;
+    //    }
+    //    StartCoroutine(FlashScore(rightScore, Color.blue));
+    //}
 
     IEnumerator HideSwitchMessage(float delay)
     {
