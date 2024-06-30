@@ -10,6 +10,7 @@ TagManager:
   - CountDown
   - Lives
   - HeartProp
+  - Bullet
   layers:
   - Default
   - TransparentFX
