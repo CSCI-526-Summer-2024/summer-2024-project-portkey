@@ -284,14 +284,15 @@ public class CarMove : MonoBehaviour
         if (other.gameObject.name.Contains("ReduceEnemyHealth"))
         {
             Destroy(other.gameObject);
-            UpdateLives(transform.name, false);
          //   gameController.UpdateHealthBarOnCollision(transform.name, hp.minusPropImpactOnHealth, true);
             if (transform.name == ConstName.LEFT_CAR)
             {
+                UpdateLives(ConstName.RIGHT_CAR, false);
                 gameController.DisplayRightLostHealthMsg();
             }
             else if (transform.name == ConstName.RIGHT_CAR)
             {
+                UpdateLives(ConstName.LEFT_CAR, false);
                 gameController.DisplayLeftLostHealthMsg();
             }
         }
