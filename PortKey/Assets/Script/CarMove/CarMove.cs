@@ -200,7 +200,7 @@ public class CarMove : MonoBehaviour
 
     }
 
-    void UpdateLives(string player, bool didLiveUp)
+    void UpdateLives(string player, bool didLiveUp, bool isDueToMinusProp)
     {
         if (didLiveUp) //if collected the heart then increment the hearts
         {
@@ -219,7 +219,7 @@ public class CarMove : MonoBehaviour
                 liveManager.DecrementLivesLeft();
                 if (liveManager.GetLivesLeft() == 0)
                 {
-                    PlayerDead();
+                    PlayerDied(isDueToMinusProp);
                 } 
             }
             else
@@ -227,7 +227,7 @@ public class CarMove : MonoBehaviour
                 liveManager.DecrementLivesRight();
                 if (liveManager.GetLivesRight() == 0)
                 {
-                    PlayerDead();
+                    PlayerDied(isDueToMinusProp);
                 }
             }
         }
@@ -254,7 +254,7 @@ public class CarMove : MonoBehaviour
             //CheckIfPlayerIsHealthyOrNot();
 
             //update lives of the player
-            UpdateLives(transform.name, false);
+            UpdateLives(transform.name, false, false);
 
             //destroy the obstacle on collision
             Destroy(other.gameObject);
@@ -287,12 +287,12 @@ public class CarMove : MonoBehaviour
          //   gameController.UpdateHealthBarOnCollision(transform.name, hp.minusPropImpactOnHealth, true);
             if (transform.name == ConstName.LEFT_CAR)
             {
-                UpdateLives(ConstName.RIGHT_CAR, false);
+                UpdateLives(ConstName.RIGHT_CAR, false, true);
                 gameController.DisplayRightLostHealthMsg();
             }
             else if (transform.name == ConstName.RIGHT_CAR)
             {
-                UpdateLives(ConstName.LEFT_CAR, false);
+                UpdateLives(ConstName.LEFT_CAR, false, true);
                 gameController.DisplayLeftLostHealthMsg();
             }
         }
@@ -320,8 +320,7 @@ public class CarMove : MonoBehaviour
         {
             //update lives of the player
             Destroy(other.gameObject);
-            Debug.Log("collided with heart");
-            UpdateLives(transform.name, true);
+            UpdateLives(transform.name, true, false);
             
         }
         /************************* For Heart Collision *************************/
@@ -411,17 +410,31 @@ public class CarMove : MonoBehaviour
         }
     }
 
-    void PlayerDead()
+    void PlayerDied(bool isDueToMinusProp)
     {
+
         //updates the ui if one of the players lost all of their health
         Time.timeScale = 0;
         gameController.StopFlashing();
-        deathText.gameObject.SetActive(true);
-        deathText.text = "YOU DIE";
-        deathText.color = Color.red;
-        winText.gameObject.SetActive(true);
-        winText.text = "YOU WIN";
-        winText.color = Color.green;
+        if (isDueToMinusProp)
+        {
+            deathText.gameObject.SetActive(true);
+            deathText.text = "YOU WIN";
+            deathText.color = Color.green;
+            winText.gameObject.SetActive(true);
+            winText.text = "YOU DIE";
+            winText.color = Color.red;
+        }
+        else
+        {
+            deathText.gameObject.SetActive(true);
+            deathText.text = "YOU DIE";
+            deathText.color = Color.red;
+            winText.gameObject.SetActive(true);
+            winText.text = "YOU WIN";
+            winText.color = Color.green;
+        }
+       
 
         navArea.gameObject.SetActive(true);
         broadcastMsg.text = "GAME OVER";
