@@ -236,10 +236,8 @@ public class CarMove : MonoBehaviour
 
     void ProcessReduceEnemyHealthProp(string player)
     {
-        Debug.Log("In ProcessReduceEnemyHealthProp for : " + player);
         if (player == ConstName.RIGHT_CAR)
         {
-            Debug.Log("1");
             liveManager.DecrementLivesLeft();
             if (liveManager.GetLivesLeft() == 0)
             {
@@ -248,7 +246,6 @@ public class CarMove : MonoBehaviour
         }
         else
         {
-            Debug.Log("2");
             liveManager.DecrementLivesRight();
             if (liveManager.GetLivesRight() == 0)
             {
@@ -307,7 +304,6 @@ public class CarMove : MonoBehaviour
         if (other.gameObject.name.Contains("ReduceEnemyHealth"))
         {
             Destroy(other.gameObject);
-            Debug.Log("minus collected by: " + transform.name);
             ProcessReduceEnemyHealthProp(transform.name);
             
         }
@@ -400,51 +396,53 @@ public class CarMove : MonoBehaviour
         }
     }
 
-    //void CheckIfPlayerIsHealthyOrNot()
-    //{
-    //    //updates the ui if one of the players lost all of their health
-    //    if (playerHealth <= 0)
-    //    {
-    //        Time.timeScale = 0;
-    //        gameController.StopFlashing();
-    //        deathText.gameObject.SetActive(true);
-    //        deathText.text = "YOU DIE";
-    //        deathText.color = Color.red;
-    //        winText.gameObject.SetActive(true);
-    //        winText.text = "YOU WIN";
-    //        winText.color = Color.green;
-
-    //        navArea.gameObject.SetActive(true);
-    //        broadcastMsg.text = "GAME OVER";
-    //        broadcastMsg.color = Color.black;
-
-    //        // Level Completion Reason Metric #2 
-    //        gameController.reasonforFinshingLevel = 1;
-
-    //        gameController.StopScoreCalculation(transform.name);
-    //    }
-    //}
-
+    
     void PlayerDead()
     {
-        //updates the ui if one of the players lost all of their health
-        Time.timeScale = 0;
-        gameController.StopFlashing();
-        deathText.gameObject.SetActive(true);
-        deathText.text = "YOU DIE";
-        deathText.color = Color.red;
-        winText.gameObject.SetActive(true);
-        winText.text = "YOU WIN";
-        winText.color = Color.green;
+        if (liveManager.GetLivesLeft() <= 0)
+        {
 
-        navArea.gameObject.SetActive(true);
-        broadcastMsg.text = "GAME OVER";
-        broadcastMsg.color = Color.black;
+            //updates the ui if one of the players lost all of their health
+            Time.timeScale = 0;
+            gameController.StopFlashing();
+            deathText.gameObject.SetActive(true);
+            deathText.text = "YOU DIE";
+            deathText.color = Color.red;
+            winText.gameObject.SetActive(true);
+            winText.text = "YOU WIN";
+            winText.color = Color.green;
 
-        // Level Completion Reason Metric #2 
-        gameController.reasonforFinshingLevel = 1;
+            navArea.gameObject.SetActive(true);
+            broadcastMsg.text = "GAME OVER";
+            broadcastMsg.color = Color.black;
 
-        gameController.StopScoreCalculation(transform.name);
+            // Level Completion Reason Metric #2 
+            gameController.reasonforFinshingLevel = 1;
+
+            gameController.StopScoreCalculation(transform.name);
+        }
+        else if (liveManager.GetLivesRight() <= 0)
+        {
+
+            //updates the ui if one of the players lost all of their health
+            Time.timeScale = 0;
+            gameController.StopFlashing();
+            deathText.gameObject.SetActive(true);
+            deathText.text = "YOU DIE";
+            deathText.color = Color.red;
+            winText.gameObject.SetActive(true);
+            winText.text = "YOU WIN";
+            winText.color = Color.green;
+
+            navArea.gameObject.SetActive(true);
+            broadcastMsg.text = "GAME OVER";
+            broadcastMsg.color = Color.black;
+
+            // Level Completion Reason Metric #2 
+            gameController.reasonforFinshingLevel = 1;
+
+            gameController.StopScoreCalculation(transform.name);
+        }
       
     }
 
