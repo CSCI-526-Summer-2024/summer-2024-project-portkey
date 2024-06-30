@@ -239,6 +239,7 @@ public class CarMove : MonoBehaviour
         if (player == ConstName.RIGHT_CAR)
         {
             liveManager.DecrementLivesLeft();
+            gameController.DisplayLeftLostHealthMsg();
             if (liveManager.GetLivesLeft() == 0)
             {
                 PlayerDead();
@@ -247,6 +248,7 @@ public class CarMove : MonoBehaviour
         else
         {
             liveManager.DecrementLivesRight();
+            gameController.DisplayRightLostHealthMsg();
             if (liveManager.GetLivesRight() == 0)
             {
                 PlayerDead();
