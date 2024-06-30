@@ -18,6 +18,8 @@ public class SpawnObjInterval
 
     public readonly float[] slowEnemyTime = { 5, 8 };
 
+    public readonly float[] bulletTime = { 5, 8 };
+
     public void SetLevelParameters(int level)
     {
         switch (level)
@@ -35,6 +37,8 @@ public class SpawnObjInterval
                 slowEnemyTime[1] = 8;
                 heartTime[0] = 5;
                 heartTime[1] = 8;
+                bulletTime[0] = 5;
+                bulletTime[1] = 8;
                 break;
             case 2:
                 spawnObstacleTime[0] = 0.8f;
@@ -49,6 +53,8 @@ public class SpawnObjInterval
                 slowEnemyTime[1] = 7.8f;
                 heartTime[0] = 4.8f;
                 heartTime[1] = 7.8f;
+                bulletTime[0] = 4.8f;
+                bulletTime[1] = 7.8f;
                 break;
             case 3:
                 spawnObstacleTime[0] = 0.6f;
@@ -63,6 +69,8 @@ public class SpawnObjInterval
                 slowEnemyTime[1] = 7.6f;
                 heartTime[0] = 4.6f;
                 heartTime[1] = 7.6f;
+                bulletTime[0] = 4.6f;
+                bulletTime[1] = 7.6f;
                 break;
             case 4:
                 spawnObstacleTime[0] = 0.5f;
@@ -77,6 +85,24 @@ public class SpawnObjInterval
                 slowEnemyTime[1] = 6;
                 heartTime[0] = 3;
                 heartTime[1] = 6;
+                bulletTime[0] = 3;
+                bulletTime[1] = 6;
+                break;
+            case 5:
+                spawnObstacleTime[0] = 0.5f;
+                spawnObstacleTime[1] = 1.5f;
+                enemyControlReverseTime[0] = 3;
+                enemyControlReverseTime[1] = 6;
+                scoreUpTime[0] = 3;
+                scoreUpTime[1] = 6;
+                reduceEnemyHealthSpawnTimeRange[0] = 3;
+                reduceEnemyHealthSpawnTimeRange[1] = 6;
+                slowEnemyTime[0] = 3;
+                slowEnemyTime[1] = 6;
+                heartTime[0] = 3;
+                heartTime[1] = 6;
+                bulletTime[0] = 3;
+                bulletTime[1] = 6;
                 break;
             default:
                 Debug.Log("Invalid level");
@@ -92,6 +118,8 @@ public class SpawnObjInterval
                 slowEnemyTime[1] = 8;
                 heartTime[0] = 5;
                 heartTime[1] = 8;
+                bulletTime[0] = 5;
+                bulletTime[1] = 8;
                 break;
         }
     }
@@ -120,6 +148,8 @@ public class SpawnObjController : MonoBehaviour
     public GameObject reduceEnemyHealth;
 
     public GameObject heart;
+
+    public GameObject bullet;
 
     public bool isStopSpawn = false;
 
@@ -179,6 +209,11 @@ public class SpawnObjController : MonoBehaviour
         if (heart != null)
         {
             StartCoroutine(SpawnHeart());
+        }
+
+        if (bullet != null)
+        {
+            StartCoroutine(SpawnBullet());
         }
     }
 
@@ -364,6 +399,27 @@ public class SpawnObjController : MonoBehaviour
         }
 
     }
+
+    IEnumerator SpawnBullet()
+    {
+
+        while (true)
+        {
+            yield return new WaitUntil(() => !isStopSpawn);
+            // Randomly spawn objects
+
+            yield return new WaitForSeconds(Random.Range(interval.bulletTime[0], interval.bulletTime[1]));
+
+            if (!isStopSpawn)
+            {
+                GameObject cloneBullet = Instantiate(bullet, transform);
+                cloneBullet.transform.position = new Vector2(Random.Range(leftOffset, rightOffset), showUpYPos);
+            }
+        }
+
+    }
+
+
 
     IEnumerator SpawnSlowEnemy()
     {

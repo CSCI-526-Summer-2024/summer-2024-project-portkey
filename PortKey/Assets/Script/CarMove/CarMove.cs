@@ -337,6 +337,31 @@ public class CarMove : MonoBehaviour
             
         }
         /************************* For Heart Collision *************************/
+
+        /************************* For Bullet Collision *************************/
+        if (other.gameObject.tag == "Bullet")
+        {
+            if (transform.name == ConstName.LEFT_CAR)
+            {
+
+                RotateBulletShooter shooter = GameObject.Find("PivotLeft").GetComponent<RotateBulletShooter>();
+                if (shooter != null)
+                {
+                    shooter.IncreaseBulletCountLeft();
+                }
+
+            }
+            else
+            {
+                RotateBulletShooter shooter = GameObject.Find("PivotRight").GetComponent<RotateBulletShooter>();
+                if (shooter != null)
+                {
+                    shooter.IncreaseBulletCountRight();
+                }
+            }
+            Destroy(other.gameObject); // Destroy the prop after collecting
+        }
+        /************************* For Bullet Collision *************************/
     }
 
 
