@@ -318,8 +318,9 @@ public class CarMove : MonoBehaviour
         if (other.gameObject.tag == "HeartProp")
         {
             //update lives of the player
-            UpdateLives(transform.name, true);
             Destroy(other.gameObject);
+            UpdateLives(transform.name, true);
+            
         }
         /************************* For Heart Collision *************************/
     }
