@@ -72,6 +72,8 @@ public class CarMove : MonoBehaviour
 
     public HealthBar healthBar;
 
+    public LivesManager liveManager;
+
     private int level;
 
     GameController gameController;
@@ -105,7 +107,13 @@ public class CarMove : MonoBehaviour
 
         originalRotation = transform.localRotation;
         originalYPosition = transform.localPosition.y;
+
         UploadHealthBars();
+        liveManager = GameObject.FindWithTag("Lives").GetComponent<LivesManager>();
+        if (liveManager == null)
+        {
+            Debug.LogError("LiveManager not found");
+        }
     }
 
     void UploadHealthBars()
@@ -192,6 +200,40 @@ public class CarMove : MonoBehaviour
 
     }
 
+    void UpdateLives(string player, bool didLiveUp)
+    {
+        if (didLiveUp) //if collected the heart then increment the hearts
+        {
+            if (player == ConstName.LEFT_CAR)
+            {
+                liveManager.IncrementLivesLeft();
+            }
+            else
+            {
+                liveManager.IncrementLivesRight();
+            }
+        } 
+        else {
+            if (player == ConstName.LEFT_CAR)
+            {
+                liveManager.DecrementLivesLeft();
+                if (liveManager.GetLivesLeft() == 0)
+                {
+                    PlayerDead();
+                } 
+            }
+            else
+            {
+                liveManager.DecrementLivesRight();
+                if (liveManager.GetLivesRight() == 0)
+                {
+                    PlayerDead();
+                }
+            }
+        }
+       
+    }
+
     void OnTriggerEnter2D(Collider2D other)
     {
         /************************* For Obstacle Collision *************************/
@@ -209,7 +251,10 @@ public class CarMove : MonoBehaviour
             UpdateDataForAnalytics();
 
             // Check if player is healthy or not
-            CheckIfPlayerIsHealthyOrNot();
+            //CheckIfPlayerIsHealthyOrNot();
+
+            //update lives of the player
+            UpdateLives(transform.name, false);
 
             //destroy the obstacle on collision
             Destroy(other.gameObject);
@@ -269,6 +314,14 @@ public class CarMove : MonoBehaviour
         }
         /************************* For SlowEnemy Collision *************************/
 
+        /************************* For Heart Collision *************************/
+        if (other.gameObject.tag == "HeartProp")
+        {
+            //update lives of the player
+            UpdateLives(transform.name, true);
+            Destroy(other.gameObject);
+        }
+        /************************* For Heart Collision *************************/
     }
 
 
@@ -353,6 +406,29 @@ public class CarMove : MonoBehaviour
 
             gameController.StopScoreCalculation(transform.name);
         }
+    }
+
+    void PlayerDead()
+    {
+        //updates the ui if one of the players lost all of their health
+        Time.timeScale = 0;
+        gameController.StopFlashing();
+        deathText.gameObject.SetActive(true);
+        deathText.text = "YOU DIE";
+        deathText.color = Color.red;
+        winText.gameObject.SetActive(true);
+        winText.text = "YOU WIN";
+        winText.color = Color.green;
+
+        navArea.gameObject.SetActive(true);
+        broadcastMsg.text = "GAME OVER";
+        broadcastMsg.color = Color.black;
+
+        // Level Completion Reason Metric #2 
+        gameController.reasonforFinshingLevel = 1;
+
+        gameController.StopScoreCalculation(transform.name);
+      
     }
 
     void DisplaySwitchMessage()
