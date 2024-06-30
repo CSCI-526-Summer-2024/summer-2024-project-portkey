@@ -12,6 +12,8 @@ public class SpawnObjInterval
 
     public readonly float[] scoreUpTime = { 5, 8 };
 
+    public readonly float[] heartTime = { 5, 8 };
+
     public readonly float[] reduceEnemyHealthSpawnTimeRange = { 5, 8 };
 
     public readonly float[] slowEnemyTime = { 5, 8 };
@@ -31,6 +33,8 @@ public class SpawnObjInterval
                 reduceEnemyHealthSpawnTimeRange[1] = 8;
                 slowEnemyTime[0] = 5;
                 slowEnemyTime[1] = 8;
+                heartTime[0] = 5;
+                heartTime[1] = 8;
                 break;
             case 2:
                 spawnObstacleTime[0] = 0.8f;
@@ -43,6 +47,8 @@ public class SpawnObjInterval
                 reduceEnemyHealthSpawnTimeRange[1] = 7.8f;
                 slowEnemyTime[0] = 4.8f;
                 slowEnemyTime[1] = 7.8f;
+                heartTime[0] = 4.8f;
+                heartTime[1] = 7.8f;
                 break;
             case 3:
                 spawnObstacleTime[0] = 0.6f;
@@ -55,6 +61,8 @@ public class SpawnObjInterval
                 reduceEnemyHealthSpawnTimeRange[1] = 7.6f;
                 slowEnemyTime[0] = 4.6f;
                 slowEnemyTime[1] = 7.6f;
+                heartTime[0] = 4.6f;
+                heartTime[1] = 7.6f;
                 break;
             case 4:
                 spawnObstacleTime[0] = 0.5f;
@@ -67,6 +75,8 @@ public class SpawnObjInterval
                 reduceEnemyHealthSpawnTimeRange[1] = 6;
                 slowEnemyTime[0] = 3;
                 slowEnemyTime[1] = 6;
+                heartTime[0] = 3;
+                heartTime[1] = 6;
                 break;
             default:
                 Debug.Log("Invalid level");
@@ -80,6 +90,8 @@ public class SpawnObjInterval
                 reduceEnemyHealthSpawnTimeRange[1] = 8;
                 slowEnemyTime[0] = 5;
                 slowEnemyTime[1] = 8;
+                heartTime[0] = 5;
+                heartTime[1] = 8;
                 break;
         }
     }
@@ -106,6 +118,8 @@ public class SpawnObjController : MonoBehaviour
     public GameObject slowEnemy;
 
     public GameObject reduceEnemyHealth;
+
+    public GameObject heart;
 
     public bool isStopSpawn = false;
 
@@ -160,6 +174,11 @@ public class SpawnObjController : MonoBehaviour
         if (slowEnemy != null)
         {
             StartCoroutine(SpawnSlowEnemy());
+        }
+
+        if (heart != null)
+        {
+            StartCoroutine(SpawnHeart());
         }
     }
 
@@ -322,6 +341,25 @@ public class SpawnObjController : MonoBehaviour
             {
                 GameObject cloneScoreUp = Instantiate(scoreUp, transform);
                 cloneScoreUp.transform.position = new Vector2(Random.Range(leftOffset, rightOffset), showUpYPos);
+            }
+        }
+
+    }
+
+    IEnumerator SpawnHeart()
+    {
+
+        while (true)
+        {
+            yield return new WaitUntil(() => !isStopSpawn);
+            // Randomly spawn objects
+
+            yield return new WaitForSeconds(Random.Range(interval.heartTime[0], interval.heartTime[1]));
+
+            if (!isStopSpawn)
+            {
+                GameObject cloneHeart = Instantiate(heart, transform);
+                cloneHeart.transform.position = new Vector2(Random.Range(leftOffset, rightOffset), showUpYPos);
             }
         }
 

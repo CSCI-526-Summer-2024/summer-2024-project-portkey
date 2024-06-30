@@ -485,14 +485,7 @@ public class GameController : MonoBehaviour
         string levelName = SceneManager.GetActiveScene().name;
         char levelLastChar = levelName[levelName.Length - 1];
         int levelNumber;
-        if (int.TryParse(levelLastChar.ToString(), out levelNumber))
-        {
-            Debug.Log("The last character as an integer: " + levelNumber);
-        }
-        else
-        {
-            Debug.LogWarning("The last character is not a valid number.");
-        }
+        int.TryParse(levelLastChar.ToString(), out levelNumber);
 
         //posting the analytics to the firebase
         PlayerData playerData = new PlayerData();
