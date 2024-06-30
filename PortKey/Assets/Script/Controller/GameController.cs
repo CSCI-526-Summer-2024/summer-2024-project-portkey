@@ -562,7 +562,7 @@ public class GameController : MonoBehaviour
     public void DisplayLeftLostHealthMsg()
     {
         //BulletImpactForLeftPlayer();
-        LostHealthMsgLeft.text = "Opponent Stole Your Health";
+        LostHealthMsgLeft.text = "Health Stolen";
         LostHealthMsgLeft.color = Color.blue;
         LostHealthMsgLeft.gameObject.SetActive(true);
         StartCoroutine(HideStolenHealthMessage(1f));
