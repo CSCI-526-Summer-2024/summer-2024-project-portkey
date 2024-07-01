@@ -66,6 +66,10 @@ public class CarMove : MonoBehaviour
 
     public bool reversed = false;
 
+    public GameObject reverseIcon;
+
+    public GameObject background;
+
     Quaternion originalRotation;
 
     float originalYPosition;
@@ -197,7 +201,8 @@ public class CarMove : MonoBehaviour
             }
         }
 
-
+        UpdateReverseIconVisibility();
+        UpdateBackground();
     }
 
     void UpdateLives(string player, bool didLiveUp, bool isDueToMinusProp)
@@ -212,8 +217,9 @@ public class CarMove : MonoBehaviour
             {
                 liveManager.IncrementLivesRight();
             }
-        } 
-        else {
+        }
+        else
+        {
             if (player == ConstName.LEFT_CAR)
             {
                 liveManager.DecrementLivesLeft();
@@ -231,7 +237,7 @@ public class CarMove : MonoBehaviour
                 }
             }
         }
-       
+
     }
 
     void ProcessReduceEnemyHealthProp(string player)
@@ -334,7 +340,6 @@ public class CarMove : MonoBehaviour
             //update lives of the player
             Destroy(other.gameObject);
             UpdateLives(transform.name, true, false);
-            
         }
         /************************* For Heart Collision *************************/
     }
@@ -450,5 +455,38 @@ public class CarMove : MonoBehaviour
     {
         yield return new WaitForSeconds(delay);
         winText.gameObject.SetActive(false);
+    }
+
+
+    private void UpdateReverseIconVisibility()
+    {
+        if (reverseIcon != null)
+        {
+            reverseIcon.SetActive(reversed);
+        }
+        else
+        {
+            Debug.LogError("ReverseIcon GameObject is not assigned!");
+        }
+    }
+
+    private void UpdateBackground()
+    {
+        if (background == null)
+        {
+            Debug.LogError("Background GameObject is not assigned!");
+            return;
+        }
+
+        if (reversed)
+        {
+            //  set background color to "#FFFE9C" and alpha to 160
+            background.GetComponent<SpriteRenderer>().color = new Color(1f, 254f / 255f, 156f / 255f, 160f / 255f);
+        }
+        else
+        {
+            // set background color to "#FFFFFF" and alpha to 160
+            background.GetComponent<SpriteRenderer>().color = new Color(1f, 1f, 1f, 160f / 255f);
+        }
     }
 }
