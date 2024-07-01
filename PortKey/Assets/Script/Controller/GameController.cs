@@ -201,6 +201,8 @@ public class GameController : MonoBehaviour
         {
             ShootingTextRight.gameObject.SetActive(false);
         }
+        GameObject.Find("PivotLeft").GetComponent<RotateBulletShooter>().InitializeBullets();
+        GameObject.Find("PivotRight").GetComponent<RotateBulletShooter>().InitializeBullets();
     }
 
     void DisplayCountDown()
