@@ -3207,7 +3207,7 @@ MonoBehaviour:
   enemyControlReverse: {fileID: 6872324455893141424, guid: ac4895e29b28d46e6ba16007cb7d0d96, type: 3}
   scoreUp: {fileID: 1682798608209473767, guid: a5b28d95be93e4d178f24f33995a10c0, type: 3}
   slowEnemy: {fileID: 0}
-  reduceEnemyHealth: {fileID: 2404250421653184721, guid: c024d3d0682374d3b934f90699800437, type: 3}
+  reduceEnemyHealth: {fileID: 2404250421653184721, guid: d53c2084d43094bd8a071e0ed9c3ac7e, type: 3}
   heart: {fileID: 1682798608209473767, guid: 908446287b1190a4b851d9a9536505f3, type: 3}
   isStopSpawn: 0
   leftOffset: 0.5
@@ -3562,11 +3562,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 850206387}
   m_CullTransparentMesh: 1
---- !u!4 &921094421 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 2625772341581527468, guid: 291b92b52700245eb981f55edd297c09, type: 3}
-  m_PrefabInstance: {fileID: 5285726020876070335}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1036004964
 GameObject:
   m_ObjectHideFlags: 0
