@@ -200,7 +200,7 @@ public class CarMove : MonoBehaviour
 
     }
 
-    void UpdateLives(string player, bool didLiveUp)
+    void UpdateLives(string player, bool didLiveUp, bool isDueToMinusProp)
     {
         if (didLiveUp) //if collected the heart then increment the hearts
         {
@@ -219,7 +219,7 @@ public class CarMove : MonoBehaviour
                 liveManager.DecrementLivesLeft();
                 if (liveManager.GetLivesLeft() == 0)
                 {
-                    PlayerDead();
+                    PlayerDead(isDueToMinusProp);
                 } 
             }
             else
@@ -227,7 +227,7 @@ public class CarMove : MonoBehaviour
                 liveManager.DecrementLivesRight();
                 if (liveManager.GetLivesRight() == 0)
                 {
-                    PlayerDead();
+                    PlayerDead(isDueToMinusProp);
                 }
             }
         }
@@ -242,7 +242,7 @@ public class CarMove : MonoBehaviour
             gameController.DisplayLeftLostHealthMsg();
             if (liveManager.GetLivesLeft() == 0)
             {
-                PlayerDead();
+                PlayerDead(true);
             }
         }
         else
@@ -251,7 +251,7 @@ public class CarMove : MonoBehaviour
             gameController.DisplayRightLostHealthMsg();
             if (liveManager.GetLivesRight() == 0)
             {
-                PlayerDead();
+                PlayerDead(true);
             }
         }
     }
@@ -276,7 +276,7 @@ public class CarMove : MonoBehaviour
             //CheckIfPlayerIsHealthyOrNot();
 
             //update lives of the player
-            UpdateLives(transform.name, false);
+            UpdateLives(transform.name, false, false);
 
             //destroy the obstacle on collision
             Destroy(other.gameObject);
@@ -333,7 +333,7 @@ public class CarMove : MonoBehaviour
         {
             //update lives of the player
             Destroy(other.gameObject);
-            UpdateLives(transform.name, true);
+            UpdateLives(transform.name, true, false);
             
         }
         /************************* For Heart Collision *************************/
@@ -399,20 +399,33 @@ public class CarMove : MonoBehaviour
     }
 
     
-    void PlayerDead()
+    void PlayerDead(bool isDueToMinusProp)
     {
-        if (liveManager.GetLivesLeft() <= 0)
+        if (liveManager.GetLivesLeft() <= 0 || liveManager.GetLivesRight() <= 0)
         {
 
             //updates the ui if one of the players lost all of their health
             Time.timeScale = 0;
             gameController.StopFlashing();
-            deathText.gameObject.SetActive(true);
-            deathText.text = "YOU DIE";
-            deathText.color = Color.red;
-            winText.gameObject.SetActive(true);
-            winText.text = "YOU WIN";
-            winText.color = Color.green;
+            if (isDueToMinusProp)
+            {
+                deathText.gameObject.SetActive(true);
+                deathText.text = "YOU WIN";
+                deathText.color = Color.green;
+                winText.gameObject.SetActive(true);
+                winText.text = "YOU DIE";
+                winText.color = Color.red;
+            }
+            else
+            {
+                deathText.gameObject.SetActive(true);
+                deathText.text = "YOU DIE";
+                deathText.color = Color.red;
+                winText.gameObject.SetActive(true);
+                winText.text = "YOU WIN";
+                winText.color = Color.green;
+            }
+          
 
             navArea.gameObject.SetActive(true);
             broadcastMsg.text = "GAME OVER";
@@ -422,30 +435,7 @@ public class CarMove : MonoBehaviour
             gameController.reasonforFinshingLevel = 1;
 
             gameController.StopScoreCalculation(transform.name);
-        }
-        else if (liveManager.GetLivesRight() <= 0)
-        {
-
-            //updates the ui if one of the players lost all of their health
-            Time.timeScale = 0;
-            gameController.StopFlashing();
-            deathText.gameObject.SetActive(true);
-            deathText.text = "YOU DIE";
-            deathText.color = Color.red;
-            winText.gameObject.SetActive(true);
-            winText.text = "YOU WIN";
-            winText.color = Color.green;
-
-            navArea.gameObject.SetActive(true);
-            broadcastMsg.text = "GAME OVER";
-            broadcastMsg.color = Color.black;
-
-            // Level Completion Reason Metric #2 
-            gameController.reasonforFinshingLevel = 1;
-
-            gameController.StopScoreCalculation(transform.name);
-        }
-      
+        }      
     }
 
     void DisplaySwitchMessage()
