@@ -42,6 +42,9 @@ public class CarMoveTut : MonoBehaviour
     private HealthBar leftHealthBar;
     private HealthBar rightHealthBar;
 
+    public GameObject background;
+
+
     void Start()
     {
         UploadHealthBars();
@@ -137,7 +140,7 @@ public class CarMoveTut : MonoBehaviour
             }
         }
 
-
+        UpdateBackground();
     }
 
     void ShootBullet()
@@ -246,7 +249,7 @@ public class CarMoveTut : MonoBehaviour
 
                 gameController.StopScoreCalculation(transform.name);
 
-                
+
             }
 
 
@@ -290,7 +293,7 @@ public class CarMoveTut : MonoBehaviour
             {
                 gameController.totalCtrlSwitchPropCollectedRight += 1;
             }
-           
+
         }
 
         if (other.gameObject.name.Contains("ScoreUp"))
@@ -312,5 +315,25 @@ public class CarMoveTut : MonoBehaviour
     {
         yield return new WaitForSeconds(delay);
         winText.gameObject.SetActive(false);
+    }
+
+    private void UpdateBackground()
+    {
+        if (background == null)
+        {
+            Debug.LogError("Background GameObject is not assigned!");
+            return;
+        }
+
+        if (reversed)
+        {
+            //  set background color to "#FFFE9C" and alpha to 160
+            background.GetComponent<SpriteRenderer>().color = new Color(1f, 254f / 255f, 156f / 255f, 160f / 255f);
+        }
+        else
+        {
+            // set background color to "#FFFFFF" and alpha to 160
+            background.GetComponent<SpriteRenderer>().color = new Color(1f, 1f, 1f, 160f / 255f);
+        }
     }
 }
