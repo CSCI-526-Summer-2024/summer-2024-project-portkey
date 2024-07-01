@@ -106,6 +106,7 @@ public class GameController : MonoBehaviour
     public Image CountDownNavArea;
     public TextMeshProUGUI CountDownLeftText;
 
+
     void Awake()
     {
         if (LostHealthMsgRight != null)
