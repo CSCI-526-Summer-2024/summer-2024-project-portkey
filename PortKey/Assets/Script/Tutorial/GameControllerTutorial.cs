@@ -6,11 +6,11 @@ using UnityEngine.UI;
 
 using Proyecto26;
 using UnityEngine.SceneManagement;
-
+using PortKey.Assets.Script.SwitchLevel;
 using PortKey.Assets.Script;
 
 
-public class GameControllerTut : MonoBehaviour
+public class GameControllerTutorial : MonoBehaviour
 {
     public Transform zoom1;
 
@@ -27,6 +27,7 @@ public class GameControllerTut : MonoBehaviour
     public TextMeshProUGUI broadcastMsg;
 
     public TextMeshProUGUI broadcastMsgLeft;
+
     public TextMeshProUGUI broadcastMsgRight;
 
     public TextMeshProUGUI TimerMsg;
@@ -53,6 +54,10 @@ public class GameControllerTut : MonoBehaviour
 
     public Image navArea;
 
+    public Image leftMud;
+
+    public Image rightMud;
+
     public TextMeshProUGUI player1;
     public TextMeshProUGUI player2;
     public Image controlLeft1;
@@ -71,6 +76,8 @@ public class GameControllerTut : MonoBehaviour
     public Image spotlightIconLeft2;
     public Image spotlightIconRight1;
     public Image spotlightIconRight2;
+    public Image spotlightLivesRight;
+    public Image spotlightLivesLeft;
 
     private RectTransform controlLeft1Rect;
     private RectTransform controlRight1Rect;
@@ -87,10 +94,11 @@ public class GameControllerTut : MonoBehaviour
     private readonly float baseScore = 1.0f;
 
     // game duration, unit is second
-    private float gameDuration = 40f;
+    private float gameDuration = 45f;
 
     //analytics helper variables
     public int totalCtrlSwitchPropCollectedRight = 0;
+
     public int totalCtrlSwitchPropCollectedLeft = 0;
 
     public int level;
@@ -98,25 +106,28 @@ public class GameControllerTut : MonoBehaviour
     public int reasonforFinshingLevel;
 
     public int collisionDueToCtrlFlipLeft;
+
     public int collisionDueToCtrlFlipRight;
 
-    public TextMeshProUGUI rightLostPointsMsg;
-    public TextMeshProUGUI leftLostPointsMsg;
+    public TextMeshProUGUI LostHealthMsgRight;
 
-    private int bulletPropImpact = 6;
+    public TextMeshProUGUI LostHealthMsgLeft;
+
+    public Image CountDownNavArea;
+    public TextMeshProUGUI CountDownLeftText;
 
     void Awake()
     {
-        if (rightLostPointsMsg != null)
-        { rightLostPointsMsg.gameObject.SetActive(false); }
+        if (LostHealthMsgRight != null)
+        { LostHealthMsgRight.gameObject.SetActive(false); }
 
-        if (leftLostPointsMsg != null)
-        { leftLostPointsMsg.gameObject.SetActive(false); }
+        if (LostHealthMsgLeft != null)
+        { LostHealthMsgLeft.gameObject.SetActive(false); }
     }
+
 
     void Start()
     {
-
         spotlightLeft.enabled = false;
         spotlightRight.enabled = false;
         spotlightIconLeft1.enabled = false;
@@ -124,14 +135,76 @@ public class GameControllerTut : MonoBehaviour
         spotlightIconRight1.enabled = false;
         spotlightIconRight2.enabled = false;
 
+        spotlightLivesRight.enabled = false;
+        spotlightLivesLeft.enabled = false;
+
         flipLeft.enabled = false;
         flipRight.enabled = false;
         fiveLeft.gameObject.SetActive(false);
         fiveRight.gameObject.SetActive(false);
 
         navArea.gameObject.SetActive(false);
-
+        if (leftMud != null && rightMud != null)
+        {
+            leftMud.enabled = false;
+            rightMud.enabled = false;
+        }
+        level = LevelInfo.Instance.Level;
         Time.timeScale = 1;
+
+        controlLeft1Rect = controlLeft1.GetComponent<RectTransform>();
+        controlRight1Rect = controlRight1.GetComponent<RectTransform>();
+        controlLeft2Rect = controlLeft2.GetComponent<RectTransform>();
+        controlRight2Rect = controlRight2.GetComponent<RectTransform>();
+
+        AddDelayAndStartGame();
+    }
+
+    void AddDelayAndStartGame()
+    {
+        WaitAndStartGame();
+    }
+
+    void StopGame()
+    {
+        StopPlayer();
+        StopSpawingProps();
+    }
+
+    void StartPlayer()
+    {
+        carLeft.GetComponent<CarMoveTutorial>().canMove = true;
+        carRight.GetComponent<CarMoveTutorial>().canMove = true;
+    }
+
+    void StartSpawingProps()
+    {
+        //zoom1.GetComponent<SpawnObjController>().isStopSpawn = false;
+        //zoom2.GetComponent<SpawnObjController>().isStopSpawn = false;
+    }
+
+    void StopPlayer()
+    {
+        carLeft.GetComponent<CarMoveTutorial>().canMove = false;
+        carRight.GetComponent<CarMoveTutorial>().canMove = false;
+    }
+
+    void StopSpawingProps()
+    {
+        //zoom1.GetComponent<SpawnObjController>().isStopSpawn = true;
+        //zoom2.GetComponent<SpawnObjController>().isStopSpawn = true;
+    }
+
+    void WaitAndStartGame()
+    {
+        StopGame();
+        StartGame();
+    }
+
+    void StartGame()
+    {
+        StartPlayer();
+        StartSpawingProps();
 
         if (leftScore != null)
         {
@@ -143,14 +216,8 @@ public class GameControllerTut : MonoBehaviour
             InvokeRepeating("CalculateScoreRight", 1, 1);
         }
 
-        controlLeft1Rect = controlLeft1.GetComponent<RectTransform>();
-        controlRight1Rect = controlRight1.GetComponent<RectTransform>();
-        controlLeft2Rect = controlLeft2.GetComponent<RectTransform>();
-        controlRight2Rect = controlRight2.GetComponent<RectTransform>();
-
         StartCoroutine(CountdownTimer());
     }
-
 
     void Update()
     {
@@ -171,12 +238,13 @@ public class GameControllerTut : MonoBehaviour
         }
     }
 
+
     IEnumerator CountdownTimer()
     {
         while (gameDuration > 0)
         {
             TimerMsg.text = "" + Mathf.Ceil(gameDuration).ToString() + "s";
-            if (gameDuration == 35)
+            if (gameDuration == 40)
             {
                 StartCoroutine(FadeOutText(player1));
                 StartCoroutine(FadeOutText(player2));
@@ -187,14 +255,26 @@ public class GameControllerTut : MonoBehaviour
             gameDuration -= 1f;
         }
         TimerMsg.text = "0s";
+
+        //  Metric #2 
+        reasonforFinshingLevel = 2;
+        //posting the analytics to the firebase
+        Anaytics();
+
         // Pause the game when the game duration is over
         PauseGame();
-        reasonforFinshingLevel = 2;
-        Anaytics();
         navArea.gameObject.SetActive(true);
+        if (LostHealthMsgRight != null && LostHealthMsgLeft != null)
+        {
+            LostHealthMsgLeft.gameObject.SetActive(false);
+            LostHealthMsgRight.gameObject.SetActive(false);
+        }
+        //making sure everything that might be falshing will be visible!
+        StopFlashing();
         broadcastMsg.text = "CONTINUE TO\nLEVEL 1";
         broadcastMsg.color = Color.black;
-        //SceneManager.LoadScene("Level1");
+        broadcastMsg.gameObject.SetActive(true);
+
     }
 
     IEnumerator FadeOutText(TextMeshProUGUI text)
@@ -235,7 +315,7 @@ public class GameControllerTut : MonoBehaviour
 
     public void SwitchScreen(string carName)
     {
-        if (carName == "CarLeft")
+        if (carName == ConstName.LEFT_CAR)
         {
             CarLeftStop();
         }
@@ -245,48 +325,12 @@ public class GameControllerTut : MonoBehaviour
         }
     }
 
-    void Anaytics()
-    {
-        //parsing the current level number
-        string levelName = SceneManager.GetActiveScene().name;
-        char levelLastChar = levelName[levelName.Length - 1];
-        int levelNumber;
-        if (int.TryParse(levelLastChar.ToString(), out levelNumber))
-        {
-            Debug.Log("The last character as an integer: " + levelNumber);
-        }
-        else
-        {
-            Debug.LogWarning("The last character is not a valid number.");
-        }
-
-        //posting the analytics to the firebase
-        PlayerData playerData = new PlayerData();
-        playerData.name = "player";
-        playerData.level = 0;
-        playerData.scoreLeft = currentLeftScore;
-        playerData.scoreRight = currentRightScore;
-        playerData.reasonforFinshingLevel = reasonforFinshingLevel;
-        playerData.totalCtrlSwitchPropCollectedRight = totalCtrlSwitchPropCollectedRight;
-        playerData.totalCtrlSwitchPropCollectedLeft = totalCtrlSwitchPropCollectedLeft;
-        playerData.collisionDueToCtrlFlipLeft = collisionDueToCtrlFlipLeft;
-        playerData.collisionDueToCtrlFlipRight = collisionDueToCtrlFlipRight;
-
-        //string json = JsonUtility.ToJson(playerData);
-
-        if (ConstName.SEND_ANALYTICS == true)
-        {
-            RestClient.Post("https://portkey-2a1ae-default-rtdb.firebaseio.com/playtesting1_analytics.json", playerData);
-            Debug.Log("Analytics sent to firebase");
-        }
-    }
-
     public void EnemyControlReverse(string carName)
     {
         if (carName == "CarLeft")
         {
-            carRight.GetComponent<CarMoveTut>().carSpeed *= -1;
-            carRight.GetComponent<CarMoveTut>().reversed = !carRight.GetComponent<CarMoveTut>().reversed;
+            carRight.GetComponent<CarMoveTutorial>().carSpeed *= -1;
+            carRight.GetComponent<CarMoveTutorial>().reversed = !carRight.GetComponent<CarMoveTutorial>().reversed;
             Time.timeScale = 0;
             StartCoroutine(Flashing(imageLeft, imageRight, flipRight));
             StartCoroutine(Spotlight(spotlightIconRight1, 4f));
@@ -294,8 +338,8 @@ public class GameControllerTut : MonoBehaviour
         }
         else
         {
-            carLeft.GetComponent<CarMoveTut>().carSpeed *= -1;
-            carLeft.GetComponent<CarMoveTut>().reversed = !carLeft.GetComponent<CarMoveTut>().reversed;
+            carLeft.GetComponent<CarMoveTutorial>().carSpeed *= -1;
+            carLeft.GetComponent<CarMoveTutorial>().reversed = !carLeft.GetComponent<CarMoveTutorial>().reversed;
             Time.timeScale = 0;
             StartCoroutine(Flashing(imageA, imageD, flipLeft));
             StartCoroutine(Spotlight(spotlightIconLeft1, 4f));
@@ -304,7 +348,7 @@ public class GameControllerTut : MonoBehaviour
     }
 
     IEnumerator Flashing(Image left, Image right, Image flip)
-    { 
+    {
         for (int i = 0; i < 5; i++)
         {
             if (i == 2)
@@ -330,6 +374,44 @@ public class GameControllerTut : MonoBehaviour
         Time.timeScale = 1;
     }
 
+    public void ShowSpeedSlowMsg(string carName)
+    {
+        if (carName == ConstName.LEFT_CAR)
+        {
+            //broadcastMsgRight.text = "Your speed has been reduced!";
+            //broadcastMsgRight.gameObject.SetActive(true);
+            //StartCoroutine(HideRightMessage());
+            rightMud.enabled = true;
+            StartCoroutine(HideMud(rightMud));
+        }
+        else
+        {
+            //broadcastMsgLeft.text = "Your speed has been reduced!";
+            //broadcastMsgLeft.gameObject.SetActive(true);
+            //StartCoroutine(HideLeftMessage());
+            leftMud.enabled = true;
+            StartCoroutine(HideMud(leftMud));
+        }
+    }
+
+    IEnumerator HideRightMessage()
+    {
+        yield return new WaitForSeconds(1f);
+        broadcastMsgRight.gameObject.SetActive(false);
+    }
+
+    IEnumerator HideLeftMessage()
+    {
+        yield return new WaitForSeconds(1f);
+        broadcastMsgLeft.gameObject.SetActive(false);
+    }
+
+    IEnumerator HideMud(Image mud)
+    {
+        yield return new WaitForSeconds(4f);
+        mud.enabled = false;
+    }
+
     public void CarLeftStop()
     {
         // stop zoom1 object movement
@@ -347,10 +429,10 @@ public class GameControllerTut : MonoBehaviour
         }
 
         // stop CarLeft movement
-        carLeft.GetComponent<CarMoveTut>().canMove = false;
+        carLeft.GetComponent<CarMoveTutorial>().canMove = false;
 
         // start CarRight movement
-        carRight.GetComponent<CarMoveTut>().canMove = true;
+        carRight.GetComponent<CarMoveTutorial>().canMove = true;
     }
 
     public void CarRightStop()
@@ -370,24 +452,55 @@ public class GameControllerTut : MonoBehaviour
         }
 
         // stop CarRight movement
-        carRight.GetComponent<CarMoveTut>().canMove = false;
+        carRight.GetComponent<CarMoveTutorial>().canMove = false;
 
         // start CarLeft movement
-        carLeft.GetComponent<CarMoveTut>().canMove = true;
+        carLeft.GetComponent<CarMoveTutorial>().canMove = true;
     }
 
     public void StopScoreCalculation(string carName)
     {
-        if (carName == "CarLeft")
+        if (carName == ConstName.LEFT_CAR)
         {
             CancelInvoke("CalculateScoreLeft");
         }
-        else if (carName == "CarRight")
+        else if (carName == ConstName.RIGHT_CAR)
         {
             CancelInvoke("CalculateScoreRight");
         }
 
+        //posting the analytics to the firebase
+        Anaytics();
 
+    }
+
+    void Anaytics()
+    {
+        //parsing the current level number
+        string levelName = SceneManager.GetActiveScene().name;
+        char levelLastChar = levelName[levelName.Length - 1];
+        int levelNumber;
+        int.TryParse(levelLastChar.ToString(), out levelNumber);
+
+        //posting the analytics to the firebase
+        PlayerData playerData = new PlayerData();
+        playerData.name = "player";
+        playerData.level = levelNumber;
+        playerData.scoreLeft = currentLeftScore;
+        playerData.scoreRight = currentRightScore;
+        playerData.reasonforFinshingLevel = reasonforFinshingLevel;
+        playerData.totalCtrlSwitchPropCollectedRight = totalCtrlSwitchPropCollectedRight;
+        playerData.totalCtrlSwitchPropCollectedLeft = totalCtrlSwitchPropCollectedLeft;
+        playerData.collisionDueToCtrlFlipLeft = collisionDueToCtrlFlipLeft;
+        playerData.collisionDueToCtrlFlipRight = collisionDueToCtrlFlipRight;
+
+        //string json = JsonUtility.ToJson(playerData);
+
+        if (ConstName.SEND_ANALYTICS == true)
+        {
+            RestClient.Post("https://portkey-2a1ae-default-rtdb.firebaseio.com/playtesting1_analytics.json", playerData);
+            Debug.Log("Analytics sent to firebase");
+        }
     }
 
     void CalculateScoreLeft()
@@ -407,13 +520,13 @@ public class GameControllerTut : MonoBehaviour
         if (carName == "CarLeft")
         {
             Time.timeScale = 0;
-            StartCoroutine(FlashScore(leftScore, Color.magenta, true, fiveLeft));
+            StartCoroutine(FlashScore(leftScore, new Color(1.0f, 0.788f, 0.282f), true, fiveLeft));
             StartCoroutine(Spotlight(spotlightLeft, 4f));
         }
         else
         {
             Time.timeScale = 0;
-            StartCoroutine(FlashScore(rightScore, Color.magenta, false, fiveRight));
+            StartCoroutine(FlashScore(rightScore, new Color(1.0f, 0.788f, 0.282f), false, fiveRight));
             StartCoroutine(Spotlight(spotlightRight, 4f));
         }
     }
@@ -425,11 +538,23 @@ public class GameControllerTut : MonoBehaviour
         spotlight.enabled = false;
     }
 
+    public void SpotlightLives(string carName)
+    {
+        if (carName == ConstName.LEFT_CAR)
+        {
+            StartCoroutine(Spotlight(spotlightLivesLeft, 2f));
+        }
+        else
+        {
+            StartCoroutine(Spotlight(spotlightLivesRight, 2f));
+        }
+    }
+
     IEnumerator FlashScore(TextMeshProUGUI score, Color col, bool left, TextMeshProUGUI five)
     {
         for (int i = 0; i < 5; i++)
         {
-            if (i ==2)
+            if (i == 2)
             {
                 score.color = col;
                 if (left)
@@ -454,65 +579,78 @@ public class GameControllerTut : MonoBehaviour
         Time.timeScale = 1;
     }
 
-    public void ActivateBonus()
+
+    public void DisplayRightLostHealthMsg()
     {
-        StartCoroutine(Prop2BonusScore());
+        //BulletImpactForRightPlayer();
+        LostHealthMsgRight.text = "Health Stolen";
+        LostHealthMsgRight.color = Color.blue;
+        LostHealthMsgRight.gameObject.SetActive(true);
+        StartCoroutine(HideStolenHealthMessage(1f));
     }
 
-    IEnumerator Prop2BonusScore()
+    public void DisplayLeftLostHealthMsg()
     {
-        scoreMultiplier = 2.0f;
-        yield return new WaitForSeconds(5.0f);
-        scoreMultiplier = 1.0f;
+        //BulletImpactForLeftPlayer();
+        LostHealthMsgLeft.text = "Health Stolen";
+        LostHealthMsgLeft.color = Color.blue;
+        LostHealthMsgLeft.gameObject.SetActive(true);
+        StartCoroutine(HideStolenHealthMessage(1f));
     }
 
 
-    //public void DisplayLeftLostPointsMsg()
-    //{
-    //    BulletImpactForLeftPlayer();
-    //    leftLostPointsMsg.color = Color.blue;
-    //    leftLostPointsMsg.gameObject.SetActive(true);
-    //    StartCoroutine(HideSwitchMessage(1f));
-    //}
-
-    //void BulletImpactForLeftPlayer()
-    //{
-    //    if (currentLeftScore - bulletPropImpact < 0)
-    //    {
-    //        currentLeftScore = 0f;
-    //    }
-    //    else
-    //    {
-    //        currentLeftScore -= bulletPropImpact;
-    //    }
-    //    StartCoroutine(FlashScore(leftScore, Color.blue));
-    //}
-
-    //public void DisplayRightLostPointsMsg()
-    //{
-    //    BulletImpactForRightPlayer();
-    //    rightLostPointsMsg.color = Color.blue;
-    //    rightLostPointsMsg.gameObject.SetActive(true);
-    //    StartCoroutine(HideSwitchMessage(1f));
-    //}
-
-    //void BulletImpactForRightPlayer()
-    //{
-    //    if (currentRightScore - bulletPropImpact < 0)
-    //    {
-    //        currentRightScore = 0f;
-    //    }
-    //    else
-    //    {
-    //        currentRightScore -= bulletPropImpact;
-    //    }
-    //    StartCoroutine(FlashScore(rightScore, Color.blue));
-    //}
-
-    IEnumerator HideSwitchMessage(float delay)
+    IEnumerator HideStolenHealthMessage(float delay)
     {
         yield return new WaitForSeconds(delay);
-        rightLostPointsMsg.gameObject.SetActive(false);
-        leftLostPointsMsg.gameObject.SetActive(false);
+        if (LostHealthMsgRight != null && LostHealthMsgLeft != null)
+        {
+            LostHealthMsgLeft.gameObject.SetActive(false);
+            LostHealthMsgRight.gameObject.SetActive(false);
+        }
+    }
+
+    public void UpdateHealthBarOnCollision(string carName, float impact, bool impactOppositePlayer = false)
+    {
+        //decrement healthBar accordingly
+        if (impactOppositePlayer == false)
+        {
+
+            if (carName == ConstName.LEFT_CAR)
+            {
+                carLeft.GetComponent<CarMoveTutorial>().playerHealth += impact;
+                float currentHealth = carLeft.GetComponent<CarMoveTutorial>().playerHealth;
+                float maxHealth = carLeft.GetComponent<CarMoveTutorial>().maxHealth;
+                carLeft.GetComponent<CarMoveTutorial>().healthBar.UpdateLeftPlayerHealthBar(currentHealth, maxHealth);
+                carLeft.GetComponent<CarMoveTutorial>().ShakePlayerOnHealthLoss();
+            }
+            else
+            {
+                carRight.GetComponent<CarMoveTutorial>().playerHealth += impact;
+                float currentHealth = carRight.GetComponent<CarMoveTutorial>().playerHealth;
+                float maxHealth = carRight.GetComponent<CarMoveTutorial>().maxHealth;
+                carRight.GetComponent<CarMoveTutorial>().healthBar.UpdateRightPlayerHealthBar(currentHealth, maxHealth);
+                carRight.GetComponent<CarMoveTutorial>().ShakePlayerOnHealthLoss();
+            }
+        }
+        else
+        {
+            if (carName != ConstName.LEFT_CAR)
+            {
+                carLeft.GetComponent<CarMoveTutorial>().playerHealth += impact;
+                float currentHealth = carLeft.GetComponent<CarMoveTutorial>().playerHealth;
+                float maxHealth = carLeft.GetComponent<CarMoveTutorial>().maxHealth;
+                carLeft.GetComponent<CarMoveTutorial>().healthBar.UpdateLeftPlayerHealthBar(currentHealth, maxHealth);
+                carLeft.GetComponent<CarMoveTutorial>().ShakePlayerOnHealthLoss();
+            }
+            else
+            {
+                carRight.GetComponent<CarMoveTutorial>().playerHealth += impact;
+                float currentHealth = carRight.GetComponent<CarMoveTutorial>().playerHealth;
+                float maxHealth = carRight.GetComponent<CarMoveTutorial>().maxHealth;
+                carRight.GetComponent<CarMoveTutorial>().healthBar.UpdateRightPlayerHealthBar(currentHealth, maxHealth);
+                carRight.GetComponent<CarMoveTutorial>().ShakePlayerOnHealthLoss();
+            }
+        }
+
     }
 }
