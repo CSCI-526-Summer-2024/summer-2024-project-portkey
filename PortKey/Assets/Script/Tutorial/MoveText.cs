@@ -4,15 +4,13 @@ using TMPro;
 
 public class MoveText : MonoBehaviour
 {
-    private RectTransform rectTransform;
-    private TextMeshProUGUI txt;
+    private TextMeshPro txt;
     private float time;
     private Color initCol = Color.red;
 
     void Start()
     {
-        rectTransform = GetComponent<RectTransform>();
-        txt = GetComponent<TextMeshProUGUI>();
+        txt = GetComponent<TextMeshPro>();
         if (txt != null)
         {
             txt.color = initCol;
@@ -21,7 +19,6 @@ public class MoveText : MonoBehaviour
 
     void Update()
     {
-        rectTransform.Translate(new Vector3(0, -215.0f * Time.deltaTime, 0));
         time += Time.deltaTime * 2.0f;
         if (txt != null)
         {
