@@ -34,6 +34,7 @@ public class BulletTextUpdater : MonoBehaviour
     {
         if (currentBulletsTextLeft != null)
         {
+            Debug.Log("hello?: " + rotateBulletShooterLeft.currentBulletsLeft.ToString());
             currentBulletsTextLeft.text = ":" + rotateBulletShooterLeft.currentBulletsLeft.ToString();
         }
         if (currentBulletsTextRight != null)
