@@ -234,6 +234,28 @@ public class CarMove : MonoBehaviour
        
     }
 
+    void ProcessReduceEnemyHealthProp(string player)
+    {
+        if (player == ConstName.RIGHT_CAR)
+        {
+            liveManager.DecrementLivesLeft();
+            gameController.DisplayLeftLostHealthMsg();
+            if (liveManager.GetLivesLeft() == 0)
+            {
+                PlayerDead();
+            }
+        }
+        else
+        {
+            liveManager.DecrementLivesRight();
+            gameController.DisplayRightLostHealthMsg();
+            if (liveManager.GetLivesRight() == 0)
+            {
+                PlayerDead();
+            }
+        }
+    }
+
     void OnTriggerEnter2D(Collider2D other)
     {
         /************************* For Obstacle Collision *************************/
@@ -284,16 +306,8 @@ public class CarMove : MonoBehaviour
         if (other.gameObject.name.Contains("ReduceEnemyHealth"))
         {
             Destroy(other.gameObject);
-
-            gameController.UpdateHealthBarOnCollision(transform.name, hp.minusPropImpactOnHealth, true);
-            if (transform.name == ConstName.LEFT_CAR)
-            {
-                gameController.DisplayRightLostHealthMsg();
-            }
-            else if (transform.name == ConstName.RIGHT_CAR)
-            {
-                gameController.DisplayLeftLostHealthMsg();
-            }
+            ProcessReduceEnemyHealthProp(transform.name);
+            
         }
         /************************* For ReduceEnemyHealth Collision *************************/
 
@@ -384,11 +398,13 @@ public class CarMove : MonoBehaviour
         }
     }
 
-    void CheckIfPlayerIsHealthyOrNot()
+    
+    void PlayerDead()
     {
-        //updates the ui if one of the players lost all of their health
-        if (playerHealth <= 0)
+        if (liveManager.GetLivesLeft() <= 0)
         {
+
+            //updates the ui if one of the players lost all of their health
             Time.timeScale = 0;
             gameController.StopFlashing();
             deathText.gameObject.SetActive(true);
@@ -407,28 +423,28 @@ public class CarMove : MonoBehaviour
 
             gameController.StopScoreCalculation(transform.name);
         }
-    }
+        else if (liveManager.GetLivesRight() <= 0)
+        {
 
-    void PlayerDead()
-    {
-        //updates the ui if one of the players lost all of their health
-        Time.timeScale = 0;
-        gameController.StopFlashing();
-        deathText.gameObject.SetActive(true);
-        deathText.text = "YOU DIE";
-        deathText.color = Color.red;
-        winText.gameObject.SetActive(true);
-        winText.text = "YOU WIN";
-        winText.color = Color.green;
+            //updates the ui if one of the players lost all of their health
+            Time.timeScale = 0;
+            gameController.StopFlashing();
+            deathText.gameObject.SetActive(true);
+            deathText.text = "YOU DIE";
+            deathText.color = Color.red;
+            winText.gameObject.SetActive(true);
+            winText.text = "YOU WIN";
+            winText.color = Color.green;
 
-        navArea.gameObject.SetActive(true);
-        broadcastMsg.text = "GAME OVER";
-        broadcastMsg.color = Color.black;
+            navArea.gameObject.SetActive(true);
+            broadcastMsg.text = "GAME OVER";
+            broadcastMsg.color = Color.black;
 
-        // Level Completion Reason Metric #2 
-        gameController.reasonforFinshingLevel = 1;
+            // Level Completion Reason Metric #2 
+            gameController.reasonforFinshingLevel = 1;
 
-        gameController.StopScoreCalculation(transform.name);
+            gameController.StopScoreCalculation(transform.name);
+        }
       
     }
 
