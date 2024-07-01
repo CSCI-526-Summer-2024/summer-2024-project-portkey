@@ -106,6 +106,11 @@ public class GameController : MonoBehaviour
     public Image CountDownNavArea;
     public TextMeshProUGUI CountDownLeftText;
 
+    public Image ShootingTextNavAreaLeft;
+    public Image ShootingTextNavAreaRight;
+    public TextMeshProUGUI ShootingTextLeft;
+    public TextMeshProUGUI ShootingTextRight;
+
     void Awake()
     {
         if (LostHealthMsgRight != null)
@@ -119,6 +124,7 @@ public class GameController : MonoBehaviour
     void Start()
     {
         DisplayCountDown();
+        StartCoroutine(HideShootingText());
         navArea.gameObject.SetActive(false);
         if (leftMud != null && rightMud != null)
         {
@@ -172,6 +178,28 @@ public class GameController : MonoBehaviour
         if (CountDownNavArea != null)
         {
             CountDownNavArea.gameObject.SetActive(false);
+        }
+    }
+    
+    IEnumerator HideShootingText()
+    {
+
+        yield return new WaitForSeconds(3); // Wait for 3 seconds
+        if (ShootingTextNavAreaLeft != null)
+        {
+            ShootingTextNavAreaLeft.gameObject.SetActive(false);
+        }
+        if (ShootingTextNavAreaRight != null)
+        {
+            ShootingTextNavAreaRight.gameObject.SetActive(false);
+        }
+        if (ShootingTextLeft != null)
+        {
+            ShootingTextLeft.gameObject.SetActive(false);
+        }
+        if (ShootingTextRight != null)
+        {
+            ShootingTextRight.gameObject.SetActive(false);
         }
     }
 
