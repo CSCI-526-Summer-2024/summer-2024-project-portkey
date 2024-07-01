@@ -431,6 +431,10 @@ MonoBehaviour:
   rotateBulletShooterRight: {fileID: 0}
   currentBulletsTextLeft: {fileID: 0}
   currentBulletsTextRight: {fileID: 553605526}
+  ShootingTextNavAreaLeft: {fileID: 0}
+  ShootingTextNavAreaRight: {fileID: 0}
+  ShootingTextLeft: {fileID: 0}
+  ShootingTextRight: {fileID: 0}
 --- !u!1 &132748650
 GameObject:
   m_ObjectHideFlags: 0
@@ -4356,10 +4360,6 @@ MonoBehaviour:
   LostHealthMsgLeft: {fileID: 1744025627}
   CountDownNavArea: {fileID: 1966838391}
   CountDownLeftText: {fileID: 1293054797}
-  ShootingTextNavAreaLeft: {fileID: 1098171783}
-  ShootingTextNavAreaRight: {fileID: 1725608270}
-  ShootingTextLeft: {fileID: 493992500}
-  ShootingTextRight: {fileID: 1334644915}
 --- !u!4 &1093581753
 Transform:
   m_ObjectHideFlags: 0
@@ -6600,6 +6600,10 @@ MonoBehaviour:
   rotateBulletShooterRight: {fileID: 0}
   currentBulletsTextLeft: {fileID: 858207856}
   currentBulletsTextRight: {fileID: 0}
+  ShootingTextNavAreaLeft: {fileID: 1098171783}
+  ShootingTextNavAreaRight: {fileID: 1725608270}
+  ShootingTextLeft: {fileID: 493992500}
+  ShootingTextRight: {fileID: 1334644915}
 --- !u!1 &1744025625
 GameObject:
   m_ObjectHideFlags: 0
