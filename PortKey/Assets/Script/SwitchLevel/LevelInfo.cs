@@ -34,6 +34,9 @@ namespace PortKey.Assets.Script.SwitchLevel
             string levelName = SceneManager.GetActiveScene().name;
             switch (levelName)
             {
+                case "Tutorial":
+                    Level = 0;
+                    break;
                 case "Level1":
                     Level = 1;
                     break;

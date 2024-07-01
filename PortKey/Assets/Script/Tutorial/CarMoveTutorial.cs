@@ -5,44 +5,7 @@ using TMPro;
 using PortKey.Assets.Script;
 using PortKey.Assets.Script.SwitchLevel;
 
-public class HealthParameter
-{
-
-    public float obstacleImpactOnHealth = -15f;
-
-    public float minusPropImpactOnHealth = -5f;
-
-    public void SetParametersByLevel(int level)
-    {
-        switch (level)
-        {
-            case 1:
-
-                obstacleImpactOnHealth = -15f;
-                minusPropImpactOnHealth = -5f;
-                break;
-            case 2:
-                obstacleImpactOnHealth = -15f;
-                minusPropImpactOnHealth = -5f;
-                break;
-            case 3:
-                obstacleImpactOnHealth = -10f;
-                minusPropImpactOnHealth = -10f;
-                break;
-            case 4:
-                obstacleImpactOnHealth = -10f;
-                minusPropImpactOnHealth = -10f;
-                break;
-            default:
-                obstacleImpactOnHealth = -10f;
-                minusPropImpactOnHealth = -10f;
-                break;
-        }
-    }
-
-}
-
-public class CarMove : MonoBehaviour
+public class CarMoveTutorial : MonoBehaviour
 {
     private HealthParameter hp = new HealthParameter();
 
@@ -80,9 +43,9 @@ public class CarMove : MonoBehaviour
 
     private int level;
 
-    GameController gameController;
+    GameControllerTutorial gameController;
 
-    SpeedController speedController;
+    SpeedControllerTutorial speedController;
 
     public float playerHealth = 100;
 
@@ -97,13 +60,13 @@ public class CarMove : MonoBehaviour
         }
         hp.SetParametersByLevel(level);
 
-        gameController = FindObjectOfType<GameController>();
+        gameController = FindObjectOfType<GameControllerTutorial>();
         if (gameController == null)
         {
             Debug.LogError("GameController not found");
         }
 
-        speedController = FindObjectOfType<SpeedController>();
+        speedController = FindObjectOfType<SpeedControllerTutorial>();
         if (speedController == null)
         {
             Debug.LogError("SpeedController not found");
@@ -118,6 +81,8 @@ public class CarMove : MonoBehaviour
         {
             Debug.LogError("LiveManager not found");
         }
+
+        UpdateLives(transform.name, false, false);
     }
 
     void UploadHealthBars()
@@ -226,7 +191,7 @@ public class CarMove : MonoBehaviour
                 if (liveManager.GetLivesLeft() == 0)
                 {
                     PlayerDead(isDueToMinusProp);
-                } 
+                }
             }
             else
             {
@@ -284,6 +249,8 @@ public class CarMove : MonoBehaviour
             //update lives of the player
             UpdateLives(transform.name, false, false);
 
+            gameController.SpotlightLives(transform.name);
+
             //destroy the obstacle on collision
             Destroy(other.gameObject);
         }
@@ -313,7 +280,7 @@ public class CarMove : MonoBehaviour
         {
             Destroy(other.gameObject);
             ProcessReduceEnemyHealthProp(transform.name);
-            
+
         }
         /************************* For ReduceEnemyHealth Collision *************************/
 
@@ -340,33 +307,9 @@ public class CarMove : MonoBehaviour
             //update lives of the player
             Destroy(other.gameObject);
             UpdateLives(transform.name, true, false);
+            gameController.SpotlightLives(transform.name);
         }
         /************************* For Heart Collision *************************/
-
-        /************************* For Bullet Collision *************************/
-        if (other.gameObject.tag == "Bullet")
-        {
-            if (transform.name == ConstName.LEFT_CAR)
-            {
-
-                RotateBulletShooter shooter = GameObject.Find("PivotLeft").GetComponent<RotateBulletShooter>();
-                if (shooter != null)
-                {
-                    shooter.IncreaseBulletCountLeft();
-                }
-
-            }
-            else
-            {
-                RotateBulletShooter shooter = GameObject.Find("PivotRight").GetComponent<RotateBulletShooter>();
-                if (shooter != null)
-                {
-                    shooter.IncreaseBulletCountRight();
-                }
-            }
-            Destroy(other.gameObject); // Destroy the prop after collecting
-        }
-        /************************* For Bullet Collision *************************/
     }
 
 
@@ -428,7 +371,7 @@ public class CarMove : MonoBehaviour
         }
     }
 
-    
+
     void PlayerDead(bool isDueToMinusProp)
     {
         if (liveManager.GetLivesLeft() <= 0 || liveManager.GetLivesRight() <= 0)
@@ -455,7 +398,7 @@ public class CarMove : MonoBehaviour
                 winText.text = "YOU WIN";
                 winText.color = Color.green;
             }
-          
+
 
             navArea.gameObject.SetActive(true);
             broadcastMsg.text = "GAME OVER";
@@ -465,7 +408,7 @@ public class CarMove : MonoBehaviour
             gameController.reasonforFinshingLevel = 1;
 
             gameController.StopScoreCalculation(transform.name);
-        }      
+        }
     }
 
     void DisplaySwitchMessage()

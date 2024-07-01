@@ -158,8 +158,8 @@ public class GameController : MonoBehaviour
     {
         if (CountDownLeftText != null)
         {
-            CountDownLeftText.text = "SURVIVE AND SCORE HIGHER";
-            yield return new WaitForSeconds(0.5f);
+            //CountDownLeftText.text = "SURVIVE AND SCORE HIGHER";
+            //yield return new WaitForSeconds(0.5f);
             int time = countDownBeforeStartDuration;
             while (time > 0)
             {
@@ -527,13 +527,13 @@ public class GameController : MonoBehaviour
         {
             currentLeftScore += 5;
             leftScore.text = "" + currentLeftScore.ToString("F0");
-            StartCoroutine(FlashScore(leftScore, Color.magenta));
+            StartCoroutine(FlashScore(leftScore, new Color(1.0f, 0.788f, 0.282f)));
         }
         else
         {
             currentRightScore += 5;
             rightScore.text = "" + currentRightScore.ToString("F0");
-            StartCoroutine(FlashScore(rightScore, Color.magenta));
+            StartCoroutine(FlashScore(rightScore, new Color(1.0f, 0.788f, 0.282f)));
         }
     }
 

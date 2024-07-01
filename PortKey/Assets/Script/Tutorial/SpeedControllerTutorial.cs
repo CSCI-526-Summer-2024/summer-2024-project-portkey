@@ -4,149 +4,11 @@ using PortKey.Assets.Script;
 using PortKey.Assets.Script.SwitchLevel;
 using UnityEngine;
 
-public class SpeedLimits
+public class SpeedControllerTutorial : MonoBehaviour
 {
-    public float defaultCarSpeed = 3.0f;
+    private CarMoveTutorial carLeftMove;
 
-    public float defaultSpawnSpeed = 2.0f;
-
-    public float carSpeedMultiplier = 1.15f;
-
-    public float spawnSpeedMultiplier = 1.05f;
-
-    public float carMaxSpeed = 10.0f;
-
-    public float obstacleMaxSpeed = 5.0f;
-
-    public float speedIncreaseDuration = 30.0f;
-
-    private float elapsedTime = 0f;
-
-    private bool canIncreaseSpeed = true;
-
-    private bool canIncreaseSpawnSpeed = true;
-
-    public bool CanIncreaseSpawnSpeed
-    {
-        get { return canIncreaseSpawnSpeed; }
-    }
-
-    public bool CanIncreaseSpeed
-    {
-        get { return canIncreaseSpeed; }
-    }
-
-    public void UpdateCarElapsedTime(float deltaTime)
-    {
-        elapsedTime += deltaTime;
-        if (elapsedTime > speedIncreaseDuration)
-        {
-            canIncreaseSpeed = false;
-            Debug.Log("Time to stop increasing car speed");
-        }
-    }
-
-    public void UpdateSpawnElapsedTime(float deltaTime)
-    {
-        elapsedTime += deltaTime;
-        if (elapsedTime > speedIncreaseDuration)
-        {
-            canIncreaseSpawnSpeed = false;
-            Debug.Log("Time to stop increasing spawn speed");
-        }
-    }
-
-    public void SetLevelParameters(int level)
-    {
-        switch (level)
-        {
-            case 0:
-                canIncreaseSpeed = false;
-                canIncreaseSpawnSpeed = false;
-                defaultCarSpeed = 3.0f;
-                defaultSpawnSpeed = 2.0f;
-                carSpeedMultiplier = 1.0f;
-                spawnSpeedMultiplier = 1.0f;
-                carMaxSpeed = 6.0f;
-                obstacleMaxSpeed = 4.0f;
-                speedIncreaseDuration = 30.0f;
-                break;
-            case 1:
-                canIncreaseSpeed = true;
-                canIncreaseSpawnSpeed = true;
-                defaultCarSpeed = 3.0f;
-                defaultSpawnSpeed = 2.0f;
-                carSpeedMultiplier = 1.05f;
-                spawnSpeedMultiplier = 1.01f;
-                carMaxSpeed = 6.0f;
-                obstacleMaxSpeed = 4.0f;
-                speedIncreaseDuration = 30.0f;
-                break;
-            case 2:
-                canIncreaseSpeed = true;
-                canIncreaseSpawnSpeed = true;
-                defaultCarSpeed = 3.0f;
-                defaultSpawnSpeed = 2.0f;
-                carSpeedMultiplier = 1.08f;
-                spawnSpeedMultiplier = 1.02f;
-                carMaxSpeed = 7.0f;
-                obstacleMaxSpeed = 4.5f;
-                speedIncreaseDuration = 30.0f;
-                break;
-            case 3:
-                canIncreaseSpeed = true;
-                canIncreaseSpawnSpeed = true;
-                defaultCarSpeed = 4.0f;
-                defaultSpawnSpeed = 2.0f;
-                carSpeedMultiplier = 1.15f;
-                spawnSpeedMultiplier = 1.03f;
-                carMaxSpeed = 10.0f;
-                obstacleMaxSpeed = 5.0f;
-                speedIncreaseDuration = 40.0f;
-                break;
-            case 4:
-                canIncreaseSpeed = true;
-                canIncreaseSpawnSpeed = true;
-                defaultCarSpeed = 3.0f;
-                defaultSpawnSpeed = 2.0f;
-                carSpeedMultiplier = 1.12f;
-                spawnSpeedMultiplier = 1.04f;
-                carMaxSpeed = 9.0f;
-                obstacleMaxSpeed = 5.5f;
-                speedIncreaseDuration = 50.0f;
-                break;
-            case 5:
-                canIncreaseSpeed = true;
-                canIncreaseSpawnSpeed = true;
-                defaultCarSpeed = 3.0f;
-                defaultSpawnSpeed = 2.0f;
-                carSpeedMultiplier = 1.12f;
-                spawnSpeedMultiplier = 1.04f;
-                carMaxSpeed = 9.0f;
-                obstacleMaxSpeed = 5.5f;
-                speedIncreaseDuration = 50.0f;
-                break;
-            default:
-                canIncreaseSpeed = true;
-                canIncreaseSpawnSpeed = true;
-                defaultCarSpeed = 3.0f;
-                defaultSpawnSpeed = 2.0f;
-                carSpeedMultiplier = 1.05f;
-                spawnSpeedMultiplier = 1.01f;
-                carMaxSpeed = 6.0f;
-                obstacleMaxSpeed = 5.0f;
-                speedIncreaseDuration = 30.0f;
-                Debug.LogError("Unknown level: " + level);
-                break;
-        }
-    }
-}
-
-public class SpeedController : MonoBehaviour
-{
-    private CarMove carLeftMove;
-
-    private CarMove carRightMove;
+    private CarMoveTutorial carRightMove;
 
     private SpeedLimits speedLimits = new SpeedLimits();
 
@@ -183,10 +45,10 @@ public class SpeedController : MonoBehaviour
 
         if (carLeft != null)
         {
-            carLeftMove = carLeft.GetComponent<CarMove>();
+            carLeftMove = carLeft.GetComponent<CarMoveTutorial>();
             if (carLeftMove == null)
             {
-                Debug.LogError("CarLeft does not have a CarMove component!");
+                Debug.LogError("CarLeft does not have a CarMoveTutorial component!");
             }
         }
         else
@@ -196,10 +58,10 @@ public class SpeedController : MonoBehaviour
 
         if (carRight != null)
         {
-            carRightMove = carRight.GetComponent<CarMove>();
+            carRightMove = carRight.GetComponent<CarMoveTutorial>();
             if (carRightMove == null)
             {
-                Debug.LogError("CarRight does not have a CarMove component!");
+                Debug.LogError("CarRight does not have a CarMoveTutorial component!");
             }
         }
         else
@@ -249,7 +111,7 @@ public class SpeedController : MonoBehaviour
         }
     }
 
-    private IEnumerator SlowDownCoroutine(CarMove carMove, float duration)
+    private IEnumerator SlowDownCoroutine(CarMoveTutorial carMove, float duration)
     {
         yield return new WaitForSeconds(duration);
 
