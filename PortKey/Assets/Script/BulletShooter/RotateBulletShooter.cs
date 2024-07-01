@@ -125,4 +125,10 @@ public class RotateBulletShooter : MonoBehaviour
     {
         currentBulletsRight += 1;
     }
+
+    public void InitializeBullets()
+    {
+        currentBulletsLeft = 7;
+        currentBulletsRight = 7;
+    }
 }
