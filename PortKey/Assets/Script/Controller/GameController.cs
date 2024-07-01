@@ -201,8 +201,12 @@ public class GameController : MonoBehaviour
         {
             ShootingTextRight.gameObject.SetActive(false);
         }
-        GameObject.Find("PivotLeft").GetComponent<RotateBulletShooter>().InitializeBullets();
-        GameObject.Find("PivotRight").GetComponent<RotateBulletShooter>().InitializeBullets();
+
+        if (GameObject.Find("PivotRight")!= null)
+        {
+            GameObject.Find("PivotLeft").GetComponent<RotateBulletShooter>().InitializeBullets();
+            GameObject.Find("PivotRight").GetComponent<RotateBulletShooter>().InitializeBullets();
+        }
     }
 
     void DisplayCountDown()
