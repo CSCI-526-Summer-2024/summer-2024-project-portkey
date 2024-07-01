@@ -31,7 +31,7 @@ EditorBuildSettings:
     guid: 9f155a40f5f724e4fa390fa0a6718ecf
   - enabled: 1
     path: Assets/Scenes/Map.unity
-    guid: c81d4f9dd577549bfac43fc27d2ea54b
+    guid: 7b441fd65aebb4f1f964ae145837c442
   - enabled: 1
     path: Assets/Scenes/Level5.unity
     guid: 493267fd5a82b3f43ab5ae130e477602
