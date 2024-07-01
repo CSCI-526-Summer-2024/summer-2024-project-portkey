@@ -157,8 +157,8 @@ public class GameController : MonoBehaviour
     {
         if (CountDownLeftText != null)
         {
-            CountDownLeftText.text = "SURVIVE AND SCORE HIGHER";
-            yield return new WaitForSeconds(0.5f);
+            //CountDownLeftText.text = "SURVIVE AND SCORE HIGHER";
+            //yield return new WaitForSeconds(0.5f);
             int time = countDownBeforeStartDuration;
             while (time > 0)
             {
