@@ -81,6 +81,8 @@ public class CarMoveTutorial : MonoBehaviour
         {
             Debug.LogError("LiveManager not found");
         }
+
+        UpdateLives(transform.name, false, false);
     }
 
     void UploadHealthBars()
