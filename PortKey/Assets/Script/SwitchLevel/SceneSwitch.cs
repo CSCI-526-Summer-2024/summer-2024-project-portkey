@@ -7,6 +7,8 @@ using UnityEngine.SceneManagement;
 
 public class SceneSwitch : MonoBehaviour
 {
+    int MAP_SCENE_BUILD_NUMBER = 7;
+
     public void loaderLvl1()
     {
 
@@ -59,4 +61,11 @@ public class SceneSwitch : MonoBehaviour
     {
         SceneManager.LoadScene("Starter");
     }
+
+    public void loadMap()
+    {
+        //SceneManager.LoadScene("Map");
+        SceneManager.LoadScene(MAP_SCENE_BUILD_NUMBER);
+    }
+
 }
