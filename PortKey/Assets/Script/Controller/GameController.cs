@@ -82,7 +82,7 @@ public class GameController : MonoBehaviour
     private readonly float baseScore = 1.0f;
 
     // game duration, unit is second
-    private float gameDuration = 30f;
+    private float gameDuration = 60f;
 
     //analytics helper variables
     public int totalCtrlSwitchPropCollectedRight = 0;
@@ -553,7 +553,7 @@ public class GameController : MonoBehaviour
     public void DisplayRightLostHealthMsg()
     {
         //BulletImpactForRightPlayer();
-        LostHealthMsgRight.text = "Opponent Stole Your Health";
+        LostHealthMsgRight.text = "Health Stolen";
         LostHealthMsgRight.color = Color.blue;
         LostHealthMsgRight.gameObject.SetActive(true);
         StartCoroutine(HideStolenHealthMessage(1f));
@@ -562,7 +562,7 @@ public class GameController : MonoBehaviour
     public void DisplayLeftLostHealthMsg()
     {
         //BulletImpactForLeftPlayer();
-        LostHealthMsgLeft.text = "Opponent Stole Your Health";
+        LostHealthMsgLeft.text = "Health Stolen";
         LostHealthMsgLeft.color = Color.blue;
         LostHealthMsgLeft.gameObject.SetActive(true);
         StartCoroutine(HideStolenHealthMessage(1f));
