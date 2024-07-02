@@ -39,6 +39,7 @@ namespace PortKey.Assets.Script.SwitchLevel
                     break;
                 case "Tutorial":
                 case "Tutorial2":
+                case "Tutorial4":
                     Level = 0;
                     break;
                 case "Level1":

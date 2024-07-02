@@ -7619,6 +7619,7 @@ MonoBehaviour:
   controlRight1: {fileID: 0}
   controlLeft2: {fileID: 0}
   controlRight2: {fileID: 0}
+  gameDuration: 16
   totalCtrlSwitchPropCollectedRight: 0
   totalCtrlSwitchPropCollectedLeft: 0
   level: 0
@@ -7629,6 +7630,8 @@ MonoBehaviour:
   LostHealthMsgLeft: {fileID: 1405609232}
   CountDownNavArea: {fileID: 0}
   CountDownLeftText: {fileID: 0}
+  ShootLeft: {fileID: 0}
+  ShootRight: {fileID: 0}
 --- !u!1001 &1686243723
 PrefabInstance:
   m_ObjectHideFlags: 0

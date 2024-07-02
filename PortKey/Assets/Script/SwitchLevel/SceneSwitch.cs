@@ -79,6 +79,15 @@ public class SceneSwitch : MonoBehaviour
         SceneManager.LoadScene("Tutorial3");
     }
 
+    public void loaderTut4()
+    {
+
+        //GameLevelsManager.Instance.Level = 4; //setting the current level globally that player is on
+
+
+        SceneManager.LoadScene("Tutorial4");
+    }
+
     public void loaderMenu()
     {
         SceneManager.LoadScene("Menu");

@@ -83,7 +83,7 @@ public class GameControllerTutorial2 : MonoBehaviour
     private readonly float baseScore = 1.0f;
 
     // game duration, unit is second
-    private float gameDuration = 20f;
+    public float gameDuration = 20f;
 
     //analytics helper variables
     public int totalCtrlSwitchPropCollectedRight = 0;
@@ -104,6 +104,17 @@ public class GameControllerTutorial2 : MonoBehaviour
 
     public Image CountDownNavArea;
     public TextMeshProUGUI CountDownLeftText;
+
+    public GameObject ShootLeft;
+    public GameObject ShootRight;
+    public Image spotLeft;
+    public Image spotRight;
+    public Image spotlightBulletsLeft;
+    public Image spotlightBulletsRight;
+    public TextMeshProUGUI plusLeft;
+    public TextMeshProUGUI minusLeft;
+    public TextMeshProUGUI plusRight;
+    public TextMeshProUGUI minusRight;
 
     void Awake()
     {
@@ -128,6 +139,20 @@ public class GameControllerTutorial2 : MonoBehaviour
         {
             spotlightMudLeft.enabled = false;
             spotlightMudRight.enabled = false;
+        }
+
+        if (ShootLeft != null)
+        {
+            ShootLeft.gameObject.SetActive(false);
+            ShootRight.gameObject.SetActive(false);
+            spotLeft.enabled = false;
+            spotRight.enabled = false;
+            spotlightBulletsLeft.enabled = false;
+            spotlightBulletsRight.enabled = false;
+            plusLeft.enabled = false;
+            minusLeft.enabled = false;
+            plusRight.enabled = false;
+            minusRight.enabled = false;
         }
 
         navArea.gameObject.SetActive(false);
@@ -203,15 +228,75 @@ public class GameControllerTutorial2 : MonoBehaviour
 
     void Update()
     {
-       
+        if (Input.GetKeyDown(KeyCode.W))
+        {
+            if (spotlightBulletsLeft != null)
+            {
+                StartCoroutine(SpotlightBullets(spotlightBulletsLeft, 1.5f, minusLeft));
+            }
+        }
+        if (Input.GetKeyDown(KeyCode.UpArrow))
+        {
+            if (spotlightBulletsRight != null)
+            {
+                StartCoroutine(SpotlightBullets(spotlightBulletsRight, 1.5f, minusRight));
+            }
+        }
     }
 
+    private IEnumerator SpotlightBullets(Image spotlight, float delay, TextMeshProUGUI minus)
+    {
+        spotlight.enabled = true;
+        minus.enabled = true;
+        yield return new WaitForSecondsRealtime(delay);
+        spotlight.enabled = false;
+        minus.enabled = false;
+    }
+
+    public void Bullets(string carName)
+    {
+        if (carName == ConstName.LEFT_CAR)
+        {
+            StartCoroutine(SpotlightBulletsLeft());
+        }
+        else
+        {
+            StartCoroutine(SpotlightBulletsRight());
+        }
+    }
+
+    private IEnumerator SpotlightBulletsLeft()
+    {
+        spotlightBulletsLeft.enabled = true;
+        plusLeft.enabled = true;
+        yield return new WaitForSecondsRealtime(1.5f);
+        spotlightBulletsLeft.enabled = false;
+        plusLeft.enabled = false;
+    }
+
+    private IEnumerator SpotlightBulletsRight()
+    {
+        spotlightBulletsRight.enabled = true;
+        plusRight.enabled = true;
+        yield return new WaitForSecondsRealtime(1.5f);
+        spotlightBulletsRight.enabled = false;
+        plusRight.enabled = false;
+    }
 
     IEnumerator CountdownTimer()
     {
+        float timer = gameDuration;
         while (gameDuration > 0)
         {
             TimerMsg.text = "" + Mathf.Ceil(gameDuration).ToString() + "s";
+            if ((timer - gameDuration) == 5f && levelNext == 5)
+            {
+                StartCoroutine(PauseRight());
+            }
+            if ((timer - gameDuration) == 11f && levelNext == 5)
+            {
+                StartCoroutine(PauseLeft());
+            }
             yield return new WaitForSeconds(1f);
             // Decrease game duration by 1 second
             gameDuration -= 1f;
@@ -237,6 +322,34 @@ public class GameControllerTutorial2 : MonoBehaviour
         broadcastMsg.color = Color.black;
         broadcastMsg.gameObject.SetActive(true);
 
+    }
+
+    IEnumerator PauseLeft()
+    {
+        Time.timeScale = 0;
+        ShootLeft.gameObject.SetActive(true);
+        spotLeft.enabled = true;
+        while (!Input.GetKeyDown(KeyCode.W))
+        {
+            yield return null; // Wait for the next frame
+        }
+        Time.timeScale = 1;
+        ShootLeft.gameObject.SetActive(false);
+        spotLeft.enabled = false;
+    }
+
+    IEnumerator PauseRight()
+    {
+        Time.timeScale = 0;
+        ShootRight.gameObject.SetActive(true);
+        spotRight.enabled = true;
+        while (!Input.GetKeyDown(KeyCode.UpArrow))
+        {
+            yield return null; // Wait for the next frame
+        }
+        Time.timeScale = 1;
+        ShootRight.gameObject.SetActive(false);
+        spotRight.enabled = false;
     }
 
     IEnumerator FadeOutText(TextMeshProUGUI text)
@@ -476,11 +589,11 @@ public class GameControllerTutorial2 : MonoBehaviour
 
         //string json = JsonUtility.ToJson(playerData);
 
-        if (ConstName.SEND_ANALYTICS == true)
-        {
-            RestClient.Post("https://portkey-2a1ae-default-rtdb.firebaseio.com/playtesting1_analytics.json", playerData);
-            Debug.Log("Analytics sent to firebase");
-        }
+        //if (ConstName.SEND_ANALYTICS == true)
+        //{
+        //    RestClient.Post("https://portkey-2a1ae-default-rtdb.firebaseio.com/playtesting1_analytics.json", playerData);
+        //    Debug.Log("Analytics sent to firebase");
+        //}
     }
 
     void CalculateScoreLeft()
