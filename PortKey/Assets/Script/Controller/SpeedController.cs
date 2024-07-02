@@ -98,8 +98,8 @@ public class SpeedLimits
                 canIncreaseSpawnSpeed = true;
                 defaultCarSpeed = 4.0f;
                 defaultSpawnSpeed = 2.0f;
-                carSpeedMultiplier = 1.15f;
-                spawnSpeedMultiplier = 1.03f;
+                carSpeedMultiplier = 1.09f;
+                spawnSpeedMultiplier = 1.02f;
                 carMaxSpeed = 10.0f;
                 obstacleMaxSpeed = 5.0f;
                 speedIncreaseDuration = 40.0f;
@@ -120,8 +120,8 @@ public class SpeedLimits
                 canIncreaseSpawnSpeed = true;
                 defaultCarSpeed = 3.0f;
                 defaultSpawnSpeed = 2.0f;
-                carSpeedMultiplier = 1.12f;
-                spawnSpeedMultiplier = 1.04f;
+                carSpeedMultiplier = 1.07f;
+                spawnSpeedMultiplier = 1.02f;
                 carMaxSpeed = 9.0f;
                 obstacleMaxSpeed = 5.5f;
                 speedIncreaseDuration = 50.0f;
