@@ -98,10 +98,10 @@ public class SpeedLimits
                 canIncreaseSpawnSpeed = true;
                 defaultCarSpeed = 3.0f;
                 defaultSpawnSpeed = 2.0f;
-                carSpeedMultiplier = 1.08f;
-                spawnSpeedMultiplier = 1.02f;
-                carMaxSpeed = 7.0f;
-                obstacleMaxSpeed = 4.5f;
+                carSpeedMultiplier = 1.06f;
+                spawnSpeedMultiplier = 1.012f;
+                carMaxSpeed = 6.0f;
+                obstacleMaxSpeed = 4.1f;
                 speedIncreaseDuration = 30.0f;
                 break;
             case 3:
@@ -109,10 +109,10 @@ public class SpeedLimits
                 canIncreaseSpawnSpeed = true;
                 defaultCarSpeed = 4.0f;
                 defaultSpawnSpeed = 2.0f;
-                carSpeedMultiplier = 1.09f;
-                spawnSpeedMultiplier = 1.02f;
-                carMaxSpeed = 10.0f;
-                obstacleMaxSpeed = 5.0f;
+                carSpeedMultiplier = 1.07f;
+                spawnSpeedMultiplier = 1.015f;
+                carMaxSpeed = 6.0f;
+                obstacleMaxSpeed = 4.2f;
                 speedIncreaseDuration = 40.0f;
                 break;
             case 4:
@@ -120,10 +120,10 @@ public class SpeedLimits
                 canIncreaseSpawnSpeed = true;
                 defaultCarSpeed = 3.0f;
                 defaultSpawnSpeed = 2.0f;
-                carSpeedMultiplier = 1.12f;
-                spawnSpeedMultiplier = 1.04f;
-                carMaxSpeed = 9.0f;
-                obstacleMaxSpeed = 5.5f;
+                carSpeedMultiplier = 1.08f;
+                spawnSpeedMultiplier = 1.02f;
+                carMaxSpeed = 7.0f;
+                obstacleMaxSpeed = 4.5f;
                 speedIncreaseDuration = 50.0f;
                 break;
             case 5:
@@ -131,10 +131,10 @@ public class SpeedLimits
                 canIncreaseSpawnSpeed = true;
                 defaultCarSpeed = 3.0f;
                 defaultSpawnSpeed = 2.0f;
-                carSpeedMultiplier = 1.07f;
+                carSpeedMultiplier = 1.08f;
                 spawnSpeedMultiplier = 1.02f;
-                carMaxSpeed = 9.0f;
-                obstacleMaxSpeed = 5.5f;
+                carMaxSpeed = 7.0f;
+                obstacleMaxSpeed = 4.5f;
                 speedIncreaseDuration = 50.0f;
                 break;
             default:
