@@ -100,8 +100,8 @@ public class SceneSwitch : MonoBehaviour
 
     public void loadMap()
     {
-        //SceneManager.LoadScene("Map");
-        SceneManager.LoadScene(MAP_SCENE_BUILD_NUMBER);
+        SceneManager.LoadScene("Map");
+        //SceneManager.LoadScene(MAP_SCENE_BUILD_NUMBER);
     }
 
 }
