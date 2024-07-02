@@ -35,6 +35,8 @@ namespace PortKey.Assets.Script.SwitchLevel
             switch (levelName)
             {
                 case "Tutorial":
+                case "Tutorial2":
+                case "Tutorial3":
                     Level = 0;
                     break;
                 case "Level1":
