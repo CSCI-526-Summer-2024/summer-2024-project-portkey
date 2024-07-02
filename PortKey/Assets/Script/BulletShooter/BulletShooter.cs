@@ -13,7 +13,8 @@ public class BulletShooter : MonoBehaviour
     {
         // If collides with Obstacle, EnemyControlReverse, or ScoreUp prefabs
         if (collision.CompareTag("Obstacle") || collision.gameObject.name.Contains("EnemyControlReverse") ||
-            collision.gameObject.name.Contains("ScoreUp"))
+            collision.gameObject.name.Contains("ScoreUp") || collision.CompareTag("HeartProp") || 
+            collision.gameObject.name.Contains("SlowEnemy") || collision.gameObject.name.Contains("ReduceEnemyHealth"))
         {
             // Destroy the objects
             Destroy(collision.gameObject);
