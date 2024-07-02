@@ -137,15 +137,15 @@ public class GameController : MonoBehaviour
         string msgToDisplay;
         if (timeLeft == 3)
         {
-            msgToDisplay = timeLeft.ToString() + "\n" + "READY";
+            msgToDisplay = timeLeft.ToString() + "\n" + "";
         }
         else if (timeLeft == 2)
         {
-            msgToDisplay = timeLeft.ToString() + "\n" + "SET";
+            msgToDisplay = timeLeft.ToString() + "\n" + "";
         }
         else if (timeLeft == 1)
         {
-            msgToDisplay = timeLeft.ToString() + "\n" + "GO";
+            msgToDisplay = timeLeft.ToString() + "\n" + "";
         }
         else
         {
