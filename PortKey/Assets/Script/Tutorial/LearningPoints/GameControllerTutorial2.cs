@@ -26,6 +26,8 @@ public class GameControllerTutorial2 : MonoBehaviour
 
     public TextMeshProUGUI rightMsg;
 
+    public TextMeshProUGUI broadcast;
+
     public TextMeshProUGUI broadcastMsg;
 
     public TextMeshProUGUI broadcastMsgLeft;
@@ -286,9 +288,14 @@ public class GameControllerTutorial2 : MonoBehaviour
     IEnumerator CountdownTimer()
     {
         float timer = gameDuration;
+        broadcast.gameObject.SetActive(true);
         while (gameDuration > 0)
         {
             TimerMsg.text = "" + Mathf.Ceil(gameDuration).ToString() + "s";
+            if ((timer - gameDuration) == 2f)
+            {
+                broadcast.gameObject.SetActive(false);
+            }
             if ((timer - gameDuration) == 5f && levelNext == 5)
             {
                 StartCoroutine(PauseRight());
