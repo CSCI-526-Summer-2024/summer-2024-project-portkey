@@ -93,6 +93,11 @@ public class SceneSwitch : MonoBehaviour
         SceneManager.LoadScene("Menu");
     }
 
+    public void loaderMenuTut()
+    {
+        SceneManager.LoadScene("TutorialMenu");
+    }
+
     public void loaderStarter()
     {
         SceneManager.LoadScene("Starter");
