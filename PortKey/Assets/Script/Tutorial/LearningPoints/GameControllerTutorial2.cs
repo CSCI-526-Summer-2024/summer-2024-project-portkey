@@ -294,7 +294,7 @@ public class GameControllerTutorial2 : MonoBehaviour
             TimerMsg.text = "" + Mathf.Ceil(gameDuration).ToString() + "s";
             if ((timer - gameDuration) == 2f)
             {
-                broadcast.gameObject.SetActive(false);
+                StartCoroutine(FadeOutText(broadcast));
             }
             if ((timer - gameDuration) == 5f && levelNext == 5)
             {
