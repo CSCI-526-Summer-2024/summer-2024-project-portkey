@@ -94,7 +94,7 @@ public class GameControllerTutorial : MonoBehaviour
     private readonly float baseScore = 1.0f;
 
     // game duration, unit is second
-    private float gameDuration = 50f;
+    private float gameDuration = 60f;
 
     //analytics helper variables
     public int totalCtrlSwitchPropCollectedRight = 0;
@@ -241,10 +241,11 @@ public class GameControllerTutorial : MonoBehaviour
 
     IEnumerator CountdownTimer()
     {
+        float timer = gameDuration;
         while (gameDuration > 0)
         {
             TimerMsg.text = "" + Mathf.Ceil(gameDuration).ToString() + "s";
-            if (gameDuration == 45)
+            if ((timer - gameDuration) == 5f)
             {
                 StartCoroutine(FadeOutText(player1));
                 StartCoroutine(FadeOutText(player2));
