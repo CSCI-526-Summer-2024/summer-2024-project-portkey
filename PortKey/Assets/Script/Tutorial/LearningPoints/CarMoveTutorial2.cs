@@ -27,6 +27,10 @@ public class CarMoveTutorial2 : MonoBehaviour
 
     public Image navArea;
 
+    public TextMeshProUGUI broadcastMsg2;
+
+    public Image navArea2;
+
     public bool reversed = false;
 
     public GameObject reverseIcon;
@@ -53,6 +57,10 @@ public class CarMoveTutorial2 : MonoBehaviour
 
     void Start()
     {
+        if (navArea2 != null)
+        {
+            navArea2.gameObject.SetActive(false);
+        }
         level = LevelInfo.Instance.Level;
         if (level == -1)
         {
@@ -412,9 +420,9 @@ public class CarMoveTutorial2 : MonoBehaviour
             gameController.StopFlashing();
             if (isDueToMinusProp)
             {
-                deathText.gameObject.SetActive(true);
-                deathText.text = "YOU WIN";
-                deathText.color = Color.green;
+                //deathText.gameObject.SetActive(true);
+                //deathText.text = "YOU WIN";
+                //deathText.color = Color.green;
                 winText.gameObject.SetActive(true);
                 winText.text = "YOU DIE";
                 winText.color = Color.red;
@@ -424,15 +432,15 @@ public class CarMoveTutorial2 : MonoBehaviour
                 deathText.gameObject.SetActive(true);
                 deathText.text = "YOU DIE";
                 deathText.color = Color.red;
-                winText.gameObject.SetActive(true);
-                winText.text = "YOU WIN";
-                winText.color = Color.green;
+                //winText.gameObject.SetActive(true);
+                //winText.text = "YOU WIN";
+                //winText.color = Color.green;
             }
 
 
-            navArea.gameObject.SetActive(true);
-            broadcastMsg.text = "GAME OVER";
-            broadcastMsg.color = Color.black;
+            navArea2.gameObject.SetActive(true);
+            broadcastMsg2.text = "TRY AGAIN";
+            broadcastMsg2.color = Color.black;
 
             // Level Completion Reason Metric #2 
             gameController.reasonforFinshingLevel = 1;

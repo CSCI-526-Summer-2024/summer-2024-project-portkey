@@ -633,9 +633,12 @@ public class GameControllerTutorial2 : MonoBehaviour
 
     private IEnumerator Spotlight(Image spotlight, float delay)
     {
-        spotlight.enabled = true;
-        yield return new WaitForSecondsRealtime(delay);
-        spotlight.enabled = false;
+        if (spotlight != null)
+        {
+            spotlight.enabled = true;
+            yield return new WaitForSecondsRealtime(delay);
+            spotlight.enabled = false;
+        }
     }
 
     private IEnumerator SpotlightEnemy(Image spotlight, float delay, Image skull)
