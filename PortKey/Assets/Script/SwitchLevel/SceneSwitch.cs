@@ -15,7 +15,6 @@ public class SceneSwitch : MonoBehaviour
     {
         if (!TutorialInfo.lvl1) {
             loaderTut();
-            TutorialInfo.lvl1 = true;
         } else
         {
             GameLevelsManager.Instance.Level = 1; //setting the current level globally that player is on
@@ -32,7 +31,6 @@ public class SceneSwitch : MonoBehaviour
         if (!TutorialInfo.lvl3)
         {
             loaderTut2();
-            TutorialInfo.lvl3 = true;
         } else
         {
             GameLevelsManager.Instance.Level = 3; //setting the current level globally that player is on
@@ -44,7 +42,6 @@ public class SceneSwitch : MonoBehaviour
         if (!TutorialInfo.lvl4)
         {
             loaderTut3();
-            TutorialInfo.lvl4 = true;
         }
         else
         {
@@ -56,8 +53,7 @@ public class SceneSwitch : MonoBehaviour
     {
         if (!TutorialInfo.lvl5)
         {
-            loaderTut3();
-            TutorialInfo.lvl5 = true;
+            loaderTut4();
         }
         else
         {
@@ -70,18 +66,22 @@ public class SceneSwitch : MonoBehaviour
     public void loaderTut()
     {
         SceneManager.LoadScene("Tutorial");
+        TutorialInfo.lvl1 = true;
     }
     public void loaderTut2()
     {
         SceneManager.LoadScene("Tutorial2");
+        TutorialInfo.lvl3 = true;
     }
     public void loaderTut3()
     {
         SceneManager.LoadScene("Tutorial3");
+        TutorialInfo.lvl4 = true;
     }
     public void loaderTut4()
     {
         SceneManager.LoadScene("Tutorial4");
+        TutorialInfo.lvl5 = true;
     }
 
     //MENUS
