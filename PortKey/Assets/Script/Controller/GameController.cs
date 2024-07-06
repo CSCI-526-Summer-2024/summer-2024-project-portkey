@@ -106,6 +106,8 @@ public class GameController : MonoBehaviour
     public Image CountDownNavArea;
     public TextMeshProUGUI CountDownLeftText;
 
+    public bool isGameOver = false;
+
 
     void Awake()
     {
@@ -261,6 +263,7 @@ public class GameController : MonoBehaviour
         reasonforFinshingLevel = 2;
         //posting the analytics to the firebase
         Anaytics();
+        isGameOver = true;
 
         // Pause the game when the game duration is over
         PauseGame();
@@ -477,6 +480,7 @@ public class GameController : MonoBehaviour
 
         //posting the analytics to the firebase
         Anaytics();
+        isGameOver = true;
 
     }
 

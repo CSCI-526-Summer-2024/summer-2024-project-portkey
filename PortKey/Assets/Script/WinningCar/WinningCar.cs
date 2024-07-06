@@ -25,7 +25,12 @@ public class WinningCar : MonoBehaviour
     {
         Vector3 newPosition = transform.localPosition;
         newPosition.y = y;
-        if (gameController.GetCurrentScoreLeft() > gameController.GetCurrentScoreRight())
+
+        if (gameController.isGameOver)
+        {
+            transform.localScale = Vector3.zero;
+        }
+        else if (gameController.GetCurrentScoreLeft() > gameController.GetCurrentScoreRight())
         {
             newPosition.x = -x;
             transform.localPosition = newPosition;
