@@ -624,4 +624,14 @@ public class GameController : MonoBehaviour
         }
 
     }
+
+    public float GetCurrentScoreLeft()
+    {
+        return currentLeftScore;
+    }
+
+    public float GetCurrentScoreRight()
+    {
+        return currentRightScore;
+    }
 }
