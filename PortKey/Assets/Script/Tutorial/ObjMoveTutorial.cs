@@ -54,10 +54,10 @@ public class ObjMoveTutorial : MonoBehaviour
         while (isBlinking)
         {  
             transform.localScale = Vector3.zero;
-            yield return new WaitForSeconds(0.5f); 
+            yield return new WaitForSeconds(0.2f); 
 
             transform.localScale = originalScale;
-            yield return new WaitForSeconds(0.5f); 
+            yield return new WaitForSeconds(0.2f); 
         }
     }
 }
