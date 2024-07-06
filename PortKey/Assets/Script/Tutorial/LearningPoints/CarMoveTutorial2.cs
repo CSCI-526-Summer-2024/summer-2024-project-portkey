@@ -302,6 +302,7 @@ public class CarMoveTutorial2 : MonoBehaviour
             else
             {
                 speedController.SlowDownCarTemporarily(transform.name, 0.5f, 4f);
+                DisplayTurtleMessage();
                 gameController.ShowSpeedSlowMsg(transform.name);
             }
         }
@@ -455,6 +456,20 @@ public class CarMoveTutorial2 : MonoBehaviour
         winText.color = Color.blue;
         winText.gameObject.SetActive(true);
         StartCoroutine(HideSwitchMessage(1f));
+    }
+
+    void DisplayTurtleMessage()
+    {
+        winText.text = "SLOWED DOWN!";
+        winText.color = Color.blue;
+        winText.gameObject.SetActive(true);
+        StartCoroutine(HideTurtlehMessage(1f));
+    }
+
+    IEnumerator HideTurtlehMessage(float delay)
+    {
+        yield return new WaitForSeconds(delay);
+        winText.gameObject.SetActive(false);
     }
 
     IEnumerator HideSwitchMessage(float delay)
