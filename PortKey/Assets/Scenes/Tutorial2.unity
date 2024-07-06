@@ -4356,6 +4356,8 @@ MonoBehaviour:
   winText: {fileID: 640517131}
   broadcastMsg: {fileID: 807031531}
   navArea: {fileID: 1595069837}
+  broadcastMsg2: {fileID: 0}
+  navArea2: {fileID: 0}
   reversed: 0
   reverseIcon: {fileID: 2071126332}
   background: {fileID: 1570836567}
@@ -4556,6 +4558,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: ReduceEnemyHealth
       objectReference: {fileID: 0}
+    - target: {fileID: 3154252816654500746, guid: c024d3d0682374d3b934f90699800437, type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 3387892338276423436, guid: c024d3d0682374d3b934f90699800437, type: 3}
       propertyPath: m_LocalPosition.x
       value: 6.2
@@ -4599,13 +4605,35 @@ PrefabInstance:
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 2404250421653184721, guid: c024d3d0682374d3b934f90699800437, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1036474959}
   m_SourcePrefab: {fileID: 100100000, guid: c024d3d0682374d3b934f90699800437, type: 3}
 --- !u!4 &1036474953 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 3387892338276423436, guid: c024d3d0682374d3b934f90699800437, type: 3}
   m_PrefabInstance: {fileID: 1036474952}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &1036474954 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 2404250421653184721, guid: c024d3d0682374d3b934f90699800437, type: 3}
+  m_PrefabInstance: {fileID: 1036474952}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &1036474959
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1036474954}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7231bad9373e940baa214127979d30fa, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  moveSpeed: 2
+  speed: 2
 --- !u!1 &1049002633
 GameObject:
   m_ObjectHideFlags: 0
@@ -5946,6 +5974,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: ReduceEnemyHealth
       objectReference: {fileID: 0}
+    - target: {fileID: 3154252816654500746, guid: d53c2084d43094bd8a071e0ed9c3ac7e, type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 3387892338276423436, guid: d53c2084d43094bd8a071e0ed9c3ac7e, type: 3}
       propertyPath: m_LocalPosition.x
       value: -6.52
@@ -5989,13 +6021,35 @@ PrefabInstance:
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 2404250421653184721, guid: d53c2084d43094bd8a071e0ed9c3ac7e, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1306346115}
   m_SourcePrefab: {fileID: 100100000, guid: d53c2084d43094bd8a071e0ed9c3ac7e, type: 3}
 --- !u!4 &1306346109 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 3387892338276423436, guid: d53c2084d43094bd8a071e0ed9c3ac7e, type: 3}
   m_PrefabInstance: {fileID: 1306346108}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &1306346110 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 2404250421653184721, guid: d53c2084d43094bd8a071e0ed9c3ac7e, type: 3}
+  m_PrefabInstance: {fileID: 1306346108}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &1306346115
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1306346110}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7231bad9373e940baa214127979d30fa, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  moveSpeed: 2
+  speed: 2
 --- !u!1 &1310468726
 GameObject:
   m_ObjectHideFlags: 0
@@ -7775,6 +7829,7 @@ MonoBehaviour:
   minusLeft: {fileID: 0}
   plusRight: {fileID: 0}
   minusRight: {fileID: 0}
+  canMove: 0
 --- !u!1001 &1686243723
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -8725,6 +8780,8 @@ MonoBehaviour:
   winText: {fileID: 1977611498}
   broadcastMsg: {fileID: 807031531}
   navArea: {fileID: 1595069837}
+  broadcastMsg2: {fileID: 0}
+  navArea2: {fileID: 0}
   reversed: 0
   reverseIcon: {fileID: 1264947745}
   background: {fileID: 1196091165}

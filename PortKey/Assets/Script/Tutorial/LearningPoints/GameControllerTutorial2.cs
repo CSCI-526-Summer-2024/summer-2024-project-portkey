@@ -118,6 +118,8 @@ public class GameControllerTutorial2 : MonoBehaviour
     public TextMeshProUGUI plusRight;
     public TextMeshProUGUI minusRight;
 
+    public bool canMove;
+
     void Awake()
     {
         if (LostHealthMsgRight != null)
@@ -130,6 +132,8 @@ public class GameControllerTutorial2 : MonoBehaviour
 
     void Start()
     {
+        canMove = true;
+
         if (spotlightLivesLeft != null)
         {
             spotlightLivesRight.enabled = false;
@@ -291,22 +295,29 @@ public class GameControllerTutorial2 : MonoBehaviour
         broadcast.gameObject.SetActive(true);
         while (gameDuration > 0)
         {
-            TimerMsg.text = "" + Mathf.Ceil(gameDuration).ToString() + "s";
-            if ((timer - gameDuration) == 2f)
+            if (canMove)
             {
-                StartCoroutine(FadeOutText(broadcast));
+                TimerMsg.text = "" + Mathf.Ceil(gameDuration).ToString() + "s";
+                if ((timer - gameDuration) == 2f)
+                {
+                    StartCoroutine(FadeOutText(broadcast));
+                }
+                if ((timer - gameDuration) == 5f && levelNext == 5)
+                {
+                    StartCoroutine(PauseRight());
+                }
+                if ((timer - gameDuration) == 11f && levelNext == 5)
+                {
+                    StartCoroutine(PauseLeft());
+                }
+                yield return new WaitForSeconds(1f);
+                // Decrease game duration by 1 second
+                gameDuration -= 1f;
             }
-            if ((timer - gameDuration) == 5f && levelNext == 5)
+            else
             {
-                StartCoroutine(PauseRight());
+                yield return null;
             }
-            if ((timer - gameDuration) == 11f && levelNext == 5)
-            {
-                StartCoroutine(PauseLeft());
-            }
-            yield return new WaitForSeconds(1f);
-            // Decrease game duration by 1 second
-            gameDuration -= 1f;
         }
         TimerMsg.text = "0s";
 

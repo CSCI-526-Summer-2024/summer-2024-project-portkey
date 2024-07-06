@@ -5391,6 +5391,8 @@ MonoBehaviour:
   winText: {fileID: 640517131}
   broadcastMsg: {fileID: 807031531}
   navArea: {fileID: 1595069837}
+  broadcastMsg2: {fileID: 0}
+  navArea2: {fileID: 0}
   reversed: 0
   reverseIcon: {fileID: 2071126332}
   background: {fileID: 928662648}
@@ -8200,6 +8202,10 @@ PrefabInstance:
       value: 2
       objectReference: {fileID: 0}
     - target: {fileID: -279700878142861245, guid: 008b9890a1828ba4cad810a319ca8547, type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -279700878142861245, guid: 008b9890a1828ba4cad810a319ca8547, type: 3}
       propertyPath: moveSpeed
       value: 2
       objectReference: {fileID: 0}
@@ -8250,13 +8256,35 @@ PrefabInstance:
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 1682798608209473767, guid: 008b9890a1828ba4cad810a319ca8547, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1482747319}
   m_SourcePrefab: {fileID: 100100000, guid: 008b9890a1828ba4cad810a319ca8547, type: 3}
 --- !u!4 &1482747317 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 8013834637219093177, guid: 008b9890a1828ba4cad810a319ca8547, type: 3}
   m_PrefabInstance: {fileID: 1482747316}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &1482747318 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 1682798608209473767, guid: 008b9890a1828ba4cad810a319ca8547, type: 3}
+  m_PrefabInstance: {fileID: 1482747316}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &1482747319
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1482747318}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7231bad9373e940baa214127979d30fa, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  moveSpeed: 2
+  speed: 2
 --- !u!1001 &1498948702
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -9308,6 +9336,7 @@ MonoBehaviour:
   minusLeft: {fileID: 766625288}
   plusRight: {fileID: 1303018794}
   minusRight: {fileID: 1226370129}
+  canMove: 0
 --- !u!1 &1655210950
 GameObject:
   m_ObjectHideFlags: 0
@@ -9990,6 +10019,10 @@ PrefabInstance:
       value: 2
       objectReference: {fileID: 0}
     - target: {fileID: -279700878142861245, guid: 4fcd9fbbe71944f429ab7a97050f3076, type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -279700878142861245, guid: 4fcd9fbbe71944f429ab7a97050f3076, type: 3}
       propertyPath: moveSpeed
       value: 2
       objectReference: {fileID: 0}
@@ -10040,13 +10073,35 @@ PrefabInstance:
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 1682798608209473767, guid: 4fcd9fbbe71944f429ab7a97050f3076, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1937732495}
   m_SourcePrefab: {fileID: 100100000, guid: 4fcd9fbbe71944f429ab7a97050f3076, type: 3}
 --- !u!4 &1937732493 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 8013834637219093177, guid: 4fcd9fbbe71944f429ab7a97050f3076, type: 3}
   m_PrefabInstance: {fileID: 1937732492}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &1937732494 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 1682798608209473767, guid: 4fcd9fbbe71944f429ab7a97050f3076, type: 3}
+  m_PrefabInstance: {fileID: 1937732492}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &1937732495
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1937732494}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7231bad9373e940baa214127979d30fa, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  moveSpeed: 2
+  speed: 2
 --- !u!1001 &1955385375
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -10781,6 +10836,8 @@ MonoBehaviour:
   winText: {fileID: 1977611498}
   broadcastMsg: {fileID: 807031531}
   navArea: {fileID: 1595069837}
+  broadcastMsg2: {fileID: 0}
+  navArea2: {fileID: 0}
   reversed: 0
   reverseIcon: {fileID: 1264947745}
   background: {fileID: 178114989}
