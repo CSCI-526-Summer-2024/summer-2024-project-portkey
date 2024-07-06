@@ -50,14 +50,13 @@ public class ObjMoveTutorial2 : MonoBehaviour
 
     IEnumerator BlinkObject()
     {
-        Debug.Log("uhh hello?");
         while (isBlinking)
         {
             transform.localScale = Vector3.zero;
-            yield return new WaitForSeconds(0.2f);
+            yield return new WaitForSeconds(0.3f);
 
             transform.localScale = originalScale;
-            yield return new WaitForSeconds(0.2f);
+            yield return new WaitForSeconds(0.3f);
         }
     }
 }
