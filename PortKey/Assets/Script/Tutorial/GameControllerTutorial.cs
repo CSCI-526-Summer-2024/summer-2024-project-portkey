@@ -116,6 +116,8 @@ public class GameControllerTutorial : MonoBehaviour
     public Image CountDownNavArea;
     public TextMeshProUGUI CountDownLeftText;
 
+    public bool canMove;
+
     void Awake()
     {
         if (LostHealthMsgRight != null)
@@ -128,6 +130,8 @@ public class GameControllerTutorial : MonoBehaviour
 
     void Start()
     {
+        canMove = true;
+
         spotlightLeft.enabled = false;
         spotlightRight.enabled = false;
         spotlightIconLeft1.enabled = false;
@@ -244,16 +248,22 @@ public class GameControllerTutorial : MonoBehaviour
         float timer = gameDuration;
         while (gameDuration > 0)
         {
-            TimerMsg.text = "" + Mathf.Ceil(gameDuration).ToString() + "s";
-            if ((timer - gameDuration) == 5f)
+            if (canMove)
             {
-                StartCoroutine(FadeOutText(player1));
-                StartCoroutine(FadeOutText(player2));
-                move = true;
+                TimerMsg.text = "" + Mathf.Ceil(gameDuration).ToString() + "s";
+                if ((timer - gameDuration) == 5f)
+                {
+                    StartCoroutine(FadeOutText(player1));
+                    StartCoroutine(FadeOutText(player2));
+                    move = true;
+                }
+                yield return new WaitForSeconds(1f);
+                // Decrease game duration by 1 second
+                gameDuration -= 1f;
+            } else
+            {
+                yield return null;
             }
-            yield return new WaitForSeconds(1f);
-            // Decrease game duration by 1 second
-            gameDuration -= 1f;
         }
         TimerMsg.text = "0s";
 
