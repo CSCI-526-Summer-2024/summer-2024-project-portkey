@@ -516,14 +516,20 @@ public class GameControllerTutorial : MonoBehaviour
 
     void CalculateScoreLeft()
     {
-        currentLeftScore += baseScore * scoreMultiplier;
-        leftScore.text = "" + currentLeftScore.ToString("F0");
+        if (canMove)
+        {
+            currentLeftScore += baseScore * scoreMultiplier;
+            leftScore.text = "" + currentLeftScore.ToString("F0");
+        }
     }
 
     void CalculateScoreRight()
     {
-        currentRightScore += baseScore * scoreMultiplier;
-        rightScore.text = "" + currentRightScore.ToString("F0");
+        if (canMove)
+        {
+            currentRightScore += baseScore * scoreMultiplier;
+            rightScore.text = "" + currentRightScore.ToString("F0");
+        }
     }
 
     public void OneTimeBonus(string carName)
