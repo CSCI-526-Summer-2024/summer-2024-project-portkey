@@ -8,7 +8,7 @@ using PortKey.Assets.Script;
 
 public class SceneSwitch : MonoBehaviour
 {
-    int MAP_SCENE_BUILD_NUMBER = 7;
+    //int MAP_SCENE_BUILD_NUMBER = 7;
 
     //LEVELS
     public void loaderLvl1()
