@@ -1,12 +1,16 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class ObjMoveTutorial2 : MonoBehaviour
 {
     public float moveSpeed = 2f;
 
     public float speed = 2f;
+
+    public Image spotlightLeft;
+    public Image spotlightRight;
 
     GameControllerTutorial2 gameController;
     Vector3 originalScale;
@@ -17,6 +21,11 @@ public class ObjMoveTutorial2 : MonoBehaviour
     {
         gameController = FindObjectOfType<GameControllerTutorial2>();
         originalScale = transform.localScale;
+        if (spotlightRight != null)
+        {
+            spotlightLeft.enabled = false;
+            spotlightRight.enabled = false;
+        }
     }
 
     // Update is called once per frame
@@ -35,6 +44,13 @@ public class ObjMoveTutorial2 : MonoBehaviour
                 isBlinking = true;
                 StartCoroutine(BlinkObject());
             }
+            if (transform.position.x < 0.0f)
+            {
+                spotlightLeft.enabled = true;
+            } else
+            {
+                spotlightRight.enabled = true;
+            }
         }
     }
 
@@ -46,6 +62,18 @@ public class ObjMoveTutorial2 : MonoBehaviour
         StopCoroutine(BlinkObject());
         transform.localScale = originalScale;
         isBlinking = false;
+
+        if (spotlightRight != null)
+        {
+            if (transform.position.x < 0.0f)
+            {
+                spotlightLeft.enabled = false;
+            }
+            else
+            {
+                spotlightRight.enabled = false;
+            }
+        }
     }
 
     IEnumerator BlinkObject()
