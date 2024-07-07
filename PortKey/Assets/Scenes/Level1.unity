@@ -2245,6 +2245,7 @@ MonoBehaviour:
   navArea: {fileID: 253477012}
   leftMud: {fileID: 0}
   rightMud: {fileID: 0}
+  gameDuration: 40
   totalCtrlSwitchPropCollectedRight: 0
   totalCtrlSwitchPropCollectedLeft: 0
   level: 0
@@ -2255,6 +2256,7 @@ MonoBehaviour:
   LostHealthMsgLeft: {fileID: 0}
   CountDownNavArea: {fileID: 0}
   CountDownLeftText: {fileID: 414957404}
+  isGameOver: 0
 --- !u!4 &799866738
 Transform:
   m_ObjectHideFlags: 0

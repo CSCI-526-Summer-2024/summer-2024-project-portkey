@@ -82,7 +82,7 @@ public class GameController : MonoBehaviour
     private readonly float baseScore = 1.0f;
 
     // game duration, unit is second
-    private float gameDuration = 60f;
+    public float gameDuration = 60f;
 
     //analytics helper variables
     public int totalCtrlSwitchPropCollectedRight = 0;
