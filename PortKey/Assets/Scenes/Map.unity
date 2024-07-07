@@ -374,7 +374,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 1036251755}
         m_TargetAssemblyTypeName: SceneSwitch, Assembly-CSharp
-        m_MethodName: loaderMenu
+        m_MethodName: BackButton
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
