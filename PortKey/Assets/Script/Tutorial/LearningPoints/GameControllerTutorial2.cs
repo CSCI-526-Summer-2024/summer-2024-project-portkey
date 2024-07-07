@@ -18,6 +18,10 @@ public class GameControllerTutorial2 : MonoBehaviour
 
     public Transform zoom2;
 
+    public TextMeshProUGUI leftSpeed;
+
+    public TextMeshProUGUI rightSpeed;
+
     public TextMeshProUGUI leftScore;
 
     public TextMeshProUGUI rightScore;
@@ -70,6 +74,10 @@ public class GameControllerTutorial2 : MonoBehaviour
 
     public Image spotlightMudLeft;
     public Image spotlightMudRight;
+
+    public Image spotlightScoreLeft;
+
+    public Image spotlightScoreRight;
 
     public Image controlLeft1;
     public Image controlRight1;
@@ -147,6 +155,17 @@ public class GameControllerTutorial2 : MonoBehaviour
             spotlightMudRight.enabled = false;
         }
 
+        if (spotlightScoreLeft != null)
+        {
+            spotlightScoreLeft.enabled = false;
+
+        }
+
+        if (spotlightScoreRight != null)
+        {
+            spotlightScoreRight.enabled = false;
+
+        }
         if (ShootLeft != null)
         {
             ShootLeft.gameObject.SetActive(false);
@@ -289,8 +308,25 @@ public class GameControllerTutorial2 : MonoBehaviour
         plusRight.enabled = false;
     }
 
+    void SetPlayerSpeedText()
+    {
+        if (leftSpeed != null)
+        {
+            leftSpeed.text = "5mph";
+
+        }
+
+        if (rightSpeed != null)
+        {
+            rightSpeed.text = "5mph";
+        }
+
+    }
+
+
     IEnumerator CountdownTimer()
     {
+        SetPlayerSpeedText();
         float timer = gameDuration;
         broadcast.gameObject.SetActive(true);
         while (gameDuration > 0)
@@ -423,6 +459,11 @@ public class GameControllerTutorial2 : MonoBehaviour
         if (carName == "CarLeft")
         {
             carRight.GetComponent<CarMoveTutorial2>().carSpeed *= -1;
+            if (rightSpeed != null)
+            {
+                rightSpeed.text = "2mph";
+            }
+
             carRight.GetComponent<CarMoveTutorial2>().reversed = !carRight.GetComponent<CarMoveTutorial2>().reversed;
             Time.timeScale = 0;
             //StartCoroutine(Flashing(imageLeft, imageRight, flipRight));
@@ -432,6 +473,12 @@ public class GameControllerTutorial2 : MonoBehaviour
         else
         {
             carLeft.GetComponent<CarMoveTutorial2>().carSpeed *= -1;
+
+            if (leftSpeed != null)
+            {
+                leftSpeed.text = "2mph";
+            }
+
             carLeft.GetComponent<CarMoveTutorial2>().reversed = !carLeft.GetComponent<CarMoveTutorial2>().reversed;
             Time.timeScale = 0;
             //StartCoroutine(Flashing(imageA, imageD, flipLeft));
@@ -476,6 +523,8 @@ public class GameControllerTutorial2 : MonoBehaviour
             //StartCoroutine(HideRightMessage());
             rightMud.enabled = true;
             spotlightMudRight.enabled = true;
+            spotlightScoreRight.enabled = true;
+            rightSpeed.text = "2mph";
             StartCoroutine(HideMud(rightMud, spotlightMudRight));
             StartCoroutine(shrinkIcons(controlRight1.rectTransform, controlRight2.rectTransform));
         }
@@ -486,6 +535,8 @@ public class GameControllerTutorial2 : MonoBehaviour
             //StartCoroutine(HideLeftMessage());
             leftMud.enabled = true;
             spotlightMudLeft.enabled = true;
+            spotlightScoreLeft.enabled = true;
+            leftSpeed.text = "2mph";
             StartCoroutine(HideMud(leftMud, spotlightMudLeft));
             StartCoroutine(shrinkIcons(controlLeft1.rectTransform, controlLeft2.rectTransform));
         }
@@ -521,6 +572,23 @@ public class GameControllerTutorial2 : MonoBehaviour
         yield return new WaitForSeconds(4f);
         mud.enabled = false;
         spotlight.enabled = false;
+        if (spotlightScoreLeft != null)
+        {
+            spotlightScoreLeft.enabled = false;
+        }
+        if (spotlightScoreRight != null)
+        {
+            spotlightScoreRight.enabled = false;
+        }
+        if (rightSpeed != null)
+        {
+            rightSpeed.text = "5mph";
+        }
+        if (leftSpeed != null)
+        {
+            leftSpeed.text = "5mph";
+        }
+
     }
 
     public void CarLeftStop()
