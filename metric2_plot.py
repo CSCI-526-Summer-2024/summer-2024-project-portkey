@@ -29,7 +29,7 @@ time_ups = [level_data[level]['time_up'] for level in levels]
 
 # plot the data
 fig, ax = plt.subplots()
-bar_width = 0.3
+bar_width = 0.4
 p1 = ax.bar(levels, collisions, bar_width, label='Collision')
 p2 = ax.bar(levels, time_ups, bar_width, bottom=collisions, label='Time Up')
 
@@ -42,8 +42,10 @@ ax.legend()
 ax.yaxis.set_major_locator(MaxNLocator(integer=True))
 
 for level, coll, time in zip(levels, collisions, time_ups):
-    ax.text(level, coll / 2, str(coll), ha='center', va='center', color='white')
-    ax.text(level, coll + time / 2, str(time), ha='center', va='center', color='white')
+    if coll > 0:
+            ax.text(level, coll / 2, str(coll), ha='center', va='center', color='black')
+    if time > 0:
+        ax.text(level, coll + time / 2, str(time), ha='center', va='center', color='black')
 
 
 # display the plot

@@ -11,6 +11,6 @@ namespace PortKey.Assets.Script
         public const string RIGHT_CAR = "CarRight";
         public const string ZOOM_LEFT = "ZoomLeft";
         public const string ZOOM_RIGHT = "ZoomRight";
-        public const bool SEND_ANALYTICS = false;
+        public const bool SEND_ANALYTICS = true;
     }
 }

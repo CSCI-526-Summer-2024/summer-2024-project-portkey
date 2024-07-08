@@ -276,6 +276,7 @@ public class CarMoveTutorial : MonoBehaviour
         {
             Destroy(other.gameObject);
             gameController.OneTimeBonus(transform.name);
+            UpdateAnalyticsOnScoreUp();
         }
         /************************* For ScoreUp Collision *************************/
 
@@ -376,6 +377,21 @@ public class CarMoveTutorial : MonoBehaviour
         }
     }
 
+
+
+    void UpdateAnalyticsOnScoreUp()
+    {
+
+        // Metric #1
+        if (transform.name == ConstName.LEFT_CAR)
+        {
+            gameController.totalScoreUpLeft += 1;
+        }
+        else
+        {
+            gameController.totalScoreUpRight += 1;
+        }
+    }
 
     void PlayerDead(bool isDueToMinusProp)
     {

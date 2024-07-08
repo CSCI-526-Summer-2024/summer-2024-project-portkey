@@ -304,6 +304,7 @@ public class CarMove : MonoBehaviour
         {
             Destroy(other.gameObject);
             gameController.OneTimeBonus(transform.name);
+            UpdateAnalyticsOnScoreUp();
         }
         /************************* For ScoreUp Collision *************************/
 
@@ -412,6 +413,20 @@ public class CarMove : MonoBehaviour
         else
         {
             gameController.totalCtrlSwitchPropCollectedRight += 1;
+        }
+    }
+
+    void UpdateAnalyticsOnScoreUp()
+    {
+
+        // Metric #1
+        if (transform.name == ConstName.LEFT_CAR)
+        {
+            gameController.totalScoreUpLeft += 1;
+        }
+        else
+        {
+            gameController.totalScoreUpRight += 1;
         }
     }
 

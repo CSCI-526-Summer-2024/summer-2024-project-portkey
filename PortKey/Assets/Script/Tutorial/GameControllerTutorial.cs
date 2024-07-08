@@ -109,6 +109,10 @@ public class GameControllerTutorial : MonoBehaviour
 
     public int collisionDueToCtrlFlipRight;
 
+    public int totalScoreUpLeft;
+
+    public int totalScoreUpRight;
+
     public TextMeshProUGUI LostHealthMsgRight;
 
     public TextMeshProUGUI LostHealthMsgLeft;
@@ -497,8 +501,8 @@ public class GameControllerTutorial : MonoBehaviour
         PlayerData playerData = new PlayerData();
         playerData.name = "player";
         playerData.level = levelNumber;
-        playerData.scoreLeft = currentLeftScore;
-        playerData.scoreRight = currentRightScore;
+        playerData.scoreLeft = totalScoreUpLeft;
+        playerData.scoreRight = totalScoreUpRight;
         playerData.reasonforFinshingLevel = reasonforFinshingLevel;
         playerData.totalCtrlSwitchPropCollectedRight = totalCtrlSwitchPropCollectedRight;
         playerData.totalCtrlSwitchPropCollectedLeft = totalCtrlSwitchPropCollectedLeft;
@@ -509,8 +513,9 @@ public class GameControllerTutorial : MonoBehaviour
 
         if (ConstName.SEND_ANALYTICS == true)
         {
+            RestClient.Post("https://portkey-2a1ae-default-rtdb.firebaseio.com/metric1_analytics.json", playerData);
+            RestClient.Post("https://portkey-2a1ae-default-rtdb.firebaseio.com/beta_playtesting_analytics.json", playerData);
             RestClient.Post("https://portkey-2a1ae-default-rtdb.firebaseio.com/playtesting1_analytics.json", playerData);
-            Debug.Log("Analytics sent to firebase");
         }
     }
 
