@@ -33,15 +33,20 @@ def parse_data(data, metric_left, metric_right):
 
     # calculate the averages
     levels = sorted(level_data.keys())
-    average_left = [level_data[level]['left'] / level_data[level]['count'] for level in levels]
-    average_right = [level_data[level]['right'] / level_data[level]['count'] for level in levels]
+    if metric_left == "scoreLeft":
+        average_left = [(level_data[level]['left'] / level_data[level]['count']) / 5 for level in levels]
+        average_right = [(level_data[level]['right'] / level_data[level]['count']) / 5 for level in levels]
+    else:
+        average_left = [level_data[level]['left'] / level_data[level]['count'] for level in levels]
+        average_right = [level_data[level]['right'] / level_data[level]['count'] for level in levels]
+    
 
     return levels, average_left, average_right
 
 # plot
 def plot(levels, average_left, average_right, xlabel, ylabel, title, left_label, right_label):
     fig, ax = plt.subplots()
-    bar_width = 0.3
+    bar_width = 0.5
     # stack
     p1 = ax.bar(levels, average_left, bar_width, label=left_label)
     p2 = ax.bar(levels, average_right, bar_width, bottom=average_left, label=right_label)
@@ -57,9 +62,11 @@ def plot(levels, average_left, average_right, xlabel, ylabel, title, left_label,
 
     # text annotations
     for level, left, right in zip(levels, average_left, average_right):
-        ax.text(level, left / 2, f'{left:.2f}', ha='center', va='center', color='white')
-        ax.text(level, left + right / 2, f'{right:.2f}', ha='center', va='center', color='white')
-
+        if left > 0:
+            ax.text(level, left / 2, f'{left:.2f}', ha='center', va='center', color='black')
+        if right > 0:
+            ax.text(level, left + right / 2, f'{right:.2f}', ha='center', va='center', color='black')
+   
     plt.show()
     
 
@@ -70,13 +77,13 @@ def plot(levels, average_left, average_right, xlabel, ylabel, title, left_label,
 
 # metric 1 - Scores Collected per Level
 levels, average_scores_left, average_scores_right = parse_data(data, 'scoreLeft', 'scoreRight')
-plot(levels, average_scores_left, average_scores_right, 'Levels', 'Average Score Props Collected', 'Scores Collected per Level', 'Left Screen', 'Right Screen')
+plot(levels, average_scores_left, average_scores_right, 'Levels', 'Average ScoreUp Props Collected across Gameplays', 'ScoreUp Props Collected per Level', 'Left Screen', 'Right Screen')
 
 # metric 3 - Usage of Control-Flipping Props
 levels, average_props_left, average_props_right = parse_data(data, 'totalCtrlSwitchPropCollectedLeft', 'totalCtrlSwitchPropCollectedRight')
-plot(levels, average_props_left, average_props_right, 'Levels', 'Average Control-Flipping Props', 'Usage of Control-Flipping Props', 'Props Left', 'Props Right')
+plot(levels, average_props_left, average_props_right, 'Levels', 'Average Control-Flipping Props across Gameplays', 'Usage of Control-Flipping Props', 'Left Screen', 'Right Screen')
 
 # metric 4 - Collisions after Control-Flip per Level
 levels, average_collisions_left, average_collisions_right = parse_data(data, 'collisionDueToCtrlFlipLeft', 'collisionDueToCtrlFlipRight')
-plot(levels, average_collisions_left, average_collisions_right, 'Levels', 'Average Number of Obstacle Collisions', 'Collisions after Control-Flip per Level', 'Collisions Left', 'Collisions Right')
+plot(levels, average_collisions_left, average_collisions_right, 'Levels', 'Average Number of Obstacle Collisions across Gameplays', 'Collisions after Control-Flip per Level', 'Left Screen', 'Right Screen')
 
