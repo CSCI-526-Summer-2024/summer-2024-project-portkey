@@ -5,7 +5,7 @@ from matplotlib.ticker import MaxNLocator
 
 # url to fetch data
 url = "https://portkey-2a1ae-default-rtdb.firebaseio.com/playtesting1_analytics.json"
-metric1_url = "https://portkey-2a1ae-default-rtdb.firebaseio.com/metric1_analytics.json"
+url = "https://portkey-2a1ae-default-rtdb.firebaseio.com/beta_playtesting_analytics.json"
 
 
 # fetch the data from the firebase 
@@ -16,8 +16,6 @@ def fetch_data(url):
 
 # fetch the data
 data = fetch_data(url)
-data_metric1 = fetch_data(metric1_url)
-
 
 # parse and use the data
 def parse_data(data, metric_left, metric_right):
@@ -77,7 +75,7 @@ def plot(levels, average_left, average_right, xlabel, ylabel, title, left_label,
 # plot(levels, collisions, time_ups, 'Levels', 'Total Number of Game Completions', 'Level Completion Reason', 'Collision', 'Time Up')
 
 # metric 1 - Scores Collected per Level
-levels, average_scores_left, average_scores_right = parse_data(data_metric1, 'scoreLeft', 'scoreRight')
+levels, average_scores_left, average_scores_right = parse_data(data, 'scoreLeft', 'scoreRight')
 plot(levels, average_scores_left, average_scores_right, 'Levels', 'Average ScoreUp Props Collected across Gameplays', 'ScoreUp Props Collected per Level', 'Left Screen', 'Right Screen')
 
 # metric 3 - Usage of Control-Flipping Props
