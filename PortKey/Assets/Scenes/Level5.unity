@@ -569,16 +569,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b7a970657908d4a2c8a0d8ba5c2c3ade, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  obstacleLeft: {fileID: 3161231708506072461, guid: 0c3c7a9ae0dac40d5a288de516552846, type: 3}
-  obstacleRight: {fileID: 5501790547788042364, guid: f8cf403a23b104a21b24a13d9cad7363, type: 3}
-  obstacleMiddle: {fileID: 3161231708506072461, guid: 57f02c395f4d44608b2f39260e19a500, type: 3}
-  obstacleGapLeft: {fileID: 3161231708506072461, guid: ddd781a0b919345ac8bc282a9cbae001, type: 3}
-  obstacleGapRight: {fileID: 3161231708506072461, guid: aa93f3e1c8f874978849e3fa569b7e1d, type: 3}
-  enemyControlReverse: {fileID: 1682798608209473767, guid: 34d76ef4f18224cadb8057c017751ad9, type: 3}
-  scoreUp: {fileID: 1682798608209473767, guid: 77c8ee2bc2c874829a3023ac584bed39, type: 3}
-  slowEnemy: {fileID: 641279998169510699, guid: 54f409035470445b4822171c183cb652, type: 3}
-  reduceEnemyHealth: {fileID: 1389686929274457625, guid: 4c4e85197da7d4a068d42fc9fe260ead, type: 3}
-  heart: {fileID: 1682798608209473767, guid: 658246a2db4bd2a4d8e338cc6fbe68bc, type: 3}
+  obstacleLeft: {fileID: 3161231708506072461, guid: 57af7de0b72fe4b1189ce4eb5851acd5, type: 3}
+  obstacleRight: {fileID: 5501790547788042364, guid: ba5f2b5b5ca0e4ae1aa56dee9ec790ea, type: 3}
+  obstacleMiddle: {fileID: 3161231708506072461, guid: c96c01028229f4fcaa50fa827385c1ce, type: 3}
+  obstacleGapLeft: {fileID: 3161231708506072461, guid: 3702653475dbb4b3da282e32950abed3, type: 3}
+  obstacleGapRight: {fileID: 3161231708506072461, guid: b72335a8513ac4250adb14870cbff48b, type: 3}
+  enemyControlReverse: {fileID: 1682798608209473767, guid: 6b997aa0f864b463494060efd3a9459c, type: 3}
+  scoreUp: {fileID: 1682798608209473767, guid: 95ab57dc345204ad7bd1b8337ad627aa, type: 3}
+  slowEnemy: {fileID: 641279998169510699, guid: 4dd14fbe1a73e4b83952f08578589a2d, type: 3}
+  reduceEnemyHealth: {fileID: 1389686929274457625, guid: 4bb4c92c53aa84aaebd4512f999b5e32, type: 3}
+  heart: {fileID: 1682798608209473767, guid: 6d76a203d9fc34f4a9fb41190aac7ce5, type: 3}
   bullet: {fileID: 1682798608209473767, guid: 008b9890a1828ba4cad810a319ca8547, type: 3}
   isStopSpawn: 0
   leftOffset: -8
@@ -1381,17 +1381,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b7a970657908d4a2c8a0d8ba5c2c3ade, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  obstacleLeft: {fileID: 2038414143752184709, guid: c0f52a3b01d3a44bcb40be270974acf6, type: 3}
-  obstacleRight: {fileID: 2802853550590688207, guid: d66523acbf51e4903aa8060fe08c8a1b, type: 3}
-  obstacleMiddle: {fileID: 3161231708506072461, guid: 5732530d3228041f39de7e1385f1db4f, type: 3}
-  obstacleGapLeft: {fileID: 2038414143752184709, guid: d2c7ab9fee3bc4576b4472a0aba0aabf, type: 3}
-  obstacleGapRight: {fileID: 2038414143752184709, guid: fbefe9158682d4696bf548d51970a55f, type: 3}
-  enemyControlReverse: {fileID: 6872324455893141424, guid: 1622ae03fe5d4476eb1baa30efcb6d4e, type: 3}
-  scoreUp: {fileID: 1682798608209473767, guid: c4d3b303c4d1e4f8c9a9fc32e30adb47, type: 3}
-  slowEnemy: {fileID: 641279998169510699, guid: 9a97cac3374a34e66840e3534754be1e, type: 3}
-  reduceEnemyHealth: {fileID: 2404250421653184721, guid: b3a4deb2cd7b54819a89d008c18fa94d, type: 3}
-  heart: {fileID: 1682798608209473767, guid: 658246a2db4bd2a4d8e338cc6fbe68bc, type: 3}
-  bullet: {fileID: 1682798608209473767, guid: 008b9890a1828ba4cad810a319ca8547, type: 3}
+  obstacleLeft: {fileID: 2038414143752184709, guid: 0f6d9d51b377948e7be95649949b5db9, type: 3}
+  obstacleRight: {fileID: 2802853550590688207, guid: 96c320f27a31e4198a9228ce53943107, type: 3}
+  obstacleMiddle: {fileID: 3161231708506072461, guid: 074265d03603c47c6b3b971f60499cc8, type: 3}
+  obstacleGapLeft: {fileID: 2038414143752184709, guid: d5a6b39b59ac8492caed560c2fbe1260, type: 3}
+  obstacleGapRight: {fileID: 2038414143752184709, guid: fb79137af2787493f9a517ba61e67721, type: 3}
+  enemyControlReverse: {fileID: 6872324455893141424, guid: 59cc51767078042a097f1ceb0b37e4ea, type: 3}
+  scoreUp: {fileID: 1682798608209473767, guid: 4cf55cb1d372047f69d13e631eaa24f2, type: 3}
+  slowEnemy: {fileID: 641279998169510699, guid: 30e8418f5cc054daabd8ebdb8c2002a2, type: 3}
+  reduceEnemyHealth: {fileID: 2404250421653184721, guid: 45ffa3deb2b4e490c91e387dbfa56609, type: 3}
+  heart: {fileID: 1682798608209473767, guid: 17f3cae35ea5f42818f5cc54c792b522, type: 3}
+  bullet: {fileID: 1682798608209473767, guid: 4fcd9fbbe71944f429ab7a97050f3076, type: 3}
   isStopSpawn: 0
   leftOffset: 0.5
   rightOffset: 8
@@ -4438,16 +4438,20 @@ MonoBehaviour:
   navArea: {fileID: 630451825}
   leftMud: {fileID: 1746676432}
   rightMud: {fileID: 324500419}
+  gameDuration: 60
   totalCtrlSwitchPropCollectedRight: 0
   totalCtrlSwitchPropCollectedLeft: 0
   level: 0
   reasonforFinshingLevel: 0
   collisionDueToCtrlFlipLeft: 0
   collisionDueToCtrlFlipRight: 0
+  totalScoreUpLeft: 0
+  totalScoreUpRight: 0
   LostHealthMsgRight: {fileID: 1253475798}
   LostHealthMsgLeft: {fileID: 1744025627}
   CountDownNavArea: {fileID: 1966838391}
   CountDownLeftText: {fileID: 1293054797}
+  isGameOver: 0
 --- !u!4 &1093581753
 Transform:
   m_ObjectHideFlags: 0
