@@ -9779,19 +9779,19 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8013834637219093177, guid: 864e998f6f3784e408abae5a70b2f135, type: 3}
       propertyPath: m_LocalScale.x
-      value: 1.5
+      value: 0.1
       objectReference: {fileID: 0}
     - target: {fileID: 8013834637219093177, guid: 864e998f6f3784e408abae5a70b2f135, type: 3}
       propertyPath: m_LocalScale.y
-      value: 1.5
+      value: 0.1
       objectReference: {fileID: 0}
     - target: {fileID: 8013834637219093177, guid: 864e998f6f3784e408abae5a70b2f135, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -2
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8013834637219093177, guid: 864e998f6f3784e408abae5a70b2f135, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 37.6
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8013834637219093177, guid: 864e998f6f3784e408abae5a70b2f135, type: 3}
       propertyPath: m_LocalPosition.z
@@ -9814,6 +9814,10 @@ PrefabInstance:
       value: -0
       objectReference: {fileID: 0}
     - target: {fileID: 8013834637219093177, guid: 864e998f6f3784e408abae5a70b2f135, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: -3.11
+      objectReference: {fileID: 0}
+    - target: {fileID: 8013834637219093177, guid: 864e998f6f3784e408abae5a70b2f135, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
       value: 0
       objectReference: {fileID: 0}
@@ -9833,8 +9837,8 @@ PrefabInstance:
       insertIndex: -1
       addedObject: {fileID: 1340398138}
   m_SourcePrefab: {fileID: 100100000, guid: 864e998f6f3784e408abae5a70b2f135, type: 3}
---- !u!4 &1340398136 stripped
-Transform:
+--- !u!224 &1340398136 stripped
+RectTransform:
   m_CorrespondingSourceObject: {fileID: 8013834637219093177, guid: 864e998f6f3784e408abae5a70b2f135, type: 3}
   m_PrefabInstance: {fileID: 1340398135}
   m_PrefabAsset: {fileID: 0}
@@ -11840,6 +11844,8 @@ MonoBehaviour:
   reasonforFinshingLevel: 0
   collisionDueToCtrlFlipLeft: 0
   collisionDueToCtrlFlipRight: 0
+  totalScoreUpLeft: 0
+  totalScoreUpRight: 0
   LostHealthMsgRight: {fileID: 0}
   LostHealthMsgLeft: {fileID: 0}
   CountDownNavArea: {fileID: 0}
