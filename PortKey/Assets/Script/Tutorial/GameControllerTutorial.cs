@@ -542,13 +542,13 @@ public class GameControllerTutorial : MonoBehaviour
         if (carName == "CarLeft")
         {
             Time.timeScale = 0;
-            StartCoroutine(FlashScore(leftScore, new Color(1.0f, 0.788f, 0.282f), true, fiveLeft));
+            StartCoroutine(FlashScore(leftScore, new Color(1.0f, 0.4118f, 0.7059f), true, fiveLeft));
             StartCoroutine(Spotlight(spotlightLeft, 4f));
         }
         else
         {
             Time.timeScale = 0;
-            StartCoroutine(FlashScore(rightScore, new Color(1.0f, 0.788f, 0.282f), false, fiveRight));
+            StartCoroutine(FlashScore(rightScore, new Color(1.0f, 0.4118f, 0.7059f), false, fiveRight));
             StartCoroutine(Spotlight(spotlightRight, 4f));
         }
     }
