@@ -101,7 +101,7 @@ public class SceneSwitch : MonoBehaviour
     }
     public void loaderMenuTut()
     {
-        TutorialInfo.lastScene = 100;
+        TutorialInfo.lastScene = 101;
         SceneManager.LoadScene("TutorialMenu");
     }
     public void loaderStarter()
@@ -145,6 +145,9 @@ public class SceneSwitch : MonoBehaviour
                 break;
             case -4:
                 loaderTut4();
+                break;
+            case 101:
+                loaderMenuTut();
                 break;
             case 100:
             default:
