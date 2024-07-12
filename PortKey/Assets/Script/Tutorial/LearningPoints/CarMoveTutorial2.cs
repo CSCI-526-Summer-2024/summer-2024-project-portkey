@@ -327,7 +327,7 @@ public class CarMoveTutorial2 : MonoBehaviour
             if (transform.name == ConstName.LEFT_CAR)
             {
 
-                RotateBulletShooter shooter = GameObject.Find("PivotLeft").GetComponent<RotateBulletShooter>();
+                RotateBulletShooterTutorial2 shooter = GameObject.Find("PivotLeft").GetComponent<RotateBulletShooterTutorial2>();
                 if (shooter != null)
                 {
                     shooter.IncreaseBulletCountLeft();
@@ -336,7 +336,7 @@ public class CarMoveTutorial2 : MonoBehaviour
             }
             else
             {
-                RotateBulletShooter shooter = GameObject.Find("PivotRight").GetComponent<RotateBulletShooter>();
+                RotateBulletShooterTutorial2 shooter = GameObject.Find("PivotRight").GetComponent<RotateBulletShooterTutorial2>();
                 if (shooter != null)
                 {
                     shooter.IncreaseBulletCountRight();

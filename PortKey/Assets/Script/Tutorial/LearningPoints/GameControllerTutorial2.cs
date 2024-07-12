@@ -125,8 +125,13 @@ public class GameControllerTutorial2 : MonoBehaviour
     public TextMeshProUGUI minusLeft;
     public TextMeshProUGUI plusRight;
     public TextMeshProUGUI minusRight;
+    public Image RightArrow;
+    public Image LeftArrow;
 
     public bool canMove;
+
+    public bool canShootL;
+    public bool canShootR;
 
     void Awake()
     {
@@ -141,6 +146,8 @@ public class GameControllerTutorial2 : MonoBehaviour
     void Start()
     {
         canMove = true;
+        canShootL = false;
+        canShootR = false;
 
         if (spotlightLivesLeft != null)
         {
@@ -178,6 +185,8 @@ public class GameControllerTutorial2 : MonoBehaviour
             minusLeft.enabled = false;
             plusRight.enabled = false;
             minusRight.enabled = false;
+            RightArrow.enabled = false;
+            LeftArrow.enabled = false;
         }
 
         navArea.gameObject.SetActive(false);
@@ -253,14 +262,14 @@ public class GameControllerTutorial2 : MonoBehaviour
 
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.W))
+        if (Input.GetKeyDown(KeyCode.W) && canShootL)
         {
             if (spotlightBulletsLeft != null)
             {
                 StartCoroutine(SpotlightBullets(spotlightBulletsLeft, 1.5f, minusLeft));
             }
         }
-        if (Input.GetKeyDown(KeyCode.UpArrow))
+        if (Input.GetKeyDown(KeyCode.UpArrow) && canShootR)
         {
             if (spotlightBulletsRight != null)
             {
@@ -340,11 +349,32 @@ public class GameControllerTutorial2 : MonoBehaviour
                 }
                 if ((timer - gameDuration) == 5f && levelNext == 5)
                 {
+                    canShootR = true;
                     StartCoroutine(PauseRight());
                 }
                 if ((timer - gameDuration) == 11f && levelNext == 5)
                 {
+                    canShootL = true;
+                    canShootR = false;
                     StartCoroutine(PauseLeft());
+                    canShootL = true;
+                    canShootR = true;
+                }
+                if ((timer - gameDuration) == 14f && levelNext == 5)
+                {
+                    canShootL = false;
+                    canShootR = false;
+                    StartCoroutine(PauseRight2());
+                    canShootL = true;
+                    canShootR = true;
+                }
+                if ((timer - gameDuration) == 19f && levelNext == 5)
+                {
+                    canShootL = false;
+                    canShootR = false;
+                    StartCoroutine(PauseLeft2());
+                    canShootL = true;
+                    canShootR = true;
                 }
                 yield return new WaitForSeconds(1f);
                 // Decrease game duration by 1 second
@@ -392,6 +422,20 @@ public class GameControllerTutorial2 : MonoBehaviour
         spotLeft.enabled = false;
     }
 
+    IEnumerator PauseLeft2()
+    {
+        canMove = false;
+        LeftArrow.enabled = true;
+        while (carLeft.position.x < -1.0f)
+        {
+            yield return null;
+        }
+        canMove = true;
+        LeftArrow.enabled = false;
+        canShootL = true;
+        StartCoroutine(PauseLeft());
+    }
+
     IEnumerator PauseRight()
     {
         Time.timeScale = 0;
@@ -404,6 +448,20 @@ public class GameControllerTutorial2 : MonoBehaviour
         Time.timeScale = 1;
         ShootRight.gameObject.SetActive(false);
         spotRight.enabled = false;
+    }
+
+    IEnumerator PauseRight2()
+    {
+        canMove = false;
+        RightArrow.enabled = true;
+        while (carRight.position.x > 1.0f)
+        {
+            yield return null;
+        }
+        canMove = true;
+        RightArrow.enabled = false;
+        canShootR = true;
+        StartCoroutine(PauseRight());
     }
 
     IEnumerator FadeOutText(TextMeshProUGUI text)
