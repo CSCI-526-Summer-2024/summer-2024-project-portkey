@@ -314,7 +314,7 @@ public class CarMove : MonoBehaviour
         {
             Destroy(other.gameObject);
             ProcessReduceEnemyHealthProp(transform.name);
-            gameController.StoleHealthEffect(transform.name);
+            gameController.ReduceHealthEffect(transform.name);
 
         }
         /************************* For ReduceEnemyHealth Collision *************************/

@@ -391,7 +391,7 @@ public class GameController : MonoBehaviour
         }
     }
 
-    public void StoleHealthEffect(string carName)
+    public void ReduceHealthEffect(string carName)
     {
         if (carName == ConstName.LEFT_CAR)
         {
