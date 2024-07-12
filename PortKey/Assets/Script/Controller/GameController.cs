@@ -380,6 +380,7 @@ public class GameController : MonoBehaviour
             //StartCoroutine(HideRightMessage());
             rightMud.enabled = true;
             StartCoroutine(HideMud(rightMud));
+            carRight.GetComponent<CarMove>().ShakePlayerOnHealthLoss();
         }
         else
         {
@@ -388,6 +389,7 @@ public class GameController : MonoBehaviour
             //StartCoroutine(HideLeftMessage());
             leftMud.enabled = true;
             StartCoroutine(HideMud(leftMud));
+            carLeft.GetComponent<CarMove>().ShakePlayerOnHealthLoss();
         }
     }
 
