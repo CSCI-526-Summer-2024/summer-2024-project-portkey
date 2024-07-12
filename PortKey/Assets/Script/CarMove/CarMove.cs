@@ -226,7 +226,7 @@ public class CarMove : MonoBehaviour
                 if (liveManager.GetLivesLeft() == 0)
                 {
                     PlayerDead(isDueToMinusProp);
-                } 
+                }
             }
             else
             {
@@ -314,7 +314,8 @@ public class CarMove : MonoBehaviour
         {
             Destroy(other.gameObject);
             ProcessReduceEnemyHealthProp(transform.name);
-            
+            gameController.StoleHealthEffect(transform.name);
+
         }
         /************************* For ReduceEnemyHealth Collision *************************/
 
@@ -443,7 +444,7 @@ public class CarMove : MonoBehaviour
         }
     }
 
-    
+
     void PlayerDead(bool isDueToMinusProp)
     {
         if (liveManager.GetLivesLeft() <= 0 || liveManager.GetLivesRight() <= 0)
@@ -470,7 +471,7 @@ public class CarMove : MonoBehaviour
                 winText.text = "YOU WIN";
                 winText.color = Color.green;
             }
-          
+
 
             navArea.gameObject.SetActive(true);
             broadcastMsg.text = "GAME OVER";
@@ -480,7 +481,7 @@ public class CarMove : MonoBehaviour
             gameController.reasonforFinshingLevel = 1;
 
             gameController.StopScoreCalculation(transform.name);
-        }      
+        }
     }
 
     void DisplaySwitchMessage()

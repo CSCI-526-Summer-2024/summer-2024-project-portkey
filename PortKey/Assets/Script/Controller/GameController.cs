@@ -393,6 +393,19 @@ public class GameController : MonoBehaviour
         }
     }
 
+    public void StoleHealthEffect(string carName)
+    {
+        if (carName == ConstName.LEFT_CAR)
+        {
+            carRight.GetComponent<CarMove>().ShakePlayerOnHealthLoss();
+        }
+        else
+        {
+            carLeft.GetComponent<CarMove>().ShakePlayerOnHealthLoss();
+        }
+    }
+
+
     IEnumerator HideRightMessage()
     {
         yield return new WaitForSeconds(1f);
