@@ -287,6 +287,7 @@ public class CarMoveTutorial2 : MonoBehaviour
             Destroy(other.gameObject);
             StartCoroutine(decreaseHealth());
             gameController.SpotlightLives(transform.name, true);
+            gameController.ReduceHealthEffect(transform.name);
         }
         /************************* For ReduceEnemyHealth Collision *************************/
 
@@ -361,6 +362,7 @@ public class CarMoveTutorial2 : MonoBehaviour
     IEnumerator ShakePlayer()
     {
         //Debug.Log("Shaking "+gameObject.name);
+        yield return new WaitForSecondsRealtime(0.5f);
         float time = 0.0f;
         //Quaternion originalRotation = transform.localRotation;
         while (time < 0.5f)

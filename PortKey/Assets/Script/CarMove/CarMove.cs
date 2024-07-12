@@ -314,7 +314,7 @@ public class CarMove : MonoBehaviour
         {
             Destroy(other.gameObject);
             ProcessReduceEnemyHealthProp(transform.name);
-
+            gameController.ReduceHealthEffect(transform.name);
         }
         /************************* For ReduceEnemyHealth Collision *************************/
 
@@ -341,7 +341,6 @@ public class CarMove : MonoBehaviour
             //update lives of the player
             Destroy(other.gameObject);
             UpdateLives(transform.name, true, false);
-            gameController.ReduceHealthEffect(transform.name);
         }
         /************************* For Heart Collision *************************/
 

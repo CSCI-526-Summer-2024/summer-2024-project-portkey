@@ -796,7 +796,7 @@ public class GameControllerTutorial2 : MonoBehaviour
     public void DisplayRightLostHealthMsg()
     {
         //BulletImpactForRightPlayer();
-        LostHealthMsgRight.text = "Health Stolen";
+        LostHealthMsgRight.text = "Health Lost";
         LostHealthMsgRight.color = Color.blue;
         LostHealthMsgRight.gameObject.SetActive(true);
         StartCoroutine(HideStolenHealthMessage(1f));
@@ -805,7 +805,7 @@ public class GameControllerTutorial2 : MonoBehaviour
     public void DisplayLeftLostHealthMsg()
     {
         //BulletImpactForLeftPlayer();
-        LostHealthMsgLeft.text = "Health Stolen";
+        LostHealthMsgLeft.text = "Health Lost";
         LostHealthMsgLeft.color = Color.blue;
         LostHealthMsgLeft.gameObject.SetActive(true);
         StartCoroutine(HideStolenHealthMessage(1f));
@@ -819,6 +819,18 @@ public class GameControllerTutorial2 : MonoBehaviour
         {
             LostHealthMsgLeft.gameObject.SetActive(false);
             LostHealthMsgRight.gameObject.SetActive(false);
+        }
+    }
+
+    public void ReduceHealthEffect(string carName)
+    {
+        if (carName == ConstName.LEFT_CAR)
+        {
+            carRight.GetComponent<CarMoveTutorial2>().ShakePlayerOnHealthLoss();
+        }
+        else
+        {
+            carLeft.GetComponent<CarMoveTutorial2>().ShakePlayerOnHealthLoss();
         }
     }
 
