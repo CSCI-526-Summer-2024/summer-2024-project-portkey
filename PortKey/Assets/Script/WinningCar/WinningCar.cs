@@ -16,7 +16,7 @@ public class WinningCar : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        UpdateTrophyPlacement(870, 280, Vector3.one);
+        UpdateTrophyPlacement(470, 280, Vector3.one);
     }
 
 
