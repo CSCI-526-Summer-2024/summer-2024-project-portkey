@@ -8,9 +8,9 @@ public class RotateBulletShooter : MonoBehaviour
     public GameObject playerLeft;
     public GameObject playerRight;
 
-    public float rotationSpeed = 2f;
+    public float rotationSpeed = .5f;
     public GameObject bulletPrefab;
-    public float bulletSpeed = 10f;
+    public float bulletSpeed = 100f;
     public Transform bulletSpawnPoint;
     string defaultRightPlayerName = "CarRight";
     string defaultLeftPlayerName = "CarLeft";
