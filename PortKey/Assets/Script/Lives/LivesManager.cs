@@ -7,10 +7,12 @@ public class LivesManager : MonoBehaviour
 {
     public Image[] filledHeartsLeft;
     public Image[] filledHeartsRight;
-    
 
-    int currentLivesLeft = 3;
-    int currentLivesRight = 3;
+
+    int maxLives = 4;
+    int currentLivesLeft = 4;
+    int currentLivesRight = 4;
+
 
     public Vector2 initialPosition = new Vector2(0, 0);
 
@@ -33,7 +35,7 @@ public class LivesManager : MonoBehaviour
         {
             filledHeartsLeft[i].transform.localScale = Vector3.one;
         }
-        for (int i = currentLivesLeft; i < 3; i++)
+        for (int i = currentLivesLeft; i < maxLives; i++)
         {
             filledHeartsLeft[i].transform.localScale = Vector3.zero;
         }
@@ -45,7 +47,7 @@ public class LivesManager : MonoBehaviour
         {
             filledHeartsRight[i].transform.localScale = Vector3.one;
         }
-        for (int i = currentLivesRight; i < 3; i++)
+        for (int i = currentLivesRight; i < maxLives; i++)
         {
             filledHeartsRight[i].transform.localScale = Vector3.zero;
         }
@@ -53,7 +55,7 @@ public class LivesManager : MonoBehaviour
 
     public void IncrementLivesLeft()
     {
-        if (currentLivesLeft != 3)
+        if (currentLivesLeft != maxLives)
         {
             currentLivesLeft += 1;
             UpdateHeartsVisualLeft();
@@ -69,7 +71,7 @@ public class LivesManager : MonoBehaviour
 
     public void IncrementLivesRight()
     {
-        if (currentLivesRight != 3)
+        if (currentLivesRight != maxLives)
         {
             currentLivesRight += 1;
             UpdateHeartsVisualRight();
