@@ -352,11 +352,19 @@ public class GameControllerTutorial2 : MonoBehaviour
                     canShootR = true;
                     StartCoroutine(PauseRight());
                 }
-                if ((timer - gameDuration) == 11f && levelNext == 5)
+                if ((timer - gameDuration) == 7f && levelNext == 5)
                 {
                     canShootL = true;
                     canShootR = false;
                     StartCoroutine(PauseLeft());
+                    canShootL = true;
+                    canShootR = true;
+                }
+                if ((timer - gameDuration) == 10f && levelNext == 5)
+                {
+                    canShootL = false;
+                    canShootR = false;
+                    StartCoroutine(PauseLeft2());
                     canShootL = true;
                     canShootR = true;
                 }
@@ -365,14 +373,6 @@ public class GameControllerTutorial2 : MonoBehaviour
                     canShootL = false;
                     canShootR = false;
                     StartCoroutine(PauseRight2());
-                    canShootL = true;
-                    canShootR = true;
-                }
-                if ((timer - gameDuration) == 19f && levelNext == 5)
-                {
-                    canShootL = false;
-                    canShootR = false;
-                    StartCoroutine(PauseLeft2());
                     canShootL = true;
                     canShootR = true;
                 }
