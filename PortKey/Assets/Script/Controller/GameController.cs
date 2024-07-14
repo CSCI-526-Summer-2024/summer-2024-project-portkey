@@ -101,7 +101,6 @@ public class GameController : MonoBehaviour
 
     public int totalScoreUpRight;
 
-
     public TextMeshProUGUI LostHealthMsgRight;
 
     public TextMeshProUGUI LostHealthMsgLeft;
@@ -109,6 +108,7 @@ public class GameController : MonoBehaviour
     public int countDownBeforeStartDuration = 3;
 
     public Image CountDownNavArea;
+
     public TextMeshProUGUI CountDownLeftText;
 
     public bool isGameOver = false;
