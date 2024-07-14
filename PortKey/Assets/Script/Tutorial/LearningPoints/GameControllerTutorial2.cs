@@ -467,11 +467,12 @@ public class GameControllerTutorial2 : MonoBehaviour
     IEnumerator FadeOutText(TextMeshProUGUI text)
     {
         float time = 0f;
+        Color orange = new Color(1f, 0.5f, 0f);
         while (time < 2.0f)
         {
             time += Time.deltaTime;
             float alpha = Mathf.Lerp(1, 0, time / 2.0f);
-            text.color = new Color(Color.black.r, Color.black.g, Color.black.b, alpha);
+            text.color = new Color(orange.r, orange.g, orange.b, alpha);
             yield return null;
         }
         text.gameObject.SetActive(false);
