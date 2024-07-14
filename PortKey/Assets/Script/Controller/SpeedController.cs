@@ -292,7 +292,7 @@ public class SpeedController : MonoBehaviour
         int waitingTime = gameController.countDownBeforeStartDuration * 2;
         yield return new WaitForSeconds(waitingTime);
 
-        Debug.Log($"Initial speeds: Left: {carLeftMove.carSpeed}, Right: {carRightMove.carSpeed}");
+        // Debug.Log($"Initial speeds: Left: {carLeftMove.carSpeed}, Right: {carRightMove.carSpeed}");
 
         while (speedLimits.CanIncreaseSpeed)
         {
@@ -306,7 +306,7 @@ public class SpeedController : MonoBehaviour
 
             carSpeed = leftCarSpeeds[0];
 
-            Debug.Log($"Updated speeds: Left: {carLeftMove.carSpeed}, Right: {carRightMove.carSpeed}");
+            // Debug.Log($"Updated speeds: Left: {carLeftMove.carSpeed}, Right: {carRightMove.carSpeed}");
 
             yield return new WaitForSeconds(carFrequency);
         }

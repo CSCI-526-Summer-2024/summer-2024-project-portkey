@@ -294,6 +294,7 @@ public class CarMove : MonoBehaviour
         {
             DisplaySwitchMessage();
             Destroy(other.gameObject);
+            gameController.EnemyControlReverse(transform.name);
             UpdateAnalyticsOnControlInversion();
         }
         /************************* For EnemyControlReverse Collision *************************/
@@ -403,8 +404,6 @@ public class CarMove : MonoBehaviour
 
     void UpdateAnalyticsOnControlInversion()
     {
-        gameController.EnemyControlReverse(transform.name);
-
         // Metric #3
         if (transform.name == ConstName.LEFT_CAR)
         {
