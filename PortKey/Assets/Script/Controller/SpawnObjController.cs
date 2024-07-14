@@ -35,8 +35,8 @@ public class SpawnObjInterval
                 reduceEnemyHealthSpawnTimeRange[1] = 8;
                 slowEnemyTime[0] = 5;
                 slowEnemyTime[1] = 8;
-                heartTime[0] = 5;
-                heartTime[1] = 8;
+                heartTime[0] = 4;
+                heartTime[1] = 7;
                 bulletTime[0] = 5;
                 bulletTime[1] = 8;
                 break;
@@ -51,8 +51,8 @@ public class SpawnObjInterval
                 reduceEnemyHealthSpawnTimeRange[1] = 7.8f;
                 slowEnemyTime[0] = 4.8f;
                 slowEnemyTime[1] = 7.8f;
-                heartTime[0] = 4.8f;
-                heartTime[1] = 7.8f;
+                heartTime[0] = 3.8f;
+                heartTime[1] = 6.8f;
                 bulletTime[0] = 4.8f;
                 bulletTime[1] = 7.8f;
                 break;
@@ -67,8 +67,8 @@ public class SpawnObjInterval
                 reduceEnemyHealthSpawnTimeRange[1] = 10f;
                 slowEnemyTime[0] = 4.6f;
                 slowEnemyTime[1] = 7.6f;
-                heartTime[0] = 6f;
-                heartTime[1] = 10f;
+                heartTime[0] = 4.5f;
+                heartTime[1] = 9f;
                 bulletTime[0] = 4.6f;
                 bulletTime[1] = 7.6f;
                 break;
@@ -83,8 +83,8 @@ public class SpawnObjInterval
                 reduceEnemyHealthSpawnTimeRange[1] = 11;
                 slowEnemyTime[0] = 6;
                 slowEnemyTime[1] = 10;
-                heartTime[0] = 6;
-                heartTime[1] = 13;
+                heartTime[0] = 4;
+                heartTime[1] = 12;
                 bulletTime[0] = 3;
                 bulletTime[1] = 6;
                 break;
@@ -99,8 +99,8 @@ public class SpawnObjInterval
                 reduceEnemyHealthSpawnTimeRange[1] = 12;
                 slowEnemyTime[0] = 7;
                 slowEnemyTime[1] = 12;
-                heartTime[0] = 7;
-                heartTime[1] = 14;
+                heartTime[0] = 5;
+                heartTime[1] = 13;
                 bulletTime[0] = 6;
                 bulletTime[1] = 10;
                 break;
