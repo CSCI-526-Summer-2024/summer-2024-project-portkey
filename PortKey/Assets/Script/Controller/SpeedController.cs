@@ -87,7 +87,7 @@ public class SpeedLimits
                 canIncreaseSpawnSpeed = true;
                 defaultCarSpeed = 3.0f;
                 defaultSpawnSpeed = 2.0f;
-                carSpeedMultiplier = 1.05f;
+                carSpeedMultiplier = 1.01f;
                 spawnSpeedMultiplier = 1.01f;
                 carMaxSpeed = 6.0f;
                 obstacleMaxSpeed = 4.0f;
@@ -98,9 +98,9 @@ public class SpeedLimits
                 canIncreaseSpawnSpeed = true;
                 defaultCarSpeed = 3.0f;
                 defaultSpawnSpeed = 2.0f;
-                carSpeedMultiplier = 1.06f;
+                carSpeedMultiplier = 1.02f;
                 spawnSpeedMultiplier = 1.012f;
-                carMaxSpeed = 6.0f;
+                carMaxSpeed = 8.0f;
                 obstacleMaxSpeed = 4.1f;
                 speedIncreaseDuration = 30.0f;
                 break;
@@ -109,9 +109,9 @@ public class SpeedLimits
                 canIncreaseSpawnSpeed = true;
                 defaultCarSpeed = 4.0f;
                 defaultSpawnSpeed = 2.0f;
-                carSpeedMultiplier = 1.07f;
+                carSpeedMultiplier = 1.03f;
                 spawnSpeedMultiplier = 1.015f;
-                carMaxSpeed = 6.0f;
+                carMaxSpeed = 10.0f;
                 obstacleMaxSpeed = 4.2f;
                 speedIncreaseDuration = 40.0f;
                 break;
@@ -120,9 +120,9 @@ public class SpeedLimits
                 canIncreaseSpawnSpeed = true;
                 defaultCarSpeed = 3.0f;
                 defaultSpawnSpeed = 2.0f;
-                carSpeedMultiplier = 1.08f;
+                carSpeedMultiplier = 1.03f;
                 spawnSpeedMultiplier = 1.02f;
-                carMaxSpeed = 7.0f;
+                carMaxSpeed = 10.0f;
                 obstacleMaxSpeed = 4.5f;
                 speedIncreaseDuration = 50.0f;
                 break;
@@ -131,9 +131,9 @@ public class SpeedLimits
                 canIncreaseSpawnSpeed = true;
                 defaultCarSpeed = 3.0f;
                 defaultSpawnSpeed = 2.0f;
-                carSpeedMultiplier = 1.08f;
+                carSpeedMultiplier = 1.03f;
                 spawnSpeedMultiplier = 1.02f;
-                carMaxSpeed = 7.0f;
+                carMaxSpeed = 12.0f;
                 obstacleMaxSpeed = 4.5f;
                 speedIncreaseDuration = 50.0f;
                 break;
@@ -144,7 +144,7 @@ public class SpeedLimits
                 defaultSpawnSpeed = 2.0f;
                 carSpeedMultiplier = 1.05f;
                 spawnSpeedMultiplier = 1.01f;
-                carMaxSpeed = 6.0f;
+                carMaxSpeed = 8.0f;
                 obstacleMaxSpeed = 5.0f;
                 speedIncreaseDuration = 30.0f;
                 Debug.LogError("Unknown level: " + level);
@@ -181,6 +181,8 @@ public class SpeedController : MonoBehaviour
 
     private float slowDownFactor = 0.5f;
 
+    GameController gameController;
+
 
     // Start is called before the first frame update
     void Start()
@@ -191,6 +193,13 @@ public class SpeedController : MonoBehaviour
 
         GameObject carLeft = GameObject.Find(ConstName.LEFT_CAR);
         GameObject carRight = GameObject.Find(ConstName.RIGHT_CAR);
+
+
+        gameController = FindObjectOfType<GameController>();
+        if (gameController == null)
+        {
+            Debug.LogError("GameController not found");
+        }
 
         if (carLeft != null)
         {
@@ -235,6 +244,7 @@ public class SpeedController : MonoBehaviour
         {
             carLeftMove.carSpeed = speedLimits.defaultCarSpeed;
             carRightMove.carSpeed = speedLimits.defaultCarSpeed;
+            carSpeed = speedLimits.defaultCarSpeed;
             StartCoroutine(UpdateCarSpeed());
         }
 
@@ -278,6 +288,12 @@ public class SpeedController : MonoBehaviour
 
     private IEnumerator UpdateCarSpeed()
     {
+        // Wait for the countdown before starting the game
+        int waitingTime = gameController.countDownBeforeStartDuration * 2;
+        yield return new WaitForSeconds(waitingTime);
+
+        Debug.Log($"Initial speeds: Left: {carLeftMove.carSpeed}, Right: {carRightMove.carSpeed}");
+
         while (speedLimits.CanIncreaseSpeed)
         {
             speedLimits.UpdateCarElapsedTime(carFrequency);
@@ -290,7 +306,7 @@ public class SpeedController : MonoBehaviour
 
             carSpeed = leftCarSpeeds[0];
 
-            // Debug.Log($"Updated speeds: Left: {carLeftMove.carSpeed}, Right: {carRightMove.carSpeed}");
+            Debug.Log($"Updated speeds: Left: {carLeftMove.carSpeed}, Right: {carRightMove.carSpeed}");
 
             yield return new WaitForSeconds(carFrequency);
         }
@@ -322,6 +338,11 @@ public class SpeedController : MonoBehaviour
 
     private IEnumerator UpdateSpawnSpeed()
     {
+
+        // Wait for the countdown before starting the game
+        int waitingTime = gameController.countDownBeforeStartDuration * 2;
+        yield return new WaitForSeconds(waitingTime);
+
         while (true)
         {
             if (speedLimits.CanIncreaseSpawnSpeed)

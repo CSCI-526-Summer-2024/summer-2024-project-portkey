@@ -106,7 +106,7 @@ public class GameController : MonoBehaviour
 
     public TextMeshProUGUI LostHealthMsgLeft;
 
-    int countDownBeforeStartDuration = 3;
+    public int countDownBeforeStartDuration = 3;
 
     public Image CountDownNavArea;
     public TextMeshProUGUI CountDownLeftText;
