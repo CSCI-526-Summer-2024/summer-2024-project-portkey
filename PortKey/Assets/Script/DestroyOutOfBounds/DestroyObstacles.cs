@@ -21,7 +21,7 @@ public class DestroyObstacles : MonoBehaviour
     {
         if (transform.position.y < -yPos && gameObject.CompareTag("Obstacle"))
         {
-            Debug.Log("Destroying "+gameObject.name);
+            //Debug.Log("Destroying "+gameObject.name);
             Destroy(gameObject);
         }
     }

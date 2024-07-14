@@ -22,7 +22,7 @@ public class DestroyProps : MonoBehaviour
     {
         if (transform.position.y < -yPos)
         {
-            Debug.Log("Destroying " + gameObject.name);
+            //Debug.Log("Destroying " + gameObject.name);
             Destroy(gameObject);
         }
     }
