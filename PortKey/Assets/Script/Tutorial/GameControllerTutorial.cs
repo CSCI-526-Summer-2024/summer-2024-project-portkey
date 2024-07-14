@@ -94,7 +94,7 @@ public class GameControllerTutorial : MonoBehaviour
     private readonly float baseScore = 1.0f;
 
     // game duration, unit is second
-    private float gameDuration = 50f;
+    private float gameDuration = 62f;
 
     //analytics helper variables
     public int totalCtrlSwitchPropCollectedRight = 0;
@@ -109,12 +109,18 @@ public class GameControllerTutorial : MonoBehaviour
 
     public int collisionDueToCtrlFlipRight;
 
+    public int totalScoreUpLeft;
+
+    public int totalScoreUpRight;
+
     public TextMeshProUGUI LostHealthMsgRight;
 
     public TextMeshProUGUI LostHealthMsgLeft;
 
     public Image CountDownNavArea;
     public TextMeshProUGUI CountDownLeftText;
+
+    public bool canMove;
 
     void Awake()
     {
@@ -128,6 +134,8 @@ public class GameControllerTutorial : MonoBehaviour
 
     void Start()
     {
+        canMove = true;
+
         spotlightLeft.enabled = false;
         spotlightRight.enabled = false;
         spotlightIconLeft1.enabled = false;
@@ -241,18 +249,25 @@ public class GameControllerTutorial : MonoBehaviour
 
     IEnumerator CountdownTimer()
     {
+        float timer = gameDuration;
         while (gameDuration > 0)
         {
-            TimerMsg.text = "" + Mathf.Ceil(gameDuration).ToString() + "s";
-            if (gameDuration == 45)
+            if (canMove)
             {
-                StartCoroutine(FadeOutText(player1));
-                StartCoroutine(FadeOutText(player2));
-                move = true;
+                TimerMsg.text = "" + Mathf.Ceil(gameDuration).ToString() + "s";
+                if ((timer - gameDuration) == 5f)
+                {
+                    StartCoroutine(FadeOutText(player1));
+                    StartCoroutine(FadeOutText(player2));
+                    move = true;
+                }
+                yield return new WaitForSeconds(1f);
+                // Decrease game duration by 1 second
+                gameDuration -= 1f;
+            } else
+            {
+                yield return null;
             }
-            yield return new WaitForSeconds(1f);
-            // Decrease game duration by 1 second
-            gameDuration -= 1f;
         }
         TimerMsg.text = "0s";
 
@@ -486,8 +501,8 @@ public class GameControllerTutorial : MonoBehaviour
         PlayerData playerData = new PlayerData();
         playerData.name = "player";
         playerData.level = levelNumber;
-        playerData.scoreLeft = currentLeftScore;
-        playerData.scoreRight = currentRightScore;
+        playerData.scoreLeft = totalScoreUpLeft;
+        playerData.scoreRight = totalScoreUpRight;
         playerData.reasonforFinshingLevel = reasonforFinshingLevel;
         playerData.totalCtrlSwitchPropCollectedRight = totalCtrlSwitchPropCollectedRight;
         playerData.totalCtrlSwitchPropCollectedLeft = totalCtrlSwitchPropCollectedLeft;
@@ -498,21 +513,28 @@ public class GameControllerTutorial : MonoBehaviour
 
         if (ConstName.SEND_ANALYTICS == true)
         {
+            RestClient.Post("https://portkey-2a1ae-default-rtdb.firebaseio.com/metric1_analytics.json", playerData);
+            RestClient.Post("https://portkey-2a1ae-default-rtdb.firebaseio.com/beta_playtesting_analytics.json", playerData);
             RestClient.Post("https://portkey-2a1ae-default-rtdb.firebaseio.com/playtesting1_analytics.json", playerData);
-            Debug.Log("Analytics sent to firebase");
         }
     }
 
     void CalculateScoreLeft()
     {
-        currentLeftScore += baseScore * scoreMultiplier;
-        leftScore.text = "" + currentLeftScore.ToString("F0");
+        if (canMove)
+        {
+            currentLeftScore += baseScore * scoreMultiplier;
+            leftScore.text = "" + currentLeftScore.ToString("F0");
+        }
     }
 
     void CalculateScoreRight()
     {
-        currentRightScore += baseScore * scoreMultiplier;
-        rightScore.text = "" + currentRightScore.ToString("F0");
+        if (canMove)
+        {
+            currentRightScore += baseScore * scoreMultiplier;
+            rightScore.text = "" + currentRightScore.ToString("F0");
+        }
     }
 
     public void OneTimeBonus(string carName)
@@ -520,13 +542,13 @@ public class GameControllerTutorial : MonoBehaviour
         if (carName == "CarLeft")
         {
             Time.timeScale = 0;
-            StartCoroutine(FlashScore(leftScore, new Color(1.0f, 0.788f, 0.282f), true, fiveLeft));
+            StartCoroutine(FlashScore(leftScore, new Color(1.0f, 0.4118f, 0.7059f), true, fiveLeft));
             StartCoroutine(Spotlight(spotlightLeft, 4f));
         }
         else
         {
             Time.timeScale = 0;
-            StartCoroutine(FlashScore(rightScore, new Color(1.0f, 0.788f, 0.282f), false, fiveRight));
+            StartCoroutine(FlashScore(rightScore, new Color(1.0f, 0.4118f, 0.7059f), false, fiveRight));
             StartCoroutine(Spotlight(spotlightRight, 4f));
         }
     }

@@ -25,7 +25,11 @@ public class CarMoveTutorial : MonoBehaviour
 
     public TextMeshProUGUI broadcastMsg;
 
+    public TextMeshProUGUI broadcastMsg2;
+
     public Image navArea;
+
+    public Image navArea2;
 
     public bool reversed = false;
 
@@ -53,6 +57,7 @@ public class CarMoveTutorial : MonoBehaviour
 
     void Start()
     {
+        navArea2.gameObject.SetActive(false);
         level = LevelInfo.Instance.Level;
         if (level == -1)
         {
@@ -271,6 +276,7 @@ public class CarMoveTutorial : MonoBehaviour
         {
             Destroy(other.gameObject);
             gameController.OneTimeBonus(transform.name);
+            UpdateAnalyticsOnScoreUp();
         }
         /************************* For ScoreUp Collision *************************/
 
@@ -372,6 +378,21 @@ public class CarMoveTutorial : MonoBehaviour
     }
 
 
+
+    void UpdateAnalyticsOnScoreUp()
+    {
+
+        // Metric #1
+        if (transform.name == ConstName.LEFT_CAR)
+        {
+            gameController.totalScoreUpLeft += 1;
+        }
+        else
+        {
+            gameController.totalScoreUpRight += 1;
+        }
+    }
+
     void PlayerDead(bool isDueToMinusProp)
     {
         if (liveManager.GetLivesLeft() <= 0 || liveManager.GetLivesRight() <= 0)
@@ -382,9 +403,9 @@ public class CarMoveTutorial : MonoBehaviour
             gameController.StopFlashing();
             if (isDueToMinusProp)
             {
-                deathText.gameObject.SetActive(true);
-                deathText.text = "YOU WIN";
-                deathText.color = Color.green;
+                //deathText.gameObject.SetActive(true);
+                //deathText.text = "YOU WIN";
+                //deathText.color = Color.green;
                 winText.gameObject.SetActive(true);
                 winText.text = "YOU DIE";
                 winText.color = Color.red;
@@ -394,15 +415,15 @@ public class CarMoveTutorial : MonoBehaviour
                 deathText.gameObject.SetActive(true);
                 deathText.text = "YOU DIE";
                 deathText.color = Color.red;
-                winText.gameObject.SetActive(true);
-                winText.text = "YOU WIN";
-                winText.color = Color.green;
+                //winText.gameObject.SetActive(true);
+                //winText.text = "YOU WIN";
+                //winText.color = Color.green;
             }
 
 
-            navArea.gameObject.SetActive(true);
-            broadcastMsg.text = "GAME OVER";
-            broadcastMsg.color = Color.black;
+            navArea2.gameObject.SetActive(true);
+            broadcastMsg2.text = "TRY AGAIN";
+            broadcastMsg2.color = Color.black;
 
             // Level Completion Reason Metric #2 
             gameController.reasonforFinshingLevel = 1;

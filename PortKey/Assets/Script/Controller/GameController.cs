@@ -82,7 +82,7 @@ public class GameController : MonoBehaviour
     private readonly float baseScore = 1.0f;
 
     // game duration, unit is second
-    private float gameDuration = 60f;
+    public float gameDuration = 60f;
 
     //analytics helper variables
     public int totalCtrlSwitchPropCollectedRight = 0;
@@ -97,14 +97,21 @@ public class GameController : MonoBehaviour
 
     public int collisionDueToCtrlFlipRight;
 
+    public int totalScoreUpLeft;
+
+    public int totalScoreUpRight;
+
+
     public TextMeshProUGUI LostHealthMsgRight;
 
     public TextMeshProUGUI LostHealthMsgLeft;
 
-    int countDownBeforeStartDuration = 3;
+    public int countDownBeforeStartDuration = 3;
 
     public Image CountDownNavArea;
     public TextMeshProUGUI CountDownLeftText;
+
+    public bool isGameOver = false;
 
 
     void Awake()
@@ -261,6 +268,7 @@ public class GameController : MonoBehaviour
         reasonforFinshingLevel = 2;
         //posting the analytics to the firebase
         Anaytics();
+        isGameOver = true;
 
         // Pause the game when the game duration is over
         PauseGame();
@@ -383,6 +391,18 @@ public class GameController : MonoBehaviour
         }
     }
 
+    public void ReduceHealthEffect(string carName)
+    {
+        if (carName == ConstName.LEFT_CAR)
+        {
+            carRight.GetComponent<CarMove>().ShakePlayerOnHealthLoss();
+        }
+        else
+        {
+            carLeft.GetComponent<CarMove>().ShakePlayerOnHealthLoss();
+        }
+    }
+
     IEnumerator HideRightMessage()
     {
         yield return new WaitForSeconds(1f);
@@ -477,6 +497,7 @@ public class GameController : MonoBehaviour
 
         //posting the analytics to the firebase
         Anaytics();
+        isGameOver = true;
 
     }
 
@@ -492,8 +513,8 @@ public class GameController : MonoBehaviour
         PlayerData playerData = new PlayerData();
         playerData.name = "player";
         playerData.level = levelNumber;
-        playerData.scoreLeft = currentLeftScore;
-        playerData.scoreRight = currentRightScore;
+        playerData.scoreLeft = totalScoreUpLeft;
+        playerData.scoreRight = totalScoreUpRight;
         playerData.reasonforFinshingLevel = reasonforFinshingLevel;
         playerData.totalCtrlSwitchPropCollectedRight = totalCtrlSwitchPropCollectedRight;
         playerData.totalCtrlSwitchPropCollectedLeft = totalCtrlSwitchPropCollectedLeft;
@@ -504,9 +525,11 @@ public class GameController : MonoBehaviour
 
         if (ConstName.SEND_ANALYTICS == true)
         {
+            RestClient.Post("https://portkey-2a1ae-default-rtdb.firebaseio.com/metric1_analytics.json", playerData);
+            RestClient.Post("https://portkey-2a1ae-default-rtdb.firebaseio.com/beta_playtesting_analytics.json", playerData);
             RestClient.Post("https://portkey-2a1ae-default-rtdb.firebaseio.com/playtesting1_analytics.json", playerData);
-            Debug.Log("Analytics sent to firebase");
         }
+
     }
 
     void CalculateScoreLeft()
@@ -527,13 +550,13 @@ public class GameController : MonoBehaviour
         {
             currentLeftScore += 5;
             leftScore.text = "" + currentLeftScore.ToString("F0");
-            StartCoroutine(FlashScore(leftScore, new Color(1.0f, 0.788f, 0.282f)));
+            StartCoroutine(FlashScore(leftScore, new Color(1.0f, 0.4118f, 0.7059f)));
         }
         else
         {
             currentRightScore += 5;
             rightScore.text = "" + currentRightScore.ToString("F0");
-            StartCoroutine(FlashScore(rightScore, new Color(1.0f, 0.788f, 0.282f)));
+            StartCoroutine(FlashScore(rightScore, new Color(1.0f, 0.4118f, 0.7059f)));
         }
     }
 
@@ -554,7 +577,7 @@ public class GameController : MonoBehaviour
     public void DisplayRightLostHealthMsg()
     {
         //BulletImpactForRightPlayer();
-        LostHealthMsgRight.text = "Health Stolen";
+        LostHealthMsgRight.text = "Health Lost";
         LostHealthMsgRight.color = Color.blue;
         LostHealthMsgRight.gameObject.SetActive(true);
         StartCoroutine(HideStolenHealthMessage(1f));
@@ -563,7 +586,7 @@ public class GameController : MonoBehaviour
     public void DisplayLeftLostHealthMsg()
     {
         //BulletImpactForLeftPlayer();
-        LostHealthMsgLeft.text = "Health Stolen";
+        LostHealthMsgLeft.text = "Health Lost";
         LostHealthMsgLeft.color = Color.blue;
         LostHealthMsgLeft.gameObject.SetActive(true);
         StartCoroutine(HideStolenHealthMessage(1f));
@@ -623,5 +646,15 @@ public class GameController : MonoBehaviour
             }
         }
 
+    }
+
+    public float GetCurrentScoreLeft()
+    {
+        return currentLeftScore;
+    }
+
+    public float GetCurrentScoreRight()
+    {
+        return currentRightScore;
     }
 }

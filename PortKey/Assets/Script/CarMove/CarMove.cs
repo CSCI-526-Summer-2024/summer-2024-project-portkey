@@ -226,7 +226,7 @@ public class CarMove : MonoBehaviour
                 if (liveManager.GetLivesLeft() == 0)
                 {
                     PlayerDead(isDueToMinusProp);
-                } 
+                }
             }
             else
             {
@@ -304,6 +304,7 @@ public class CarMove : MonoBehaviour
         {
             Destroy(other.gameObject);
             gameController.OneTimeBonus(transform.name);
+            UpdateAnalyticsOnScoreUp();
         }
         /************************* For ScoreUp Collision *************************/
 
@@ -313,7 +314,7 @@ public class CarMove : MonoBehaviour
         {
             Destroy(other.gameObject);
             ProcessReduceEnemyHealthProp(transform.name);
-            
+            gameController.ReduceHealthEffect(transform.name);
         }
         /************************* For ReduceEnemyHealth Collision *************************/
 
@@ -415,6 +416,20 @@ public class CarMove : MonoBehaviour
         }
     }
 
+    void UpdateAnalyticsOnScoreUp()
+    {
+
+        // Metric #1
+        if (transform.name == ConstName.LEFT_CAR)
+        {
+            gameController.totalScoreUpLeft += 1;
+        }
+        else
+        {
+            gameController.totalScoreUpRight += 1;
+        }
+    }
+
     void UpdateDataForAnalytics()
     {
         // Collisions after Control Flip Metric #4
@@ -428,7 +443,7 @@ public class CarMove : MonoBehaviour
         }
     }
 
-    
+
     void PlayerDead(bool isDueToMinusProp)
     {
         if (liveManager.GetLivesLeft() <= 0 || liveManager.GetLivesRight() <= 0)
@@ -455,7 +470,7 @@ public class CarMove : MonoBehaviour
                 winText.text = "YOU WIN";
                 winText.color = Color.green;
             }
-          
+
 
             navArea.gameObject.SetActive(true);
             broadcastMsg.text = "GAME OVER";
@@ -465,7 +480,7 @@ public class CarMove : MonoBehaviour
             gameController.reasonforFinshingLevel = 1;
 
             gameController.StopScoreCalculation(transform.name);
-        }      
+        }
     }
 
     void DisplaySwitchMessage()
