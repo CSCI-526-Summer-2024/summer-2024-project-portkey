@@ -2723,9 +2723,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   playerLeft: {fileID: 0}
   playerRight: {fileID: 550511562}
-  rotationSpeed: 30
+  rotationSpeed: 27
   bulletPrefab: {fileID: 8326078500173519897, guid: 27a1f87cd7c810349b84d650800117bd, type: 3}
-  bulletSpeed: 10
+  bulletSpeed: 25
   bulletSpawnPoint: {fileID: 247762603}
   currentBulletsLeft: 7
   currentBulletsRight: 7
@@ -6355,9 +6355,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   playerLeft: {fileID: 1549207869}
   playerRight: {fileID: 0}
-  rotationSpeed: 30
+  rotationSpeed: 27
   bulletPrefab: {fileID: 8326078500173519897, guid: 27a1f87cd7c810349b84d650800117bd, type: 3}
-  bulletSpeed: 10
+  bulletSpeed: 25
   bulletSpawnPoint: {fileID: 1220705343}
   currentBulletsLeft: 7
   currentBulletsRight: 7

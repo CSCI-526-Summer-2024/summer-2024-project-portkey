@@ -550,13 +550,14 @@ public class GameController : MonoBehaviour
         {
             currentLeftScore += 5;
             leftScore.text = "" + currentLeftScore.ToString("F0");
-            StartCoroutine(FlashScore(leftScore, new Color(1.0f, 0.4118f, 0.7059f)));
+            StartCoroutine(FlashScore(leftScore, new Color(1.0f, 0.7882353f, 0.28235295f)));
+
         }
         else
         {
             currentRightScore += 5;
             rightScore.text = "" + currentRightScore.ToString("F0");
-            StartCoroutine(FlashScore(rightScore, new Color(1.0f, 0.4118f, 0.7059f)));
+            StartCoroutine(FlashScore(rightScore, new Color(1.0f, 0.7882353f, 0.28235295f)));
         }
     }
 

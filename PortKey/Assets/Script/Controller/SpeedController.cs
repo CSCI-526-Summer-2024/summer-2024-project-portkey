@@ -118,7 +118,7 @@ public class SpeedLimits
             case 4:
                 canIncreaseSpeed = true;
                 canIncreaseSpawnSpeed = true;
-                defaultCarSpeed = 3.0f;
+                defaultCarSpeed = 4.0f;
                 defaultSpawnSpeed = 2.0f;
                 carSpeedMultiplier = 1.01f;
                 spawnSpeedMultiplier = 1.02f;
@@ -129,7 +129,7 @@ public class SpeedLimits
             case 5:
                 canIncreaseSpeed = true;
                 canIncreaseSpawnSpeed = true;
-                defaultCarSpeed = 3.0f;
+                defaultCarSpeed = 4.0f;
                 defaultSpawnSpeed = 2.0f;
                 carSpeedMultiplier = 1.01f;
                 spawnSpeedMultiplier = 1.02f;
@@ -288,11 +288,11 @@ public class SpeedController : MonoBehaviour
 
     private IEnumerator UpdateCarSpeed()
     {
-        // Wait for the countdown before starting the game
-        int waitingTime = gameController.countDownBeforeStartDuration * 2;
-        yield return new WaitForSeconds(waitingTime);
+        // // Wait for the countdown before starting the game
+        // int waitingTime = gameController.countDownBeforeStartDuration * 2;
+        // yield return new WaitForSeconds(waitingTime);
 
-        Debug.Log($"Initial speeds: Left: {carLeftMove.carSpeed}, Right: {carRightMove.carSpeed}");
+        // Debug.Log($"Initial speeds: Left: {carLeftMove.carSpeed}, Right: {carRightMove.carSpeed}");
 
         while (speedLimits.CanIncreaseSpeed)
         {
@@ -306,7 +306,7 @@ public class SpeedController : MonoBehaviour
 
             carSpeed = leftCarSpeeds[0];
 
-            Debug.Log($"Updated speeds: Left: {carLeftMove.carSpeed}, Right: {carRightMove.carSpeed}");
+            // Debug.Log($"Updated speeds: Left: {carLeftMove.carSpeed}, Right: {carRightMove.carSpeed}");
 
             yield return new WaitForSeconds(carFrequency);
         }
@@ -339,9 +339,9 @@ public class SpeedController : MonoBehaviour
     private IEnumerator UpdateSpawnSpeed()
     {
 
-        // Wait for the countdown before starting the game
-        int waitingTime = gameController.countDownBeforeStartDuration * 2;
-        yield return new WaitForSeconds(waitingTime);
+        // // Wait for the countdown before starting the game
+        // int waitingTime = gameController.countDownBeforeStartDuration * 2;
+        // yield return new WaitForSeconds(waitingTime);
 
         while (true)
         {

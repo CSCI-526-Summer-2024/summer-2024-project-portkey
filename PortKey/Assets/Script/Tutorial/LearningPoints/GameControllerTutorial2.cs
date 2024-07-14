@@ -352,11 +352,19 @@ public class GameControllerTutorial2 : MonoBehaviour
                     canShootR = true;
                     StartCoroutine(PauseRight());
                 }
-                if ((timer - gameDuration) == 11f && levelNext == 5)
+                if ((timer - gameDuration) == 7f && levelNext == 5)
                 {
                     canShootL = true;
                     canShootR = false;
                     StartCoroutine(PauseLeft());
+                    canShootL = true;
+                    canShootR = true;
+                }
+                if ((timer - gameDuration) == 10f && levelNext == 5)
+                {
+                    canShootL = false;
+                    canShootR = false;
+                    StartCoroutine(PauseLeft2());
                     canShootL = true;
                     canShootR = true;
                 }
@@ -365,14 +373,6 @@ public class GameControllerTutorial2 : MonoBehaviour
                     canShootL = false;
                     canShootR = false;
                     StartCoroutine(PauseRight2());
-                    canShootL = true;
-                    canShootR = true;
-                }
-                if ((timer - gameDuration) == 19f && levelNext == 5)
-                {
-                    canShootL = false;
-                    canShootR = false;
-                    StartCoroutine(PauseLeft2());
                     canShootL = true;
                     canShootR = true;
                 }
@@ -467,11 +467,12 @@ public class GameControllerTutorial2 : MonoBehaviour
     IEnumerator FadeOutText(TextMeshProUGUI text)
     {
         float time = 0f;
+        Color orange = new Color(1f, 0.5f, 0f);
         while (time < 2.0f)
         {
             time += Time.deltaTime;
             float alpha = Mathf.Lerp(1, 0, time / 2.0f);
-            text.color = new Color(Color.black.r, Color.black.g, Color.black.b, alpha);
+            text.color = new Color(orange.r, orange.g, orange.b, alpha);
             yield return null;
         }
         text.gameObject.SetActive(false);
