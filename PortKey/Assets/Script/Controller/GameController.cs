@@ -113,6 +113,10 @@ public class GameController : MonoBehaviour
 
     public bool isGameOver = false;
 
+    public TextMeshProUGUI LeftCtrlFlipTimer;
+
+    public TextMeshProUGUI RightCtrlFlipTimer;
+
     void Awake()
     {
         if (LostHealthMsgRight != null)
@@ -348,61 +352,69 @@ public class GameController : MonoBehaviour
     {
         CarMove carMove;
         Image currentImage, swappedImage;
+        TextMeshProUGUI timerText;
 
         if (carName == ConstName.LEFT_CAR)
         {
             carMove = carRight.GetComponent<CarMove>();
             currentImage = imageLeft;
             swappedImage = imageRight;
+            timerText = RightCtrlFlipTimer;
         }
         else
         {
             carMove = carLeft.GetComponent<CarMove>();
             currentImage = imageA;
             swappedImage = imageD;
+            timerText = LeftCtrlFlipTimer;
         }
 
-        // 停止已经运行的协程（如果存在）
+        // if the car is already in the process of reversing, stop the current coroutine
         if (carMove.currentRevertCoroutine != null)
         {
             StopCoroutine(carMove.currentRevertCoroutine);
         }
 
-        // 如果车辆不处于反转状态，则执行反转
+        // if the car is not reversed, reverse it
         if (!carMove.reversed)
         {
             ReverseControl(carMove, currentImage, swappedImage);
         }
 
-        // 开始新的协程
-        carMove.currentRevertCoroutine = StartCoroutine(RevertControl(carName));
+        // start the timer for the car to revert back to normal control
+        carMove.currentRevertCoroutine = StartCoroutine(RevertControl(carName, timerText));
     }
-
-
 
     private void ReverseControl(CarMove carMove, Image currentImage, Image swappedImage)
     {
-        carMove.carSpeed *= -1;  // 反转速度
-        carMove.reversed = true; // 标记为反转状态
+        carMove.carSpeed *= -1;
+        carMove.reversed = true;
         Sprite tempSprite = currentImage.sprite;
         currentImage.sprite = swappedImage.sprite;
         swappedImage.sprite = tempSprite;
         StartCoroutine(Flashing(currentImage, swappedImage));
     }
 
-    private IEnumerator RevertControl(string carName)
+    private IEnumerator RevertControl(string carName, TextMeshProUGUI timerText)
     {
-        yield return new WaitForSeconds(10);
+        float timeRemaining = 10.0f;
+        while (timeRemaining > 0)
+        {
+            timerText.text = $"Ctl Switch\n{Mathf.FloorToInt(timeRemaining)} s";
+            yield return new WaitForSeconds(1);
+            timeRemaining -= 1;
+        }
 
         CarMove carMove = (carName == ConstName.LEFT_CAR) ? carRight.GetComponent<CarMove>() : carLeft.GetComponent<CarMove>();
         Image currentImage = (carName == ConstName.LEFT_CAR) ? imageRight : imageD;
         Image swappedImage = (carName == ConstName.LEFT_CAR) ? imageLeft : imageA;
 
+        timerText.text = "";
         if (carMove.reversed)
         {
             ReverseControl(carMove, currentImage, swappedImage);
-            carMove.reversed = false; // 明确标记为非反转状态
-            carMove.currentRevertCoroutine = null; // 清除协程引用
+            carMove.reversed = false;
+            carMove.currentRevertCoroutine = null;
         }
     }
 
