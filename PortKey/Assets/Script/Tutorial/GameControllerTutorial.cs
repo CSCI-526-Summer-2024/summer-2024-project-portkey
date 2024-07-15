@@ -409,7 +409,7 @@ public class GameControllerTutorial : MonoBehaviour
         float timeRemaining = 8.0f;
         while (timeRemaining > 0)
         {
-            timerText.text = $"Ctrl Switch\n{Mathf.FloorToInt(timeRemaining)} s";
+            timerText.text = $"{Mathf.FloorToInt(timeRemaining)}";
             yield return new WaitForSeconds(1);
             timeRemaining -= 1;
         }
@@ -431,10 +431,8 @@ public class GameControllerTutorial : MonoBehaviour
 
     IEnumerator Flashing(Image left, Image right, Image flip)
     {
-        Debug.Log(count);
         if (count < 3)
         {
-            Debug.Log("FIRST");
             Time.timeScale = 0;
             for (int i = 0; i < 5; i++)
             {
@@ -462,7 +460,6 @@ public class GameControllerTutorial : MonoBehaviour
         }
         else
         {
-            Debug.Log("SECOND");
             Sprite oldleft = left.sprite;
             Sprite oldright = right.sprite;
             left.sprite = oldright;
