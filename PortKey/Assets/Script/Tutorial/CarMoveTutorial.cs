@@ -434,7 +434,7 @@ public class CarMoveTutorial : MonoBehaviour
         }
     }
 
-    void DisplaySwitchMessage()
+    public void DisplaySwitchMessage()
     {
         winText.text = "CONTROLS SWITCHED!";
         winText.color = Color.blue;

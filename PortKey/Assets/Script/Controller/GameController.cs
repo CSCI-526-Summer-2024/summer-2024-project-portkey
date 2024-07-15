@@ -407,6 +407,7 @@ public class GameController : MonoBehaviour
         }
 
         CarMove carMove = (carName == ConstName.LEFT_CAR) ? carRight.GetComponent<CarMove>() : carLeft.GetComponent<CarMove>();
+        CarMove carSwitch = (carName == ConstName.LEFT_CAR) ? carLeft.GetComponent<CarMove>() : carRight.GetComponent<CarMove>();
         Image currentImage = (carName == ConstName.LEFT_CAR) ? imageRight : imageD;
         Image swappedImage = (carName == ConstName.LEFT_CAR) ? imageLeft : imageA;
 
@@ -414,6 +415,7 @@ public class GameController : MonoBehaviour
         if (carMove.reversed)
         {
             ReverseControl(carMove, currentImage, swappedImage);
+            carSwitch.DisplaySwitchMessage();
             carMove.reversed = false;
             carMove.currentRevertCoroutine = null;
         }
