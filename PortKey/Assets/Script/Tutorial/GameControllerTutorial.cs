@@ -406,7 +406,7 @@ public class GameControllerTutorial : MonoBehaviour
 
     private IEnumerator RevertControl(string carName, TextMeshProUGUI timerText, Image flipImage)
     {
-        float timeRemaining = 8.0f;
+        float timeRemaining = 4.0f;
         while (timeRemaining > 0)
         {
             timerText.text = $"{Mathf.FloorToInt(timeRemaining)}";
@@ -431,7 +431,7 @@ public class GameControllerTutorial : MonoBehaviour
 
     IEnumerator Flashing(Image left, Image right, Image flip)
     {
-        if (count < 3)
+        if (count == 1 || count == 3)
         {
             Time.timeScale = 0;
             for (int i = 0; i < 5; i++)
