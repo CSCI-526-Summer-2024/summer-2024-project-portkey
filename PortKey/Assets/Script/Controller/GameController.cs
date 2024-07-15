@@ -397,7 +397,7 @@ public class GameController : MonoBehaviour
 
     private IEnumerator RevertControl(string carName, TextMeshProUGUI timerText)
     {
-        float timeRemaining = 10.0f;
+        float timeRemaining = 4.0f;
         while (timeRemaining > 0)
         {
             timerText.text = $"Ctl Switch\n{Mathf.FloorToInt(timeRemaining)} s";

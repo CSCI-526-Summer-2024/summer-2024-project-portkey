@@ -122,6 +122,10 @@ public class GameControllerTutorial : MonoBehaviour
 
     public bool canMove;
 
+    public TextMeshProUGUI LeftCtrlFlipTimer;
+
+    public TextMeshProUGUI RightCtrlFlipTimer;
+
     void Awake()
     {
         if (LostHealthMsgRight != null)
@@ -264,7 +268,8 @@ public class GameControllerTutorial : MonoBehaviour
                 yield return new WaitForSeconds(1f);
                 // Decrease game duration by 1 second
                 gameDuration -= 1f;
-            } else
+            }
+            else
             {
                 yield return null;
             }
@@ -342,25 +347,82 @@ public class GameControllerTutorial : MonoBehaviour
 
     public void EnemyControlReverse(string carName)
     {
-        if (carName == "CarLeft")
+        CarMoveTutorial carMove;
+        Image currentImage, swappedImage;
+        TextMeshProUGUI timerText;
+        Image flipImage;
+
+        if (carName == ConstName.LEFT_CAR)
         {
-            carRight.GetComponent<CarMoveTutorial>().carSpeed *= -1;
-            carRight.GetComponent<CarMoveTutorial>().reversed = !carRight.GetComponent<CarMoveTutorial>().reversed;
-            Time.timeScale = 0;
-            StartCoroutine(Flashing(imageLeft, imageRight, flipRight));
+            carMove = carRight.GetComponent<CarMoveTutorial>();
+            currentImage = imageLeft;
+            swappedImage = imageRight;
+            timerText = RightCtrlFlipTimer;
+            flipImage = flipRight;
             StartCoroutine(Spotlight(spotlightIconRight1, 4f));
             StartCoroutine(Spotlight(spotlightIconRight2, 4f));
         }
         else
         {
-            carLeft.GetComponent<CarMoveTutorial>().carSpeed *= -1;
-            carLeft.GetComponent<CarMoveTutorial>().reversed = !carLeft.GetComponent<CarMoveTutorial>().reversed;
-            Time.timeScale = 0;
-            StartCoroutine(Flashing(imageA, imageD, flipLeft));
+            carMove = carLeft.GetComponent<CarMoveTutorial>();
+            currentImage = imageA;
+            swappedImage = imageD;
+            timerText = LeftCtrlFlipTimer;
+            flipImage = flipLeft;
             StartCoroutine(Spotlight(spotlightIconLeft1, 4f));
             StartCoroutine(Spotlight(spotlightIconLeft2, 4f));
         }
+
+        // if the car is already in the process of reversing, stop the current coroutine
+        if (carMove.currentRevertCoroutine != null)
+        {
+            StopCoroutine(carMove.currentRevertCoroutine);
+        }
+
+        // if the car is not reversed, reverse it
+        if (!carMove.reversed)
+        {
+            ReverseControl(carMove, currentImage, swappedImage, flipImage);
+        }
+
+        // start the timer for the car to revert back to normal control
+        carMove.currentRevertCoroutine = StartCoroutine(RevertControl(carName, timerText, flipImage));
+
     }
+
+    private void ReverseControl(CarMoveTutorial carMove, Image currentImage, Image swappedImage, Image flipImage)
+    {
+        carMove.carSpeed *= -1;
+        carMove.reversed = true;
+        Sprite tempSprite = currentImage.sprite;
+        currentImage.sprite = swappedImage.sprite;
+        swappedImage.sprite = tempSprite;
+        StartCoroutine(Flashing(currentImage, swappedImage, flipImage));
+    }
+
+    private IEnumerator RevertControl(string carName, TextMeshProUGUI timerText, Image flipImage)
+    {
+        float timeRemaining = 4.0f;
+        while (timeRemaining > 0)
+        {
+            timerText.text = $"Ctl Switch\n{Mathf.FloorToInt(timeRemaining)} s";
+            yield return new WaitForSeconds(1);
+            timeRemaining -= 1;
+        }
+
+        CarMoveTutorial carMove = (carName == ConstName.LEFT_CAR) ? carRight.GetComponent<CarMoveTutorial>() : carLeft.GetComponent<CarMoveTutorial>();
+        Image currentImage = (carName == ConstName.LEFT_CAR) ? imageRight : imageD;
+        Image swappedImage = (carName == ConstName.LEFT_CAR) ? imageLeft : imageA;
+
+        timerText.text = "";
+        if (carMove.reversed)
+        {
+            ReverseControl(carMove, currentImage, swappedImage, flipImage);
+            carMove.reversed = false;
+            carMove.currentRevertCoroutine = null;
+        }
+    }
+
 
     IEnumerator Flashing(Image left, Image right, Image flip)
     {
