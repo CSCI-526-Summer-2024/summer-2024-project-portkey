@@ -88,6 +88,9 @@ public class CarMove : MonoBehaviour
 
     public float maxHealth = 100;
 
+    // store control switch prop collected
+    public Coroutine currentRevertCoroutine = null;
+
     void Start()
     {
         level = LevelInfo.Instance.Level;
@@ -265,28 +268,28 @@ public class CarMove : MonoBehaviour
     void OnTriggerEnter2D(Collider2D other)
     {
         /************************* For Obstacle Collision *************************/
-        if (other.gameObject.tag == "Obstacle")
-        {
-            ShakePlayerOnHealthLoss();
+        // if (other.gameObject.tag == "Obstacle")
+        // {
+        //     ShakePlayerOnHealthLoss();
 
-            //decrement healthBar accordingly
-            gameController.UpdateHealthBarOnCollision(transform.name, hp.obstacleImpactOnHealth);
+        //     //decrement healthBar accordingly
+        //     gameController.UpdateHealthBarOnCollision(transform.name, hp.obstacleImpactOnHealth);
 
-            //destroy the obstacle on collision
-            Destroy(other.gameObject);
+        //     //destroy the obstacle on collision
+        //     Destroy(other.gameObject);
 
-            // Collisions after Control Flip Metric #4
-            UpdateDataForAnalytics();
+        //     // Collisions after Control Flip Metric #4
+        //     UpdateDataForAnalytics();
 
-            // Check if player is healthy or not
-            //CheckIfPlayerIsHealthyOrNot();
+        //     // Check if player is healthy or not
+        //     //CheckIfPlayerIsHealthyOrNot();
 
-            //update lives of the player
-            UpdateLives(transform.name, false, false);
+        //     //update lives of the player
+        //     UpdateLives(transform.name, false, false);
 
-            //destroy the obstacle on collision
-            Destroy(other.gameObject);
-        }
+        //     //destroy the obstacle on collision
+        //     Destroy(other.gameObject);
+        // }
         /************************* For Obstacle Collision *************************/
 
         /************************* For EnemyControlReverse Collision *************************/
