@@ -65,51 +65,51 @@ public class SpeedLimits
                 canIncreaseSpawnSpeed = true;
                 defaultCarSpeed = 2.0f;
                 defaultSpawnSpeed = 2.0f;
-                carSpeedMultiplier = 2.0f;
+                carSpeedMultiplier = 4.0f;
                 spawnSpeedMultiplier = 1.0f;
-                carMaxSpeed = 5.0f;
+                carMaxSpeed = 7.0f;
                 obstacleMaxSpeed = 5.5f;
                 speedIncreaseDuration = 50.0f;
                 break;
             case 0:
                 canIncreaseSpeed = true;
                 canIncreaseSpawnSpeed = true;
-                defaultCarSpeed = 3.0f;
+                defaultCarSpeed = 5.0f;
                 defaultSpawnSpeed = 2.0f;
-                carSpeedMultiplier = 1.0f;
+                carSpeedMultiplier = 1.1f;
                 spawnSpeedMultiplier = 1.0f;
-                carMaxSpeed = 6.0f;
+                carMaxSpeed = 5.0f;
                 obstacleMaxSpeed = 4.0f;
                 speedIncreaseDuration = 30.0f;
                 break;
             case 1:
                 canIncreaseSpeed = true;
                 canIncreaseSpawnSpeed = true;
-                defaultCarSpeed = 3.0f;
+                defaultCarSpeed = 5.0f;
                 defaultSpawnSpeed = 2.0f;
                 carSpeedMultiplier = 1.005f;
                 spawnSpeedMultiplier = 1.01f;
-                carMaxSpeed = 6.0f;
+                carMaxSpeed = 8.0f;
                 obstacleMaxSpeed = 4.0f;
                 speedIncreaseDuration = 30.0f;
                 break;
             case 2:
                 canIncreaseSpeed = true;
                 canIncreaseSpawnSpeed = true;
-                defaultCarSpeed = 3.0f;
+                defaultCarSpeed = 5.0f;
                 defaultSpawnSpeed = 2.0f;
                 carSpeedMultiplier = 1.005f;
                 spawnSpeedMultiplier = 1.012f;
-                carMaxSpeed = 8.0f;
+                carMaxSpeed = 9.0f;
                 obstacleMaxSpeed = 4.1f;
                 speedIncreaseDuration = 30.0f;
                 break;
             case 3:
                 canIncreaseSpeed = true;
                 canIncreaseSpawnSpeed = true;
-                defaultCarSpeed = 4.0f;
+                defaultCarSpeed = 5.0f;
                 defaultSpawnSpeed = 2.0f;
-                carSpeedMultiplier = 1.008f;
+                carSpeedMultiplier = 1.01f;
                 spawnSpeedMultiplier = 1.015f;
                 carMaxSpeed = 10.0f;
                 obstacleMaxSpeed = 4.2f;
@@ -118,9 +118,9 @@ public class SpeedLimits
             case 4:
                 canIncreaseSpeed = true;
                 canIncreaseSpawnSpeed = true;
-                defaultCarSpeed = 4.0f;
+                defaultCarSpeed = 5.0f;
                 defaultSpawnSpeed = 2.0f;
-                carSpeedMultiplier = 1.01f;
+                carSpeedMultiplier = 1.02f;
                 spawnSpeedMultiplier = 1.02f;
                 carMaxSpeed = 10.0f;
                 obstacleMaxSpeed = 4.5f;
@@ -129,9 +129,9 @@ public class SpeedLimits
             case 5:
                 canIncreaseSpeed = true;
                 canIncreaseSpawnSpeed = true;
-                defaultCarSpeed = 4.0f;
+                defaultCarSpeed = 5.0f;
                 defaultSpawnSpeed = 2.0f;
-                carSpeedMultiplier = 1.01f;
+                carSpeedMultiplier = 1.03f;
                 spawnSpeedMultiplier = 1.02f;
                 carMaxSpeed = 12.0f;
                 obstacleMaxSpeed = 4.5f;
