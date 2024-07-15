@@ -400,7 +400,7 @@ public class GameController : MonoBehaviour
         float timeRemaining = 4.0f;
         while (timeRemaining > 0)
         {
-            timerText.text = $"Ctl Switch\n{Mathf.FloorToInt(timeRemaining)} s";
+            timerText.text = $"Ctrl Switch\n{Mathf.FloorToInt(timeRemaining)} s";
             yield return new WaitForSeconds(1);
             timeRemaining -= 1;
         }
