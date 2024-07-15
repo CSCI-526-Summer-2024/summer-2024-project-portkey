@@ -133,6 +133,8 @@ public class GameControllerTutorial2 : MonoBehaviour
     public bool canShootL;
     public bool canShootR;
 
+    int shootingCnt = 0;
+
     void Awake()
     {
         if (LostHealthMsgRight != null)
@@ -357,24 +359,18 @@ public class GameControllerTutorial2 : MonoBehaviour
                     canShootL = true;
                     canShootR = false;
                     StartCoroutine(PauseLeft());
-                    canShootL = true;
-                    canShootR = true;
                 }
                 if ((timer - gameDuration) == 10f && levelNext == 5)
                 {
                     canShootL = false;
                     canShootR = false;
                     StartCoroutine(PauseLeft2());
-                    canShootL = true;
-                    canShootR = true;
                 }
                 if ((timer - gameDuration) == 14f && levelNext == 5)
                 {
                     canShootL = false;
                     canShootR = false;
                     StartCoroutine(PauseRight2());
-                    canShootL = true;
-                    canShootR = true;
                 }
                 yield return new WaitForSeconds(1f);
                 // Decrease game duration by 1 second
@@ -420,6 +416,8 @@ public class GameControllerTutorial2 : MonoBehaviour
         Time.timeScale = 1;
         ShootLeft.gameObject.SetActive(false);
         spotLeft.enabled = false;
+        canShootL = true;
+        canShootR = true;
     }
 
     IEnumerator PauseLeft2()
@@ -448,6 +446,12 @@ public class GameControllerTutorial2 : MonoBehaviour
         Time.timeScale = 1;
         ShootRight.gameObject.SetActive(false);
         spotRight.enabled = false;
+        if (shootingCnt == 1)
+        {
+            canShootL = true;
+            canShootR = true;
+        }
+        shootingCnt++;
     }
 
     IEnumerator PauseRight2()
