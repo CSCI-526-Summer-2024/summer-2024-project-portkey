@@ -14,6 +14,7 @@ GameObject:
   - component: {fileID: 1802474341989400753}
   - component: {fileID: 4092029016343290381}
   - component: {fileID: 13967534861204108}
+  - component: {fileID: -6091841120686169451}
   m_Layer: 0
   m_Name: ObstacleMiddle
   m_TagString: Obstacle
@@ -171,3 +172,15 @@ MonoBehaviour:
   speed: 2.5
   range: 2.8
   oscillateSpeed: 1
+--- !u!114 &-6091841120686169451
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3161231708506072461}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f4237cacf750a4fdc98b7b50fc704d06, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 

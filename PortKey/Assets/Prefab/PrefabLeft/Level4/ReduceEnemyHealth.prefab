@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 4311954144013691543}
   - component: {fileID: 3513798133823626162}
   - component: {fileID: 7578252089145249316}
+  - component: {fileID: 5984526121074009259}
   m_Layer: 5
   m_Name: ReduceEnemyHealth
   m_TagString: Untagged
@@ -145,3 +146,15 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 1.45, y: 1.69}
   m_EdgeRadius: 0
+--- !u!114 &5984526121074009259
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1389686929274457625}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d40566990ef0e4cb2bc89bab842c07ee, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 

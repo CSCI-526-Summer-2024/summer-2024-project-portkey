@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: -279700878142861245}
   - component: {fileID: 357440221128332459}
   - component: {fileID: -2136948557836622434}
+  - component: {fileID: 7297132061859535191}
   m_Layer: 5
   m_Name: ScoreUp
   m_TagString: Untagged
@@ -144,3 +145,15 @@ CircleCollider2D:
   m_Offset: {x: 0, y: 0}
   serializedVersion: 2
   m_Radius: 0.32
+--- !u!114 &7297132061859535191
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1682798608209473767}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d40566990ef0e4cb2bc89bab842c07ee, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 

@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 647398052327764140}
   - component: {fileID: 9108906590871624763}
   - component: {fileID: 7035208438295370628}
+  - component: {fileID: 624008343815974590}
   m_Layer: 5
   m_Name: SlowEnemy
   m_TagString: Untagged
@@ -145,3 +146,15 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   moveSpeed: 2
   speed: 2
+--- !u!114 &624008343815974590
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7456849386018146053}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d40566990ef0e4cb2bc89bab842c07ee, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 

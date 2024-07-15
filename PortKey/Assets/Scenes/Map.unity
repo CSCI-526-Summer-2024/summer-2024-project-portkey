@@ -977,7 +977,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 6, y: 68}
+  m_AnchoredPosition: {x: 45, y: 68}
   m_SizeDelta: {x: 727.7237, y: 173.7108}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1048151985
@@ -1056,7 +1056,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 6, y: 68}
+  m_AnchoredPosition: {x: -7, y: 68}
   m_SizeDelta: {x: 795.2333, y: 173.7108}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1068718170
@@ -1113,7 +1113,7 @@ GameObject:
   - component: {fileID: 1205828252}
   - component: {fileID: 1205828251}
   m_Layer: 5
-  m_Name: ScoreUpText
+  m_Name: HeartText
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1192,7 +1192,7 @@ GameObject:
   - component: {fileID: 1364639034}
   - component: {fileID: 1364639033}
   m_Layer: 5
-  m_Name: ScoreImage
+  m_Name: HeartImage
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1289,7 +1289,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 6, y: 68}
+  m_AnchoredPosition: {x: 29, y: 68}
   m_SizeDelta: {x: 795.2333, y: 173.7108}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1574342221
@@ -1664,7 +1664,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 6, y: 68}
+  m_AnchoredPosition: {x: 45, y: 68}
   m_SizeDelta: {x: 727.7237, y: 173.7108}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1973160797

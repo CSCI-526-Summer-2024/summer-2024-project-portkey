@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: 2567651620758902234}
   - component: {fileID: 6800709541200787811}
   - component: {fileID: 2578253012742596474}
+  - component: {fileID: -1806160319645626701}
   m_Layer: 5
   m_Name: ObstacleRight
   m_TagString: Obstacle
@@ -154,3 +155,15 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!114 &-1806160319645626701
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2802853550590688207}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f4237cacf750a4fdc98b7b50fc704d06, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
