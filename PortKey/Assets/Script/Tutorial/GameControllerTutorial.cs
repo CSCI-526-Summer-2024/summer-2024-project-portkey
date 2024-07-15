@@ -94,7 +94,7 @@ public class GameControllerTutorial : MonoBehaviour
     private readonly float baseScore = 1.0f;
 
     // game duration, unit is second
-    private float gameDuration = 62f;
+    private float gameDuration = 56f;
 
     //analytics helper variables
     public int totalCtrlSwitchPropCollectedRight = 0;
@@ -125,6 +125,8 @@ public class GameControllerTutorial : MonoBehaviour
     public TextMeshProUGUI LeftCtrlFlipTimer;
 
     public TextMeshProUGUI RightCtrlFlipTimer;
+
+    public int count = 0;
 
     void Awake()
     {
@@ -361,6 +363,7 @@ public class GameControllerTutorial : MonoBehaviour
             flipImage = flipRight;
             StartCoroutine(Spotlight(spotlightIconRight1, 4f));
             StartCoroutine(Spotlight(spotlightIconRight2, 4f));
+            count++;
         }
         else
         {
@@ -371,6 +374,7 @@ public class GameControllerTutorial : MonoBehaviour
             flipImage = flipLeft;
             StartCoroutine(Spotlight(spotlightIconLeft1, 4f));
             StartCoroutine(Spotlight(spotlightIconLeft2, 4f));
+            count++;
         }
 
         // if the car is already in the process of reversing, stop the current coroutine
@@ -394,15 +398,15 @@ public class GameControllerTutorial : MonoBehaviour
     {
         carMove.carSpeed *= -1;
         carMove.reversed = true;
-        Sprite tempSprite = currentImage.sprite;
-        currentImage.sprite = swappedImage.sprite;
-        swappedImage.sprite = tempSprite;
+        //Sprite tempSprite = currentImage.sprite;
+        //currentImage.sprite = swappedImage.sprite;
+        //swappedImage.sprite = tempSprite;
         StartCoroutine(Flashing(currentImage, swappedImage, flipImage));
     }
 
     private IEnumerator RevertControl(string carName, TextMeshProUGUI timerText, Image flipImage)
     {
-        float timeRemaining = 4.0f;
+        float timeRemaining = 8.0f;
         while (timeRemaining > 0)
         {
             timerText.text = $"Ctrl Switch\n{Mathf.FloorToInt(timeRemaining)} s";
@@ -417,6 +421,7 @@ public class GameControllerTutorial : MonoBehaviour
         timerText.text = "";
         if (carMove.reversed)
         {
+            count++;
             ReverseControl(carMove, currentImage, swappedImage, flipImage);
             carMove.reversed = false;
             carMove.currentRevertCoroutine = null;
@@ -426,29 +431,56 @@ public class GameControllerTutorial : MonoBehaviour
 
     IEnumerator Flashing(Image left, Image right, Image flip)
     {
-        for (int i = 0; i < 5; i++)
+        Debug.Log(count);
+        if (count < 3)
         {
-            if (i == 2)
+            Debug.Log("FIRST");
+            Time.timeScale = 0;
+            for (int i = 0; i < 5; i++)
             {
-                left.GetComponentInChildren<TextMeshProUGUI>().color = Color.green;
-                right.GetComponentInChildren<TextMeshProUGUI>().color = Color.green;
-                Sprite oldleft = left.sprite;
-                Sprite oldright = right.sprite;
-                left.sprite = oldright;
-                right.sprite = oldleft;
-                flip.enabled = true;
+                if (i == 2)
+                {
+                    left.GetComponentInChildren<TextMeshProUGUI>().color = Color.green;
+                    right.GetComponentInChildren<TextMeshProUGUI>().color = Color.green;
+                    Sprite oldleft = left.sprite;
+                    Sprite oldright = right.sprite;
+                    left.sprite = oldright;
+                    right.sprite = oldleft;
+                    flip.enabled = true;
+                }
+                left.enabled = false;
+                right.enabled = false;
+                yield return new WaitForSecondsRealtime(0.4f);
+                left.enabled = true;
+                right.enabled = true;
+                yield return new WaitForSecondsRealtime(0.4f);
             }
-            left.enabled = false;
-            right.enabled = false;
-            yield return new WaitForSecondsRealtime(0.4f);
-            left.enabled = true;
-            right.enabled = true;
-            yield return new WaitForSecondsRealtime(0.4f);
+            left.GetComponentInChildren<TextMeshProUGUI>().color = Color.black;
+            right.GetComponentInChildren<TextMeshProUGUI>().color = Color.black;
+            flip.enabled = false;
+            Time.timeScale = 1;
         }
-        left.GetComponentInChildren<TextMeshProUGUI>().color = Color.black;
-        right.GetComponentInChildren<TextMeshProUGUI>().color = Color.black;
-        flip.enabled = false;
-        Time.timeScale = 1;
+        else
+        {
+            Debug.Log("SECOND");
+            Sprite oldleft = left.sprite;
+            Sprite oldright = right.sprite;
+            left.sprite = oldright;
+            right.sprite = oldleft;
+            left.GetComponentInChildren<TextMeshProUGUI>().color = Color.green;
+            right.GetComponentInChildren<TextMeshProUGUI>().color = Color.green;
+            for (int i = 0; i < 3; i++)
+            {
+                left.enabled = false;
+                right.enabled = false;
+                yield return new WaitForSeconds(0.2f);
+                left.enabled = true;
+                right.enabled = true;
+                yield return new WaitForSeconds(0.2f);
+            }
+            left.GetComponentInChildren<TextMeshProUGUI>().color = Color.black;
+            right.GetComponentInChildren<TextMeshProUGUI>().color = Color.black;
+        }
     }
 
     public void ShowSpeedSlowMsg(string carName)

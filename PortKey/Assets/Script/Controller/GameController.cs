@@ -397,7 +397,7 @@ public class GameController : MonoBehaviour
 
     private IEnumerator RevertControl(string carName, TextMeshProUGUI timerText)
     {
-        float timeRemaining = 4.0f;
+        float timeRemaining = 10.0f;
         while (timeRemaining > 0)
         {
             // timerText.fontSize = 27.5f;
