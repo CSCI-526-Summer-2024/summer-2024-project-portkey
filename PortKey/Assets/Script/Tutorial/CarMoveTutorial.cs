@@ -55,6 +55,8 @@ public class CarMoveTutorial : MonoBehaviour
 
     public float maxHealth = 100;
 
+    public Coroutine currentRevertCoroutine = null;
+
     void Start()
     {
         navArea2.gameObject.SetActive(false);
@@ -432,7 +434,7 @@ public class CarMoveTutorial : MonoBehaviour
         }
     }
 
-    void DisplaySwitchMessage()
+    public void DisplaySwitchMessage()
     {
         winText.text = "CONTROLS SWITCHED!";
         winText.color = Color.blue;

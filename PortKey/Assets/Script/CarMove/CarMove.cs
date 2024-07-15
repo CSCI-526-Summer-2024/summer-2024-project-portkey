@@ -88,6 +88,11 @@ public class CarMove : MonoBehaviour
 
     public float maxHealth = 100;
 
+    // store control switch prop collected
+    public Coroutine currentRevertCoroutine = null;
+
+    CarMove carOpp;
+
     void Start()
     {
         level = LevelInfo.Instance.Level;
@@ -118,6 +123,7 @@ public class CarMove : MonoBehaviour
         {
             Debug.LogError("LiveManager not found");
         }
+        carOpp = (transform.name == ConstName.LEFT_CAR) ? gameController.carRight.GetComponent<CarMove>() : gameController.carLeft.GetComponent<CarMove>();
     }
 
     void UploadHealthBars()
@@ -292,7 +298,10 @@ public class CarMove : MonoBehaviour
         /************************* For EnemyControlReverse Collision *************************/
         if (other.gameObject.name.Contains("EnemyControlReverse"))
         {
-            DisplaySwitchMessage();
+            if (!carOpp.reversed)
+            {
+                DisplaySwitchMessage();
+            }
             Destroy(other.gameObject);
             gameController.EnemyControlReverse(transform.name);
             UpdateAnalyticsOnControlInversion();
@@ -482,7 +491,7 @@ public class CarMove : MonoBehaviour
         }
     }
 
-    void DisplaySwitchMessage()
+    public void DisplaySwitchMessage()
     {
         winText.text = "CONTROLS SWITCHED!";
         winText.color = Color.blue;
