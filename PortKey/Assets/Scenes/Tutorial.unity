@@ -11987,8 +11987,8 @@ MonoBehaviour:
   CountDownNavArea: {fileID: 0}
   CountDownLeftText: {fileID: 453729074}
   canMove: 0
-  LeftCtrlFlipTimer: {fileID: 0}
-  RightCtrlFlipTimer: {fileID: 0}
+  LeftCtrlFlipTimer: {fileID: 1640887989}
+  RightCtrlFlipTimer: {fileID: 535463422}
 --- !u!1 &1653794002
 GameObject:
   m_ObjectHideFlags: 0
