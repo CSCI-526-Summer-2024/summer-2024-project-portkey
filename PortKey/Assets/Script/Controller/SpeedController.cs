@@ -36,26 +36,6 @@ public class SpeedLimits
         get { return canIncreaseSpeed; }
     }
 
-    public void UpdateCarElapsedTime(float deltaTime)
-    {
-        elapsedTime += deltaTime;
-        if (elapsedTime > speedIncreaseDuration)
-        {
-            canIncreaseSpeed = false;
-            Debug.Log("Time to stop increasing car speed");
-        }
-    }
-
-    public void UpdateSpawnElapsedTime(float deltaTime)
-    {
-        elapsedTime += deltaTime;
-        if (elapsedTime > speedIncreaseDuration)
-        {
-            canIncreaseSpawnSpeed = false;
-            Debug.Log("Time to stop increasing spawn speed");
-        }
-    }
-
     public void SetLevelParameters(int level)
     {
         switch (level)
@@ -296,8 +276,6 @@ public class SpeedController : MonoBehaviour
 
         while (speedLimits.CanIncreaseSpeed)
         {
-            speedLimits.UpdateCarElapsedTime(carFrequency);
-
             float[] leftCarSpeeds = SetCarSpeed(carSpeed, carLeftMove.carSpeed, speedLimits.carMaxSpeed, speedLimits.carSpeedMultiplier, leftCarSlowDown, slowDownFactor);
             carLeftMove.carSpeed = leftCarSpeeds[1];
 
@@ -348,7 +326,6 @@ public class SpeedController : MonoBehaviour
             if (speedLimits.CanIncreaseSpawnSpeed)
             {
                 spawnSpeed *= speedLimits.spawnSpeedMultiplier;
-                speedLimits.UpdateSpawnElapsedTime(spawnFrequency);
             }
 
             if (Mathf.Abs(spawnSpeed) > speedLimits.obstacleMaxSpeed)

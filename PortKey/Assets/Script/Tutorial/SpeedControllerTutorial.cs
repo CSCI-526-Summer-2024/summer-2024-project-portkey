@@ -131,8 +131,6 @@ public class SpeedControllerTutorial : MonoBehaviour
     {
         while (speedLimits.CanIncreaseSpeed)
         {
-            speedLimits.UpdateCarElapsedTime(carFrequency);
-
             float[] leftCarSpeeds = SetCarSpeed(carSpeed, carLeftMove.carSpeed, speedLimits.carMaxSpeed, speedLimits.carSpeedMultiplier, leftCarSlowDown, slowDownFactor);
             carLeftMove.carSpeed = leftCarSpeeds[1];
 
@@ -178,7 +176,6 @@ public class SpeedControllerTutorial : MonoBehaviour
             if (speedLimits.CanIncreaseSpawnSpeed)
             {
                 spawnSpeed *= speedLimits.spawnSpeedMultiplier;
-                speedLimits.UpdateSpawnElapsedTime(spawnFrequency);
             }
 
             if (Mathf.Abs(spawnSpeed) > speedLimits.obstacleMaxSpeed)
