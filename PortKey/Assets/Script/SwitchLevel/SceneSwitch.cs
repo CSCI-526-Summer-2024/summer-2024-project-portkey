@@ -40,7 +40,7 @@ public class SceneSwitch : MonoBehaviour
             SceneManager.LoadScene("Level3");
         }
     }
-    public void loaderLvl4() //BUFFER LEVEL
+    public void loaderLvl4()
     {
         TutorialInfo.lastScene = 4;
         GameLevelsManager.Instance.Level = 4;
@@ -59,7 +59,7 @@ public class SceneSwitch : MonoBehaviour
             SceneManager.LoadScene("Level5");
         }
     }
-    public void loaderLvl6() //BUFFER LEVEL
+    public void loaderLvl6()
     {
         TutorialInfo.lastScene = 6;
         GameLevelsManager.Instance.Level = 6;
