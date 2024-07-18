@@ -87,13 +87,6 @@ public class SceneSwitch : MonoBehaviour
     {
         TutorialInfo.lastScene = 8;
         GameLevelsManager.Instance.Level = 8;
-        Debug.Log("Level8Info Updated:");
-        Debug.Log("scoreUp: " + Level8Info.scoreUp);
-        Debug.Log("cntrFlip: " + Level8Info.cntrFlip);
-        Debug.Log("lives: " + Level8Info.lives);
-        Debug.Log("antiHealth: " + Level8Info.antiHealth);
-        Debug.Log("turtle: " + Level8Info.turtle);
-        Debug.Log("shooting: " + Level8Info.shooting);
         if (Level8Info.shooting)
         {
             SceneManager.LoadScene("Level8-Shoot");
