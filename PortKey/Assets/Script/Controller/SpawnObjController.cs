@@ -72,7 +72,23 @@ public class SpawnObjInterval
                 bulletTime[0] = 4.6f;
                 bulletTime[1] = 7.6f;
                 break;
-            case 4:
+            case 4: //BUFFER LEVEL
+                spawnObstacleTime[0] = 0.6f;
+                spawnObstacleTime[1] = 1.6f;
+                enemyControlReverseTime[0] = 8f;
+                enemyControlReverseTime[1] = 12f;
+                scoreUpTime[0] = 8f;
+                scoreUpTime[1] = 12f;
+                reduceEnemyHealthSpawnTimeRange[0] = 4f;
+                reduceEnemyHealthSpawnTimeRange[1] = 10f;
+                slowEnemyTime[0] = 4.6f;
+                slowEnemyTime[1] = 7.6f;
+                heartTime[0] = 4.5f;
+                heartTime[1] = 9f;
+                bulletTime[0] = 4.6f;
+                bulletTime[1] = 7.6f;
+                break;
+            case 5:
                 spawnObstacleTime[0] = 0.5f;
                 spawnObstacleTime[1] = 1.5f;
                 enemyControlReverseTime[0] = 8;
@@ -88,7 +104,23 @@ public class SpawnObjInterval
                 bulletTime[0] = 3;
                 bulletTime[1] = 6;
                 break;
-            case 5:
+            case 6: //BUFFER LEVEL
+                spawnObstacleTime[0] = 0.5f;
+                spawnObstacleTime[1] = 1.5f;
+                enemyControlReverseTime[0] = 8;
+                enemyControlReverseTime[1] = 13;
+                scoreUpTime[0] = 8;
+                scoreUpTime[1] = 13;
+                reduceEnemyHealthSpawnTimeRange[0] = 5;
+                reduceEnemyHealthSpawnTimeRange[1] = 11;
+                slowEnemyTime[0] = 6;
+                slowEnemyTime[1] = 10;
+                heartTime[0] = 4;
+                heartTime[1] = 12;
+                bulletTime[0] = 3;
+                bulletTime[1] = 6;
+                break;
+            case 7:
                 spawnObstacleTime[0] = 0.5f;
                 spawnObstacleTime[1] = 1.5f;
                 enemyControlReverseTime[0] = 8;

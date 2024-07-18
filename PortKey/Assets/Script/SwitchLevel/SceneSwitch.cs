@@ -18,14 +18,14 @@ public class SceneSwitch : MonoBehaviour
         } else
         {
             TutorialInfo.lastScene = 1;
-            GameLevelsManager.Instance.Level = 1; //setting the current level globally that player is on
+            GameLevelsManager.Instance.Level = 1;
             SceneManager.LoadScene("Level1");
         }
     }
     public void loaderLvl2()
     {
         TutorialInfo.lastScene = 2;
-        GameLevelsManager.Instance.Level = 2; //setting the current level globally that player is on
+        GameLevelsManager.Instance.Level = 2;
         SceneManager.LoadScene("Level2");
     }
     public void loaderLvl3()
@@ -36,34 +36,46 @@ public class SceneSwitch : MonoBehaviour
         } else
         {
             TutorialInfo.lastScene = 3;
-            GameLevelsManager.Instance.Level = 3; //setting the current level globally that player is on
+            GameLevelsManager.Instance.Level = 3;
             SceneManager.LoadScene("Level3");
         }
     }
-    public void loaderLvl4()
+    public void loaderLvl4() //BUFFER LEVEL
     {
-        if (!TutorialInfo.lvl4)
-        {
-            loaderTut3();
-        }
-        else
-        {
-            TutorialInfo.lastScene = 4;
-            GameLevelsManager.Instance.Level = 4; //setting the current level globally that player is on
-            SceneManager.LoadScene("Level4");
-        }
+        TutorialInfo.lastScene = 4;
+        GameLevelsManager.Instance.Level = 4;
+        SceneManager.LoadScene("Level4");
     }
     public void loaderLvl5()
     {
         if (!TutorialInfo.lvl5)
         {
-            loaderTut4();
+            loaderTut3();
         }
         else
         {
             TutorialInfo.lastScene = 5;
-            GameLevelsManager.Instance.Level = 5; //setting the current level globally that player is on
+            GameLevelsManager.Instance.Level = 5;
             SceneManager.LoadScene("Level5");
+        }
+    }
+    public void loaderLvl6() //BUFFER LEVEL
+    {
+        TutorialInfo.lastScene = 6;
+        GameLevelsManager.Instance.Level = 6;
+        SceneManager.LoadScene("Level6");
+    }
+    public void loaderLvl7()
+    {
+        if (!TutorialInfo.lvl7)
+        {
+            loaderTut4();
+        }
+        else
+        {
+            TutorialInfo.lastScene = 7;
+            GameLevelsManager.Instance.Level = 7;
+            SceneManager.LoadScene("Level7");
         }
     }
 
@@ -84,13 +96,13 @@ public class SceneSwitch : MonoBehaviour
     {
         TutorialInfo.lastScene = -3;
         SceneManager.LoadScene("Tutorial3");
-        TutorialInfo.lvl4 = true;
+        TutorialInfo.lvl5 = true;
     }
     public void loaderTut4()
     {
         TutorialInfo.lastScene = -4;
         SceneManager.LoadScene("Tutorial4");
-        TutorialInfo.lvl5 = true;
+        TutorialInfo.lvl7 = true;
     }
 
     //MENUS
@@ -133,6 +145,12 @@ public class SceneSwitch : MonoBehaviour
                 break;
             case 5:
                 loaderLvl5();
+                break;
+            case 6:
+                loaderLvl6();
+                break;
+            case 7:
+                loaderLvl7();
                 break;
             case -1:
                 loaderTut();

@@ -90,12 +90,34 @@ public class SpeedLimits
                 defaultCarSpeed = 5.0f;
                 defaultSpawnSpeed = 2.0f;
                 carSpeedMultiplier = 1.01f;
+                spawnSpeedMultiplier = 1.01f;//smaller multiplier rate
+                carMaxSpeed = 10.0f;
+                obstacleMaxSpeed = 3.8f;//a little slower
+                speedIncreaseDuration = 40.0f;
+                break;
+            case 4: //BUFFER LEVEL
+                canIncreaseSpeed = true;
+                canIncreaseSpawnSpeed = true;
+                defaultCarSpeed = 5.0f;
+                defaultSpawnSpeed = 2.0f;
+                carSpeedMultiplier = 1.01f;
                 spawnSpeedMultiplier = 1.015f;
                 carMaxSpeed = 10.0f;
                 obstacleMaxSpeed = 4.2f;
                 speedIncreaseDuration = 40.0f;
                 break;
-            case 4:
+            case 5:
+                canIncreaseSpeed = true;
+                canIncreaseSpawnSpeed = true;
+                defaultCarSpeed = 5.0f;
+                defaultSpawnSpeed = 2.0f;
+                carSpeedMultiplier = 1.02f;
+                spawnSpeedMultiplier = 1.015f;//smaller multiplier rate
+                carMaxSpeed = 10.0f;
+                obstacleMaxSpeed = 4.1f;//a little slower
+                speedIncreaseDuration = 50.0f;
+                break;
+            case 6: //BUFFER LEVEL
                 canIncreaseSpeed = true;
                 canIncreaseSpawnSpeed = true;
                 defaultCarSpeed = 5.0f;
@@ -106,7 +128,7 @@ public class SpeedLimits
                 obstacleMaxSpeed = 4.5f;
                 speedIncreaseDuration = 50.0f;
                 break;
-            case 5:
+            case 7:
                 canIncreaseSpeed = true;
                 canIncreaseSpawnSpeed = true;
                 defaultCarSpeed = 5.0f;
