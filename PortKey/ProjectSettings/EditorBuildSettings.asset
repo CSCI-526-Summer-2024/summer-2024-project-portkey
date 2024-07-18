@@ -45,6 +45,15 @@ EditorBuildSettings:
     path: Assets/Scenes/Level7.unity
     guid: 493267fd5a82b3f43ab5ae130e477602
   - enabled: 1
+    path: Assets/Scenes/Customization.unity
+    guid: 161c783d3c7d54da398a8f16ad6d6688
+  - enabled: 1
+    path: Assets/Scenes/Level8.unity
+    guid: f0ffeed639b4249cca4ee94090422165
+  - enabled: 1
+    path: Assets/Scenes/Level8-Shoot.unity
+    guid: 2511f5946efab4961926e8cd594c4ee6
+  - enabled: 1
     path: Assets/Scenes/Map.unity
     guid: 7b441fd65aebb4f1f964ae145837c442
   - enabled: 1
