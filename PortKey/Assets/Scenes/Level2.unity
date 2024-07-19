@@ -1002,7 +1002,6 @@ RectTransform:
   - {fileID: 2083991565}
   - {fileID: 588720875}
   - {fileID: 1670608534}
-  - {fileID: 1504762358}
   - {fileID: 1383331290}
   - {fileID: 629242016}
   - {fileID: 1319886178}
@@ -1011,6 +1010,7 @@ RectTransform:
   - {fileID: 1713582770}
   - {fileID: 1603632102}
   - {fileID: 68484126}
+  - {fileID: 1504762358}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
@@ -2768,6 +2768,10 @@ PrefabInstance:
     - target: {fileID: 2253193697960229749, guid: 4b1f0a562b1ee6f4eb5150030d656350, type: 3}
       propertyPath: m_Name
       value: HealthbarLeft
+      objectReference: {fileID: 0}
+    - target: {fileID: 2532052609428858284, guid: 4b1f0a562b1ee6f4eb5150030d656350, type: 3}
+      propertyPath: m_FillRect
+      value: 
       objectReference: {fileID: 0}
     - target: {fileID: 2685291131771699599, guid: 4b1f0a562b1ee6f4eb5150030d656350, type: 3}
       propertyPath: m_Pivot.x
@@ -6945,6 +6949,10 @@ PrefabInstance:
     - target: {fileID: 1116701923075816283, guid: 198ed11aeab8d04468d6d9acd8957ce7, type: 3}
       propertyPath: m_AnchorMax.y
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7211538551344972531, guid: 198ed11aeab8d04468d6d9acd8957ce7, type: 3}
+      propertyPath: m_FillRect
+      value: 
       objectReference: {fileID: 0}
     - target: {fileID: 8340597265247711498, guid: 198ed11aeab8d04468d6d9acd8957ce7, type: 3}
       propertyPath: m_Name
