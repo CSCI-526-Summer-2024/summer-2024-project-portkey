@@ -20,8 +20,6 @@ public class SpeedLimits
 
     public float speedIncreaseDuration = 30.0f;
 
-    private float elapsedTime = 0f;
-
     private bool canIncreaseSpeed = true;
 
     private bool canIncreaseSpawnSpeed = true;
