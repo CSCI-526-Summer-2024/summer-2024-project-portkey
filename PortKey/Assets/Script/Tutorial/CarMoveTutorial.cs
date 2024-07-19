@@ -57,6 +57,8 @@ public class CarMoveTutorial : MonoBehaviour
 
     public Coroutine currentRevertCoroutine = null;
 
+    int count = 0;
+
     void Start()
     {
         navArea2.gameObject.SetActive(false);
@@ -437,6 +439,14 @@ public class CarMoveTutorial : MonoBehaviour
     public void DisplaySwitchMessage()
     {
         winText.text = "CONTROLS SWITCHED!";
+        winText.color = Color.blue;
+        winText.gameObject.SetActive(true);
+        StartCoroutine(HideSwitchMessage(1f));
+    }
+
+    public void DisplayRevertMessage()
+    {
+        winText.text = "CONTROLS\nRESET!";
         winText.color = Color.blue;
         winText.gameObject.SetActive(true);
         StartCoroutine(HideSwitchMessage(1f));

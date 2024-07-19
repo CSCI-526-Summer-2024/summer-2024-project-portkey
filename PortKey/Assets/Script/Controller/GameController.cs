@@ -415,7 +415,7 @@ public class GameController : MonoBehaviour
         if (carMove.reversed)
         {
             ReverseControl(carMove, currentImage, swappedImage);
-            carSwitch.DisplaySwitchMessage();
+            carSwitch.DisplayRevertMessage();
             carMove.reversed = false;
             carMove.currentRevertCoroutine = null;
         }

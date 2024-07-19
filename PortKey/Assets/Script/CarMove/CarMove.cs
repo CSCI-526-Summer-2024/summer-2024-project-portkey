@@ -499,6 +499,14 @@ public class CarMove : MonoBehaviour
         StartCoroutine(HideSwitchMessage(1f));
     }
 
+    public void DisplayRevertMessage()
+    {
+        winText.text = "CONTROLS\nRESET!";
+        winText.color = Color.blue;
+        winText.gameObject.SetActive(true);
+        StartCoroutine(HideSwitchMessage(1f));
+    }
+
     IEnumerator HideSwitchMessage(float delay)
     {
         yield return new WaitForSeconds(delay);

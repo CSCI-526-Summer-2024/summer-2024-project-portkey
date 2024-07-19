@@ -424,7 +424,7 @@ public class GameControllerTutorial : MonoBehaviour
         {
             count++;
             ReverseControl(carMove, currentImage, swappedImage, flipImage);
-            carSwitch.DisplaySwitchMessage();
+            carSwitch.DisplayRevertMessage();
             carMove.reversed = false;
             carMove.currentRevertCoroutine = null;
         }
