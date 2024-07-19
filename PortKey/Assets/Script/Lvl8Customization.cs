@@ -17,36 +17,36 @@ public class Lvl8Customization : MonoBehaviour
 
     void OnSubmit()
     {
-        Level8Info.scoreUp = false;
-        Level8Info.cntrFlip = false;
-        Level8Info.lives = false;
-        Level8Info.antiHealth = false;
-        Level8Info.turtle = false;
-        Level8Info.shooting = false;
+        Level8Info.SetScoreUp(false);
+        Level8Info.SetCtrlFlip(false);
+        Level8Info.SetLives(false);
+        Level8Info.SetAntiHealth(false);
+        Level8Info.SetTurtle(false);
+        Level8Info.SetShooting(false);
 
         if (options.Length > 0 && options[0].isOn)
         {
-            Level8Info.scoreUp = true;
+            Level8Info.SetScoreUp(true);
         }
         if (options.Length > 1 && options[1].isOn)
         {
-            Level8Info.cntrFlip = true;
+            Level8Info.SetCtrlFlip(true);
         }
         if (options.Length > 2 && options[2].isOn)
         {
-            Level8Info.lives = true;
+            Level8Info.SetLives(true);
         }
         if (options.Length > 3 && options[3].isOn)
         {
-            Level8Info.antiHealth = true;
+            Level8Info.SetAntiHealth(true);
         }
         if (options.Length > 4 && options[4].isOn)
         {
-            Level8Info.turtle = true;
+            Level8Info.SetTurtle(true);
         }
         if (options.Length > 5 && options[5].isOn)
         {
-            Level8Info.shooting = true;
+            Level8Info.SetShooting(true);
         }
 
         sceneSwitch.loaderLvl8();

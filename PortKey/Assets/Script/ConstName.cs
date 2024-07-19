@@ -13,13 +13,4 @@ namespace PortKey.Assets.Script
         public const string ZOOM_RIGHT = "ZoomRight";
         public const bool SEND_ANALYTICS = false;
     }
-    public static class Level8Info
-    {
-        public static bool scoreUp = false;
-        public static bool cntrFlip = false;
-        public static bool lives = false;
-        public static bool antiHealth = false;
-        public static bool turtle = false;
-        public static bool shooting = false;
-    }
 }

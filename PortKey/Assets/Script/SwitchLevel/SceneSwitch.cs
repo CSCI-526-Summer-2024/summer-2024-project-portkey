@@ -13,9 +13,11 @@ public class SceneSwitch : MonoBehaviour
     //LEVELS
     public void loaderLvl1()
     {
-        if (!TutorialInfo.lvl1) {
+        if (!TutorialInfo.lvl1)
+        {
             loaderTut();
-        } else
+        }
+        else
         {
             TutorialInfo.lastScene = 1;
             GameLevelsManager.Instance.Level = 1;
@@ -33,7 +35,8 @@ public class SceneSwitch : MonoBehaviour
         if (!TutorialInfo.lvl3)
         {
             loaderTut2();
-        } else
+        }
+        else
         {
             TutorialInfo.lastScene = 3;
             GameLevelsManager.Instance.Level = 3;
@@ -87,10 +90,11 @@ public class SceneSwitch : MonoBehaviour
     {
         TutorialInfo.lastScene = 8;
         GameLevelsManager.Instance.Level = 8;
-        if (Level8Info.shooting)
+        if (Level8Info.GetShooting())
         {
             SceneManager.LoadScene("Level8-Shoot");
-        } else
+        }
+        else
         {
             SceneManager.LoadScene("Level8");
         }

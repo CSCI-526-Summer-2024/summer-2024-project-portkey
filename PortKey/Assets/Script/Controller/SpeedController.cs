@@ -139,6 +139,17 @@ public class SpeedLimits
                 obstacleMaxSpeed = 4.5f;
                 speedIncreaseDuration = 50.0f;
                 break;
+            case 8:
+                canIncreaseSpeed = true;
+                canIncreaseSpawnSpeed = true;
+                defaultCarSpeed = 5.0f;
+                defaultSpawnSpeed = 2.0f;
+                carSpeedMultiplier = 1.03f;
+                spawnSpeedMultiplier = 1.02f;
+                carMaxSpeed = 12.0f;
+                obstacleMaxSpeed = 4.5f;
+                speedIncreaseDuration = 50.0f;
+                break;
             default:
                 canIncreaseSpeed = true;
                 canIncreaseSpawnSpeed = true;
