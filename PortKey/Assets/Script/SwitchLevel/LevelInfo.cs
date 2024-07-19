@@ -57,6 +57,18 @@ namespace PortKey.Assets.Script.SwitchLevel
                 case "Level5":
                     Level = 5;
                     break;
+                case "Level6":
+                    Level = 6;
+                    break;
+                case "Level7":
+                    Level = 7;
+                    break;
+                case "Level8":
+                    Level = 8;
+                    break;
+                case "Level8-Shoot":
+                    Level = 8;
+                    break;
                 default:
                     Level = -1;
                     break;

@@ -2398,7 +2398,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Level 5
+  m_text: Level 8
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2100000, guid: e73a58f6e2794ae7b1b7e50b7fb811b0, type: 2}
@@ -2914,7 +2914,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 1696955700}
         m_TargetAssemblyTypeName: SceneSwitch, Assembly-CSharp
-        m_MethodName: loaderLvl5
+        m_MethodName: loaderCustomization
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -4037,7 +4037,7 @@ MonoBehaviour:
   navArea: {fileID: 630451825}
   leftMud: {fileID: 1746676432}
   rightMud: {fileID: 324500419}
-  gameDuration: 55
+  gameDuration: 60
   totalCtrlSwitchPropCollectedRight: 0
   totalCtrlSwitchPropCollectedLeft: 0
   level: 0
@@ -6995,7 +6995,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Level 6
+  m_text: Menu
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
@@ -7241,7 +7241,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 1696955700}
         m_TargetAssemblyTypeName: SceneSwitch, Assembly-CSharp
-        m_MethodName: loaderLvl6
+        m_MethodName: loaderMenu
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}

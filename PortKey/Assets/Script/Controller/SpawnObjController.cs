@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using PortKey.Assets.Script;
 using PortKey.Assets.Script.SwitchLevel;
 using Unity.VisualScripting;
 using UnityEngine;
@@ -56,7 +57,7 @@ public class SpawnObjInterval
                 bulletTime[0] = 4.8f;
                 bulletTime[1] = 7.8f;
                 break;
-            case 3:
+            case 3: //BUFFER LEVEL
                 spawnObstacleTime[0] = 0.6f;
                 spawnObstacleTime[1] = 1.6f;
                 enemyControlReverseTime[0] = 8f;
@@ -73,6 +74,22 @@ public class SpawnObjInterval
                 bulletTime[1] = 7.6f;
                 break;
             case 4:
+                spawnObstacleTime[0] = 0.6f;
+                spawnObstacleTime[1] = 1.6f;
+                enemyControlReverseTime[0] = 8f;
+                enemyControlReverseTime[1] = 12f;
+                scoreUpTime[0] = 8f;
+                scoreUpTime[1] = 12f;
+                reduceEnemyHealthSpawnTimeRange[0] = 4f;
+                reduceEnemyHealthSpawnTimeRange[1] = 10f;
+                slowEnemyTime[0] = 4.6f;
+                slowEnemyTime[1] = 7.6f;
+                heartTime[0] = 4.5f;
+                heartTime[1] = 9f;
+                bulletTime[0] = 4.6f;
+                bulletTime[1] = 7.6f;
+                break;
+            case 5: //BUFFER LEVEL
                 spawnObstacleTime[0] = 0.5f;
                 spawnObstacleTime[1] = 1.5f;
                 enemyControlReverseTime[0] = 8;
@@ -88,7 +105,39 @@ public class SpawnObjInterval
                 bulletTime[0] = 3;
                 bulletTime[1] = 6;
                 break;
-            case 5:
+            case 6:
+                spawnObstacleTime[0] = 0.5f;
+                spawnObstacleTime[1] = 1.5f;
+                enemyControlReverseTime[0] = 8;
+                enemyControlReverseTime[1] = 13;
+                scoreUpTime[0] = 8;
+                scoreUpTime[1] = 13;
+                reduceEnemyHealthSpawnTimeRange[0] = 5;
+                reduceEnemyHealthSpawnTimeRange[1] = 11;
+                slowEnemyTime[0] = 6;
+                slowEnemyTime[1] = 10;
+                heartTime[0] = 4;
+                heartTime[1] = 12;
+                bulletTime[0] = 3;
+                bulletTime[1] = 6;
+                break;
+            case 7:
+                spawnObstacleTime[0] = 0.5f;
+                spawnObstacleTime[1] = 1.5f;
+                enemyControlReverseTime[0] = 8;
+                enemyControlReverseTime[1] = 14;
+                scoreUpTime[0] = 8;
+                scoreUpTime[1] = 14;
+                reduceEnemyHealthSpawnTimeRange[0] = 5;
+                reduceEnemyHealthSpawnTimeRange[1] = 12;
+                slowEnemyTime[0] = 7;
+                slowEnemyTime[1] = 12;
+                heartTime[0] = 5;
+                heartTime[1] = 13;
+                bulletTime[0] = 6;
+                bulletTime[1] = 10;
+                break;
+            case 8:
                 spawnObstacleTime[0] = 0.5f;
                 spawnObstacleTime[1] = 1.5f;
                 enemyControlReverseTime[0] = 8;
@@ -173,6 +222,7 @@ public class SpawnObjController : MonoBehaviour
         // Set level parameters
         level = LevelInfo.Instance.Level;
         interval.SetLevelParameters(level);
+        SetPropInfo(level);
 
         // for level 1, only spawn immovable obstacles
         if (obstacleMiddle == null)
@@ -220,6 +270,52 @@ public class SpawnObjController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+    }
+
+    private void SetPropInfo(int level)
+    {
+        if (level != 8)
+        {
+            return;
+        }
+
+        Debug.Log("Level 8");
+
+        if (!Level8Info.GetScoreUp())
+        {
+            scoreUp = null;
+            Debug.Log("Score Up is false");
+        }
+
+        if (!Level8Info.GetCtrlFlip())
+        {
+            enemyControlReverse = null;
+            Debug.Log("Ctrl Flip is false");
+        }
+
+        if (!Level8Info.GetLives())
+        {
+            heart = null;
+            Debug.Log("Lives is false");
+        }
+
+        if (!Level8Info.GetAntiHealth())
+        {
+            reduceEnemyHealth = null;
+            Debug.Log("Anti Health is false");
+        }
+
+        if (!Level8Info.GetTurtle())
+        {
+            slowEnemy = null;
+            Debug.Log("Turtle is false");
+        }
+
+        if (!Level8Info.GetShooting())
+        {
+            bullet = null;
+            Debug.Log("Shooting is false");
+        }
     }
 
     IEnumerator SpawnImmovableObstacle()
