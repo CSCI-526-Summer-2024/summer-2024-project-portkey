@@ -365,6 +365,7 @@ public class GameControllerTutorial2 : MonoBehaviour
                     canShootL = false;
                     canShootR = false;
                     StartCoroutine(PauseLeft2());
+                    
                 }
                 if ((timer - gameDuration) == 14f && levelNext == 7)
                 {

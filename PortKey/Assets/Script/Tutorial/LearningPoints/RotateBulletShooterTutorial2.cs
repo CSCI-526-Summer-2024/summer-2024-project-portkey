@@ -25,12 +25,24 @@ public class RotateBulletShooterTutorial2 : MonoBehaviour
 
     GameControllerTutorial2 gameController;
 
+    //dotted bullet stuff
+    public GameObject dotPrefab; // Reference to the dot prefab
+    private float dotSpacing = 0.7f; // Space between dots
+    private int numberOfDots = 10; // Number of dots to generate
+    private float maxLength = 10.0f; // Maximum length of the dotted line
+    private bool isObjectDetected = false;
+    private List<GameObject> dots = new List<GameObject>(); // List to keep track of instantiated dots
+
+
     void Start()
     {
         gameController = FindObjectOfType<GameControllerTutorial2>();
 
         rotation = transform.eulerAngles.z;
         parent = transform.parent;
+
+        InitializeDots();
+        GenerateDottedLine();
     }
 
     void Update()
@@ -39,7 +51,10 @@ public class RotateBulletShooterTutorial2 : MonoBehaviour
         {
             RotatePointer();
             RotatePointerAndShootBullets();
+
+           
         }
+        GenerateDottedLine();
     }
 
     void RotatePointerAndShootBullets()
@@ -138,4 +153,87 @@ public class RotateBulletShooterTutorial2 : MonoBehaviour
         currentBulletsLeft = 7;
         currentBulletsRight = 7;
     }
+
+
+    // Dotted line stuff
+    void InitializeDots()
+    {
+        for (int i = 0; i < numberOfDots; i++)
+        {
+            GameObject dot = Instantiate(dotPrefab);
+            dot.SetActive(false);
+            dots.Add(dot);
+        }
+    }
+
+    public void GenerateDottedLine()
+    {
+        if (dotPrefab == null)
+        {
+            Debug.LogError("Dot Prefab is not assigned.");
+            return;
+        }
+
+        float rotation = transform.eulerAngles.z;
+
+        // Calculate the maximum number of dots based on maxLength and dotSpacing
+        int maxDots = Mathf.FloorToInt(maxLength / dotSpacing);
+
+        int dotsToGenerate = Mathf.Min(numberOfDots, maxDots);
+
+        Vector2 position;
+        int dotIndex = 0;
+
+        for (int i = 0; i < dotsToGenerate; i++)
+        {
+            position = (Vector2)transform.position + (Vector2)(Quaternion.Euler(0, 0, rotation) * Vector2.up * dotSpacing * i);
+
+            if (!IsWithinBounds(position))
+            {
+                break;
+            }
+
+            if (IsObjectDetected(position))
+            {
+                isObjectDetected = true;
+                break;
+            }
+
+            if (dotIndex < dots.Count)
+            {
+                GameObject dot = dots[dotIndex];
+                dot.transform.position = position;
+                dot.transform.rotation = dotPrefab.transform.rotation;
+                dot.SetActive(true);
+                dotIndex++;
+            }
+        }
+
+        for (int i = dotIndex; i < dots.Count; i++)
+        {
+            dots[i].SetActive(false);
+        }
+    }
+
+    bool IsObjectDetected(Vector2 position)
+    {
+        Collider2D hitCollider = Physics2D.OverlapCircle(position, dotSpacing * 0.5f);
+        if (hitCollider != null)
+        {
+            return hitCollider.CompareTag("Obstacle") ||
+                   hitCollider.gameObject.name.Contains("EnemyControlReverse") ||
+                   hitCollider.gameObject.name.Contains("ScoreUp") ||
+                   hitCollider.CompareTag("HeartProp") ||
+                   hitCollider.gameObject.name.Contains("SlowEnemy") ||
+                   hitCollider.gameObject.name.Contains("ReduceEnemyHealth");
+        }
+        return false;
+    }
+
+    bool IsWithinBounds(Vector2 position)
+    {
+        return position.x > -9 && position.x < 9 && position.y > -4 && position.y < 4;
+    }
+
+ 
 }
