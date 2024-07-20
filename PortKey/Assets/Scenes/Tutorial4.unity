@@ -3783,7 +3783,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &690706381
 RectTransform:
   m_ObjectHideFlags: 0
@@ -9899,8 +9899,10 @@ MonoBehaviour:
   minusLeft: {fileID: 766625288}
   plusRight: {fileID: 1303018794}
   minusRight: {fileID: 1226370129}
-  RightArrow: {fileID: 1590801511}
-  LeftArrow: {fileID: 1943131016}
+  RightArrow: {fileID: 2014258149}
+  LeftArrow: {fileID: 690706382}
+  spotightCarRight: {fileID: 1590801511}
+  spotightCarLeft: {fileID: 1943131016}
   canMove: 0
   canShootL: 0
   canShootR: 0
@@ -11531,7 +11533,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &2014258148
 RectTransform:
   m_ObjectHideFlags: 0

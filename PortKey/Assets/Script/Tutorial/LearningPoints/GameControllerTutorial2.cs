@@ -127,6 +127,8 @@ public class GameControllerTutorial2 : MonoBehaviour
     public TextMeshProUGUI minusRight;
     public Image RightArrow;
     public Image LeftArrow;
+    public Image spotightCarRight;
+    public Image spotightCarLeft;
 
     public bool canMove;
 
@@ -189,6 +191,8 @@ public class GameControllerTutorial2 : MonoBehaviour
             minusRight.enabled = false;
             RightArrow.enabled = false;
             LeftArrow.enabled = false;
+            spotightCarRight.enabled = false;
+            spotightCarLeft.enabled = false;
         }
 
         navArea.gameObject.SetActive(false);
@@ -425,12 +429,14 @@ public class GameControllerTutorial2 : MonoBehaviour
     {
         canMove = false;
         LeftArrow.enabled = true;
+        spotightCarLeft.enabled = true;
         while (carLeft.position.x < -1.0f)
         {
             yield return null;
         }
         canMove = true;
         LeftArrow.enabled = false;
+        spotightCarLeft.enabled = false;
         canShootL = true;
         StartCoroutine(PauseLeft());
     }
@@ -459,12 +465,14 @@ public class GameControllerTutorial2 : MonoBehaviour
     {
         canMove = false;
         RightArrow.enabled = true;
+        spotightCarRight.enabled = true;
         while (carRight.position.x > 1.0f)
         {
             yield return null;
         }
         canMove = true;
         RightArrow.enabled = false;
+        spotightCarRight.enabled = false;
         canShootR = true;
         StartCoroutine(PauseRight());
     }
