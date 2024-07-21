@@ -361,7 +361,6 @@ public class GameControllerTutorial2 : MonoBehaviour
                 {
                     canShootL = false;
                     canShootR = false;
-                    //Debug.Log("start coroutine PauseLeft2 shooting right heart at" + "gameDuration " + gameDuration);
                     StartCoroutine(PauseLeft2());
                     
                 }
@@ -371,38 +370,32 @@ public class GameControllerTutorial2 : MonoBehaviour
                 {
                     canShootL = false;
                     canShootR = false;
-                    //Debug.Log("start coroutine PauseRight2 shooting left heart at" + "gameDuration " + gameDuration);
                     StartCoroutine(PauseRight2());
                 }
 
 
 
-                if (timeElapsed == 26f && levelNext == 7)
+                if (timeElapsed == 22f && levelNext == 7)
                 {
                     canShootL = false;
                     canShootR = false;
-                    //Debug.Log("start coroutine PauseLeft2 shooting right scoreUp at" + "gameDuration " + gameDuration);
                     StartCoroutine(PauseLeft2());
                 }
 
 
-                if (timeElapsed == 30f && levelNext == 7)
+                if (timeElapsed == 28f && levelNext == 7)
                 {
                     canShootL = false;
                     canShootR = false;
-                    //Debug.Log("start coroutine PauseRight2 shooting left turtle at" + "gameDuration " + gameDuration);
                     StartCoroutine(PauseRight2());
                 }
 
-                if (timeElapsed == 37f && levelNext == 7)
+                if (timeElapsed == 35f && levelNext == 7)
                 {
                     canShootL = false;
                     canShootR = false;
-                    //Debug.Log("start coroutine PauseLeft2 shooting right turtle at" + "gameDuration " + gameDuration);
                     StartCoroutine(PauseLeft2());
                 }
-
-                PreventPlayerMovementToAvoidBug(timeElapsed);
 
                 yield return new WaitForSeconds(1f);
                 // Decrease game duration by 1 second
