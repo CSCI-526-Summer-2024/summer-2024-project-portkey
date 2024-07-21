@@ -79,6 +79,9 @@ public class GameControllerTutorial : MonoBehaviour
     public Image spotlightLivesRight;
     public Image spotlightLivesLeft;
 
+    public Image spotlightForRightTimer;
+    public Image spotlightForLeftTimer;
+
     private RectTransform controlLeft1Rect;
     private RectTransform controlRight1Rect;
     private RectTransform controlLeft2Rect;
@@ -135,6 +138,15 @@ public class GameControllerTutorial : MonoBehaviour
 
         if (LostHealthMsgLeft != null)
         { LostHealthMsgLeft.gameObject.SetActive(false); }
+
+        if (spotlightForRightTimer != null)
+        {
+            spotlightForRightTimer.enabled = false;
+        }
+        if (spotlightForLeftTimer != null)
+        {
+            spotlightForLeftTimer.enabled = false;
+        }
     }
 
 
@@ -363,6 +375,11 @@ public class GameControllerTutorial : MonoBehaviour
             flipImage = flipRight;
             StartCoroutine(Spotlight(spotlightIconRight1, 4f));
             StartCoroutine(Spotlight(spotlightIconRight2, 4f));
+            if (spotlightForRightTimer != null)
+            {
+                //Debug.Log("Calling spotlightForRightTimer for spotlight");
+                StartCoroutine(Spotlight(spotlightForRightTimer, 8f));
+            }
             count++;
         }
         else
@@ -374,6 +391,11 @@ public class GameControllerTutorial : MonoBehaviour
             flipImage = flipLeft;
             StartCoroutine(Spotlight(spotlightIconLeft1, 4f));
             StartCoroutine(Spotlight(spotlightIconLeft2, 4f));
+            if (spotlightForLeftTimer != null)
+            {
+                //Debug.Log("Calling spotlightForLeftTimer for spotlight");
+                StartCoroutine(Spotlight(spotlightForLeftTimer, 8f));
+            }
             count++;
         }
 
