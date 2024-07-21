@@ -93,7 +93,7 @@ public class GameControllerTutorial2 : MonoBehaviour
     private readonly float baseScore = 1.0f;
 
     // game duration, unit is second
-    public float gameDuration = 20f;
+    public float gameDuration = 30f;
 
     //analytics helper variables
     public int totalCtrlSwitchPropCollectedRight = 0;
@@ -323,60 +323,59 @@ public class GameControllerTutorial2 : MonoBehaviour
         plusRight.enabled = false;
     }
 
-    void SetPlayerSpeedText()
-    {
-        if (leftSpeed != null)
-        {
-            leftSpeed.text = "5mph";
-
-        }
-
-        if (rightSpeed != null)
-        {
-            rightSpeed.text = "5mph";
-        }
-
-    }
-
 
     IEnumerator CountdownTimer()
     {
-        SetPlayerSpeedText();
-        float timer = gameDuration;
+        //SetPlayerSpeedText();
+        float startingTime = gameDuration;
         broadcast.gameObject.SetActive(true);
+        Debug.Log("enabled broadcast ") ;
         while (gameDuration > 0)
         {
+            Debug.Log("startingTime: "+ startingTime+ ", gameDuration: " + gameDuration);
             if (canMove)
             {
                 TimerMsg.text = "" + Mathf.Ceil(gameDuration).ToString() + "s";
-                if ((timer - gameDuration) == 2f)
+                if ((startingTime - gameDuration) == 2f)
                 {
                     StartCoroutine(FadeOutText(broadcast));
                 }
-                if ((timer - gameDuration) == 5f && levelNext == 7)
+                if ((startingTime - gameDuration) == 5f && levelNext == 7)
                 {
                     canShootR = true;
                     StartCoroutine(PauseRight());
                 }
-                if ((timer - gameDuration) == 7f && levelNext == 7)
+                if ((startingTime - gameDuration) == 7f && levelNext == 7)
                 {
                     canShootL = true;
                     canShootR = false;
                     StartCoroutine(PauseLeft());
                 }
-                if ((timer - gameDuration) == 10f && levelNext == 7)
+                if ((startingTime - gameDuration) == 10f && levelNext == 7)
                 {
                     canShootL = false;
                     canShootR = false;
+                    Debug.Log("start coroutine PauseLeft2 shooting right heart " + "gameDuration " + gameDuration);
                     StartCoroutine(PauseLeft2());
                     
                 }
-                if ((timer - gameDuration) == 14f && levelNext == 7)
+                if ((startingTime - gameDuration) == 14f && levelNext == 7)
                 {
                     canShootL = false;
                     canShootR = false;
+                    Debug.Log("start coroutine PauseRight2 shooting left heart " + "gameDuration " + gameDuration);
                     StartCoroutine(PauseRight2());
                 }
+
+
+                if ((startingTime - gameDuration) == 18f && levelNext == 7)
+                {
+                    canShootL = false;
+                    canShootR = false;
+                    Debug.Log("start coroutine PauseRight2 shooting left scoreUp " + "gameDuration " + gameDuration);
+                    StartCoroutine(PauseRight2());
+                }
+
                 yield return new WaitForSeconds(1f);
                 // Decrease game duration by 1 second
                 gameDuration -= 1f;
