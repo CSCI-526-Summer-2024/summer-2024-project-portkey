@@ -8078,7 +8078,7 @@ MonoBehaviour:
   controlRight1: {fileID: 0}
   controlLeft2: {fileID: 0}
   controlRight2: {fileID: 0}
-  gameDuration: 16
+  gameDuration: 27
   totalCtrlSwitchPropCollectedRight: 0
   totalCtrlSwitchPropCollectedLeft: 0
   level: 0
@@ -8101,6 +8101,8 @@ MonoBehaviour:
   minusRight: {fileID: 0}
   RightArrow: {fileID: 0}
   LeftArrow: {fileID: 0}
+  spotightCarRight: {fileID: 0}
+  spotightCarLeft: {fileID: 0}
   canMove: 0
   canShootL: 0
   canShootR: 0
