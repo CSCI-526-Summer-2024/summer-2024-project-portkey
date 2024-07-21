@@ -94,7 +94,7 @@ public class GameControllerTutorial2 : MonoBehaviour
 
     // game duration, unit is second
     //float gameDuration = 27f;
-    float gameDuration = 30f;
+    float gameDuration = 35f;
 
     //analytics helper variables
     public int totalCtrlSwitchPropCollectedRight = 0;
@@ -335,7 +335,7 @@ public class GameControllerTutorial2 : MonoBehaviour
         {
             float timeElapsed = startingTime - gameDuration;
 
-            Debug.Log("startingTime: "+ startingTime+ ", gameDuration: " + gameDuration);
+            Debug.Log("startingTime: "+ startingTime+ ", gameDuration: " + gameDuration+ ", timeElapsed: "+ timeElapsed);
             if (canMove)
             {
                 TimerMsg.text = "" + Mathf.Ceil(gameDuration).ToString() + "s";
@@ -395,6 +395,15 @@ public class GameControllerTutorial2 : MonoBehaviour
                     canShootR = false;
                     Debug.Log("start coroutine PauseLeft2 shooting right scoreUp " + "gameDuration " + gameDuration);
                     StartCoroutine(PauseLeft2());
+                }
+
+
+                if (timeElapsed == 30f && levelNext == 7)
+                {
+                    canShootL = false;
+                    canShootR = false;
+                    Debug.Log("start coroutine PauseRight2 shooting left turtle " + "gameDuration " + gameDuration);
+                    StartCoroutine(PauseRight2());
                 }
 
                 yield return new WaitForSeconds(1f);
