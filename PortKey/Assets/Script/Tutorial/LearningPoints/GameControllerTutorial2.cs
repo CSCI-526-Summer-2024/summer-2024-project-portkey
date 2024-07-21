@@ -329,8 +329,9 @@ public class GameControllerTutorial2 : MonoBehaviour
         broadcast.gameObject.SetActive(true);
         while (gameDuration > 0)
         {
+            
             float timeElapsed = startingTime - gameDuration;
-
+            Debug.Log("timeElapsed: " + timeElapsed + ", gameDuration: " + gameDuration);
             if (canMove)
             {
                 TimerMsg.text = "" + Mathf.Ceil(gameDuration).ToString() + "s";
@@ -375,14 +376,6 @@ public class GameControllerTutorial2 : MonoBehaviour
                 }
 
 
-                //if ((startingTime - gameDuration) == 18f && levelNext == 7)
-                if(timeElapsed == 18f && levelNext == 7)
-                {
-                    canShootL = false;
-                    canShootR = false;
-                    //Debug.Log("start coroutine PauseRight2 shooting left scoreUp at" + "gameDuration " + gameDuration);
-                    StartCoroutine(PauseRight2());
-                }
 
                 if (timeElapsed == 26f && levelNext == 7)
                 {
@@ -409,21 +402,6 @@ public class GameControllerTutorial2 : MonoBehaviour
                     StartCoroutine(PauseLeft2());
                 }
 
-                if (timeElapsed == 39f && levelNext == 7)
-                {
-                    canShootL = false;
-                    canShootR = false;
-                    //Debug.Log("start coroutine PauseLeft2 shooting right control-flip at" + "gameDuration " + gameDuration);
-                    StartCoroutine(PauseLeft2());
-                }
-
-                if (timeElapsed == 33f && levelNext == 7)
-                {
-                    canShootL = false;
-                    canShootR = false;
-                    //Debug.Log("start coroutine PauseRight2 shooting left control-flip at" + "gameDuration " + gameDuration);
-                    StartCoroutine(PauseRight2());
-                }
 
                 yield return new WaitForSeconds(1f);
                 // Decrease game duration by 1 second
