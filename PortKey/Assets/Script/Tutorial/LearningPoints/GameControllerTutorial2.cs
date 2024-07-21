@@ -94,7 +94,7 @@ public class GameControllerTutorial2 : MonoBehaviour
 
     // game duration, unit is second
     //float gameDuration = 27f;
-    float gameDuration = 40f;
+    float gameDuration = 45f;
 
     //analytics helper variables
     public int totalCtrlSwitchPropCollectedRight = 0;
@@ -263,7 +263,6 @@ public class GameControllerTutorial2 : MonoBehaviour
         {
             InvokeRepeating("CalculateScoreRight", 1, 1);
         }
-        Debug.Log("Calling CountdownTimer with " + gameDuration);
         StartCoroutine(CountdownTimer());
     }
 
@@ -365,7 +364,7 @@ public class GameControllerTutorial2 : MonoBehaviour
                 {
                     canShootL = false;
                     canShootR = false;
-                    Debug.Log("start coroutine PauseLeft2 shooting right heart " + "gameDuration " + gameDuration);
+                    Debug.Log("start coroutine PauseLeft2 shooting right heart at" + "gameDuration " + gameDuration);
                     StartCoroutine(PauseLeft2());
                     
                 }
@@ -375,7 +374,7 @@ public class GameControllerTutorial2 : MonoBehaviour
                 {
                     canShootL = false;
                     canShootR = false;
-                    Debug.Log("start coroutine PauseRight2 shooting left heart " + "gameDuration " + gameDuration);
+                    Debug.Log("start coroutine PauseRight2 shooting left heart at" + "gameDuration " + gameDuration);
                     StartCoroutine(PauseRight2());
                 }
 
@@ -385,7 +384,7 @@ public class GameControllerTutorial2 : MonoBehaviour
                 {
                     canShootL = false;
                     canShootR = false;
-                    Debug.Log("start coroutine PauseRight2 shooting left scoreUp " + "gameDuration " + gameDuration);
+                    Debug.Log("start coroutine PauseRight2 shooting left scoreUp at" + "gameDuration " + gameDuration);
                     StartCoroutine(PauseRight2());
                 }
 
@@ -393,7 +392,7 @@ public class GameControllerTutorial2 : MonoBehaviour
                 {
                     canShootL = false;
                     canShootR = false;
-                    Debug.Log("start coroutine PauseLeft2 shooting right scoreUp " + "gameDuration " + gameDuration);
+                    Debug.Log("start coroutine PauseLeft2 shooting right scoreUp at" + "gameDuration " + gameDuration);
                     StartCoroutine(PauseLeft2());
                 }
 
@@ -402,7 +401,7 @@ public class GameControllerTutorial2 : MonoBehaviour
                 {
                     canShootL = false;
                     canShootR = false;
-                    Debug.Log("start coroutine PauseRight2 shooting left turtle " + "gameDuration " + gameDuration);
+                    Debug.Log("start coroutine PauseRight2 shooting left turtle at" + "gameDuration " + gameDuration);
                     StartCoroutine(PauseRight2());
                 }
 
@@ -410,10 +409,25 @@ public class GameControllerTutorial2 : MonoBehaviour
                 {
                     canShootL = false;
                     canShootR = false;
-                    Debug.Log("start coroutine PauseLeft2 shooting right turtle " + "gameDuration " + gameDuration);
+                    Debug.Log("start coroutine PauseLeft2 shooting right turtle at" + "gameDuration " + gameDuration);
                     StartCoroutine(PauseLeft2());
                 }
 
+                if (timeElapsed == 39f && levelNext == 7)
+                {
+                    canShootL = false;
+                    canShootR = false;
+                    Debug.Log("start coroutine PauseLeft2 shooting right control-flip at" + "gameDuration " + gameDuration);
+                    StartCoroutine(PauseLeft2());
+                }
+
+                if (timeElapsed == 33f && levelNext == 7)
+                {
+                    canShootL = false;
+                    canShootR = false;
+                    Debug.Log("start coroutine PauseRight2 shooting left control-flip at" + "gameDuration " + gameDuration);
+                    StartCoroutine(PauseRight2());
+                }
 
                 yield return new WaitForSeconds(1f);
                 // Decrease game duration by 1 second
