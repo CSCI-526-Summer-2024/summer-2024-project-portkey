@@ -331,7 +331,7 @@ public class GameControllerTutorial2 : MonoBehaviour
         {
             
             float timeElapsed = startingTime - gameDuration;
-            Debug.Log("timeElapsed: " + timeElapsed + ", gameDuration: " + gameDuration);
+            //Debug.Log("timeElapsed: " + timeElapsed + ", gameDuration: " + gameDuration);
             if (canMove)
             {
                 TimerMsg.text = "" + Mathf.Ceil(gameDuration).ToString() + "s";
@@ -388,13 +388,6 @@ public class GameControllerTutorial2 : MonoBehaviour
                     canShootL = false;
                     canShootR = false;
                     StartCoroutine(PauseRight2());
-                }
-
-                if (timeElapsed == 34f && levelNext == 7)
-                {
-                    canShootL = false;
-                    canShootR = false;
-                    StartCoroutine(PauseLeft2());
                 }
 
                 yield return new WaitForSeconds(1f);
