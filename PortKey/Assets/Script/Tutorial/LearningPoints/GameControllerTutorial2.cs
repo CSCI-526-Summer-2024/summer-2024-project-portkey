@@ -402,24 +402,7 @@ public class GameControllerTutorial2 : MonoBehaviour
                     StartCoroutine(PauseLeft2());
                 }
 
-                if (timeElapsed > 11f && timeElapsed < 19f)
-                {
-                    StopLeftPlayerCar();
-                }
-                else
-                {
-                    StopLeftPlayerCar(false);
-                }
-
-
-                if (timeElapsed > 14f && timeElapsed < 19f)
-                {
-                    StopRightPlayerCar();
-                }
-                else
-                {
-                    StopRightPlayerCar(false);
-                }
+                PreventPlayerMovementToAvoidBug(timeElapsed);
 
                 yield return new WaitForSeconds(1f);
                 // Decrease game duration by 1 second
@@ -454,8 +437,26 @@ public class GameControllerTutorial2 : MonoBehaviour
     }
 
 
-    void PreventPlayerMovementToAvoidBug()
+    void PreventPlayerMovementToAvoidBug(float timeElapsed)
     {
+        if (timeElapsed > 11f && timeElapsed < 19f)
+        {
+            StopLeftPlayerCar();
+        }
+        else
+        {
+            StopLeftPlayerCar(false);
+        }
+
+
+        if (timeElapsed > 14f && timeElapsed < 23f)
+        {
+            StopRightPlayerCar();
+        }
+        else
+        {
+            StopRightPlayerCar(false);
+        }
 
     }
 
