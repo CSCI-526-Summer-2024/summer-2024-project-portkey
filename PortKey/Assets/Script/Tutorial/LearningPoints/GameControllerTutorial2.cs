@@ -484,8 +484,7 @@ public class GameControllerTutorial2 : MonoBehaviour
         Time.timeScale = 1;
         ShootLeft.gameObject.SetActive(false);
         spotLeft.enabled = false;
-        canShootL = true;
-        canShootR = true;
+        canShootL = false;
     }
 
     IEnumerator PauseLeft2()
@@ -516,7 +515,8 @@ public class GameControllerTutorial2 : MonoBehaviour
         Time.timeScale = 1;
         ShootRight.gameObject.SetActive(false);
         spotRight.enabled = false;
-        if (shootingCnt >= 1)
+        canShootR = false;
+        if (shootingCnt >= 2)
         {
             canShootL = true;
             canShootR = true;
