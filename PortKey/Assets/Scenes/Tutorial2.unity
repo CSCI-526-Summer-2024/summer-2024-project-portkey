@@ -8078,7 +8078,7 @@ MonoBehaviour:
   controlRight1: {fileID: 0}
   controlLeft2: {fileID: 0}
   controlRight2: {fileID: 0}
-  gameDuration: 27
+  gameDuration: 16
   totalCtrlSwitchPropCollectedRight: 0
   totalCtrlSwitchPropCollectedLeft: 0
   level: 0
