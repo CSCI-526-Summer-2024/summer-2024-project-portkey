@@ -338,15 +338,12 @@ public class GameControllerTutorial2 : MonoBehaviour
 
     IEnumerator CountdownTimer()
     {
-        Debug.Log("Entering CountdownTimer with " + gameDuration);
         float startingTime = gameDuration;
         broadcast.gameObject.SetActive(true);
-        Debug.Log("enabled broadcast ") ;
         while (gameDuration > 0)
         {
             float timeElapsed = startingTime - gameDuration;
 
-            Debug.Log("startingTime: "+ startingTime+ ", gameDuration: " + gameDuration+ ", timeElapsed: "+ timeElapsed);
             if (canMove)
             {
                 TimerMsg.text = "" + Mathf.Ceil(gameDuration).ToString() + "s";
@@ -376,7 +373,7 @@ public class GameControllerTutorial2 : MonoBehaviour
                 {
                     canShootL = false;
                     canShootR = false;
-                    Debug.Log("start coroutine PauseLeft2 shooting right heart at" + "gameDuration " + gameDuration);
+                    //Debug.Log("start coroutine PauseLeft2 shooting right heart at" + "gameDuration " + gameDuration);
                     StartCoroutine(PauseLeft2());
                     
                 }
@@ -386,7 +383,7 @@ public class GameControllerTutorial2 : MonoBehaviour
                 {
                     canShootL = false;
                     canShootR = false;
-                    Debug.Log("start coroutine PauseRight2 shooting left heart at" + "gameDuration " + gameDuration);
+                    //Debug.Log("start coroutine PauseRight2 shooting left heart at" + "gameDuration " + gameDuration);
                     StartCoroutine(PauseRight2());
                 }
 
@@ -396,7 +393,7 @@ public class GameControllerTutorial2 : MonoBehaviour
                 {
                     canShootL = false;
                     canShootR = false;
-                    Debug.Log("start coroutine PauseRight2 shooting left scoreUp at" + "gameDuration " + gameDuration);
+                    //Debug.Log("start coroutine PauseRight2 shooting left scoreUp at" + "gameDuration " + gameDuration);
                     StartCoroutine(PauseRight2());
                 }
 
@@ -404,7 +401,7 @@ public class GameControllerTutorial2 : MonoBehaviour
                 {
                     canShootL = false;
                     canShootR = false;
-                    Debug.Log("start coroutine PauseLeft2 shooting right scoreUp at" + "gameDuration " + gameDuration);
+                    //Debug.Log("start coroutine PauseLeft2 shooting right scoreUp at" + "gameDuration " + gameDuration);
                     StartCoroutine(PauseLeft2());
                 }
 
@@ -413,7 +410,7 @@ public class GameControllerTutorial2 : MonoBehaviour
                 {
                     canShootL = false;
                     canShootR = false;
-                    Debug.Log("start coroutine PauseRight2 shooting left turtle at" + "gameDuration " + gameDuration);
+                    //Debug.Log("start coroutine PauseRight2 shooting left turtle at" + "gameDuration " + gameDuration);
                     StartCoroutine(PauseRight2());
                 }
 
@@ -421,7 +418,7 @@ public class GameControllerTutorial2 : MonoBehaviour
                 {
                     canShootL = false;
                     canShootR = false;
-                    Debug.Log("start coroutine PauseLeft2 shooting right turtle at" + "gameDuration " + gameDuration);
+                    //Debug.Log("start coroutine PauseLeft2 shooting right turtle at" + "gameDuration " + gameDuration);
                     StartCoroutine(PauseLeft2());
                 }
 
@@ -429,7 +426,7 @@ public class GameControllerTutorial2 : MonoBehaviour
                 {
                     canShootL = false;
                     canShootR = false;
-                    Debug.Log("start coroutine PauseLeft2 shooting right control-flip at" + "gameDuration " + gameDuration);
+                    //Debug.Log("start coroutine PauseLeft2 shooting right control-flip at" + "gameDuration " + gameDuration);
                     StartCoroutine(PauseLeft2());
                 }
 
@@ -437,7 +434,7 @@ public class GameControllerTutorial2 : MonoBehaviour
                 {
                     canShootL = false;
                     canShootR = false;
-                    Debug.Log("start coroutine PauseRight2 shooting left control-flip at" + "gameDuration " + gameDuration);
+                    //Debug.Log("start coroutine PauseRight2 shooting left control-flip at" + "gameDuration " + gameDuration);
                     StartCoroutine(PauseRight2());
                 }
 
