@@ -23,6 +23,7 @@ namespace PortKey.Assets.Script.SwitchLevel
         }
 
         public int Level { get; private set; }
+        public string LevelName { get; private set; }
 
         private LevelInfo()
         {
@@ -32,6 +33,7 @@ namespace PortKey.Assets.Script.SwitchLevel
         public void RefreshLevel()
         {
             string levelName = SceneManager.GetActiveScene().name;
+            LevelName = levelName;
             switch (levelName)
             {
                 case "Tutorial3":

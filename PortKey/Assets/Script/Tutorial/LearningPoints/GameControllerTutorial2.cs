@@ -93,9 +93,8 @@ public class GameControllerTutorial2 : MonoBehaviour
     private readonly float baseScore = 1.0f;
 
     // game duration, unit is second
-    //float gameDuration = 27f;
-    float gameDuration = 45f;
-
+    float gameDuration = 27f;
+    
     //analytics helper variables
     public int totalCtrlSwitchPropCollectedRight = 0;
 
@@ -147,9 +146,22 @@ public class GameControllerTutorial2 : MonoBehaviour
         { LostHealthMsgLeft.gameObject.SetActive(false); }
     }
 
+    void CheckLevelAndSetGameDuration()
+    {
+        if (LevelInfo.Instance.Level == 0 && LevelInfo.Instance.LevelName == "Tutorial4")
+        {
+            // need more time to teach shooting props 
+            gameDuration = 45f;
+        }
+        else if (LevelInfo.Instance.Level == 0 && LevelInfo.Instance.LevelName == "Tutorial2")
+        {
+            gameDuration = 20f;
+        }
+    }
 
     void Start()
     {
+        CheckLevelAndSetGameDuration();
         canMove = true;
         canShootL = false;
         canShootR = false;
