@@ -94,7 +94,7 @@ public class GameControllerTutorial2 : MonoBehaviour
 
     // game duration, unit is second
     //float gameDuration = 27f;
-    float gameDuration = 35f;
+    float gameDuration = 40f;
 
     //analytics helper variables
     public int totalCtrlSwitchPropCollectedRight = 0;
@@ -405,6 +405,15 @@ public class GameControllerTutorial2 : MonoBehaviour
                     Debug.Log("start coroutine PauseRight2 shooting left turtle " + "gameDuration " + gameDuration);
                     StartCoroutine(PauseRight2());
                 }
+
+                if (timeElapsed == 37f && levelNext == 7)
+                {
+                    canShootL = false;
+                    canShootR = false;
+                    Debug.Log("start coroutine PauseLeft2 shooting right turtle " + "gameDuration " + gameDuration);
+                    StartCoroutine(PauseLeft2());
+                }
+
 
                 yield return new WaitForSeconds(1f);
                 // Decrease game duration by 1 second
