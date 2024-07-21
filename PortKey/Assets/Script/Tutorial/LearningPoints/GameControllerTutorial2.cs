@@ -516,7 +516,7 @@ public class GameControllerTutorial2 : MonoBehaviour
         Time.timeScale = 1;
         ShootRight.gameObject.SetActive(false);
         spotRight.enabled = false;
-        if (shootingCnt == 1)
+        if (shootingCnt >= 1)
         {
             canShootL = true;
             canShootR = true;

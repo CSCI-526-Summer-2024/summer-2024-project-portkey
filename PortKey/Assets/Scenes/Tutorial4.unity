@@ -7341,7 +7341,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8013834637219093177, guid: 008b9890a1828ba4cad810a319ca8547, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 67
+      value: 56.7
       objectReference: {fileID: 0}
     - target: {fileID: 8013834637219093177, guid: 008b9890a1828ba4cad810a319ca8547, type: 3}
       propertyPath: m_LocalPosition.z
@@ -8589,7 +8589,7 @@ MonoBehaviour:
   controlRight1: {fileID: 1561724308}
   controlLeft2: {fileID: 1698038085}
   controlRight2: {fileID: 2116940222}
-  gameDuration: 43
+  gameDuration: 40
   totalCtrlSwitchPropCollectedRight: 0
   totalCtrlSwitchPropCollectedLeft: 0
   level: 0
@@ -9462,7 +9462,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8013834637219093177, guid: 4fcd9fbbe71944f429ab7a97050f3076, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 69
+      value: 63.2
       objectReference: {fileID: 0}
     - target: {fileID: 8013834637219093177, guid: 4fcd9fbbe71944f429ab7a97050f3076, type: 3}
       propertyPath: m_LocalPosition.z
@@ -11081,7 +11081,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8013834637219093177, guid: 908446287b1190a4b851d9a9536505f3, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 20.9
+      value: 21.9
       objectReference: {fileID: 0}
     - target: {fileID: 8013834637219093177, guid: 908446287b1190a4b851d9a9536505f3, type: 3}
       propertyPath: m_LocalPosition.z
