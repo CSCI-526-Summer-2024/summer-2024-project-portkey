@@ -402,6 +402,24 @@ public class GameControllerTutorial2 : MonoBehaviour
                     StartCoroutine(PauseLeft2());
                 }
 
+                if (timeElapsed > 11f && timeElapsed < 19f)
+                {
+                    StopLeftPlayerCar();
+                }
+                else
+                {
+                    StopLeftPlayerCar(false);
+                }
+
+
+                if (timeElapsed > 14f && timeElapsed < 19f)
+                {
+                    StopRightPlayerCar();
+                }
+                else
+                {
+                    StopRightPlayerCar(false);
+                }
 
                 yield return new WaitForSeconds(1f);
                 // Decrease game duration by 1 second
@@ -433,6 +451,38 @@ public class GameControllerTutorial2 : MonoBehaviour
         broadcastMsg.color = Color.black;
         broadcastMsg.gameObject.SetActive(true);
 
+    }
+
+
+    void PreventPlayerMovementToAvoidBug()
+    {
+
+    }
+
+
+    void StopLeftPlayerCar(bool stop = true)
+    {
+        if (stop)
+        {
+            carLeft.GetComponent<CarMoveTutorial2>().canMove = false;
+        }
+        else
+        {
+            carLeft.GetComponent<CarMoveTutorial2>().canMove = true;
+
+        }
+    }
+
+    void StopRightPlayerCar(bool stop=true)
+    {
+        if (stop)
+        {
+            carRight.GetComponent<CarMoveTutorial2>().canMove = false;
+        }
+        else
+        {
+            carRight.GetComponent<CarMoveTutorial2>().canMove = true;
+        }
     }
 
     IEnumerator PauseLeft()
