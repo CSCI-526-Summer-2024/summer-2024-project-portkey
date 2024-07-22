@@ -4,7 +4,7 @@ import json
 from matplotlib.ticker import MaxNLocator
 
 # url to fetch data
-url = "https://portkey-2a1ae-default-rtdb.firebaseio.com/playtesting1_analytics.json"
+# url = "https://portkey-2a1ae-default-rtdb.firebaseio.com/playtesting1_analytics.json"
 url = "https://portkey-2a1ae-default-rtdb.firebaseio.com/beta_playtesting_analytics.json"
 
 
