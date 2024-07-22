@@ -93,6 +93,13 @@ public class CarMove : MonoBehaviour
 
     CarMove carOpp;
 
+    public AudioClip obstacleCollisionClip;
+    public AudioClip scoreUpCollisionClip;
+    public AudioClip heartCollisionClip;
+    public AudioClip controlFlipCollisionClip;
+
+    private AudioSource playerAudio;
+
     void Start()
     {
         level = LevelInfo.Instance.Level;
@@ -124,6 +131,7 @@ public class CarMove : MonoBehaviour
             Debug.LogError("LiveManager not found");
         }
         carOpp = (transform.name == ConstName.LEFT_CAR) ? gameController.carRight.GetComponent<CarMove>() : gameController.carLeft.GetComponent<CarMove>();
+        playerAudio = GetComponent<AudioSource>();
     }
 
     void UploadHealthBars()
@@ -268,6 +276,34 @@ public class CarMove : MonoBehaviour
         }
     }
 
+
+    void PlayAudioOnCollision(Collider2D other)
+    {
+
+        if (playerAudio != null)
+        {
+            if (obstacleCollisionClip != null && other.CompareTag("Obstacle"))
+            {
+                playerAudio.PlayOneShot(obstacleCollisionClip);
+            }
+            else if (scoreUpCollisionClip != null && other.gameObject.name.Contains("ScoreUp"))
+            {
+                playerAudio.PlayOneShot(scoreUpCollisionClip);
+            }
+            else if (heartCollisionClip != null && other.CompareTag("HeartProp"))
+            {
+                playerAudio.PlayOneShot(heartCollisionClip);
+            }
+
+            else if (controlFlipCollisionClip != null && other.gameObject.name.Contains("EnemyControlReverse"))
+            {
+                playerAudio.PlayOneShot(controlFlipCollisionClip);
+            }
+
+        }
+
+    }
+
     void OnTriggerEnter2D(Collider2D other)
     {
         /************************* For Obstacle Collision *************************/
@@ -378,6 +414,8 @@ public class CarMove : MonoBehaviour
             Destroy(other.gameObject); // Destroy the prop after collecting
         }
         /************************* For Bullet Collision *************************/
+
+        PlayAudioOnCollision(other);
     }
 
 
