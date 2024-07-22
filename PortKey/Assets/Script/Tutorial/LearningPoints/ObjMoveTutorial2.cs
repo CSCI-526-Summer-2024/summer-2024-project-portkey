@@ -33,6 +33,7 @@ public class ObjMoveTutorial2 : MonoBehaviour
     {
         if (gameController.canMove)
         {
+            //Debug.Log("Moving down for " + gameObject.name);
             transform.Translate(Vector3.down * speed * Time.deltaTime);
             isBlinking = false;
         }
@@ -43,6 +44,7 @@ public class ObjMoveTutorial2 : MonoBehaviour
             {
                 isBlinking = true;
                 StartCoroutine(BlinkObject());
+
             }
             if (transform.position.x < 0.0f)
             {

@@ -55,6 +55,15 @@ public class CarMoveTutorial2 : MonoBehaviour
 
     public float maxHealth = 100;
 
+    public AudioClip obstacleCollisionClip;
+    public AudioClip scoreUpCollisionClip;
+    public AudioClip heartCollisionClip;
+    public AudioClip controlFlipCollisionClip;
+    public AudioClip antiHealthCollisionClip;
+    public AudioClip slowEnemyCollisionClip;
+
+    private AudioSource playerAudio;
+
     void Start()
     {
         if (navArea2 != null)
@@ -89,6 +98,7 @@ public class CarMoveTutorial2 : MonoBehaviour
         {
             Debug.LogError("LiveManager not found");
         }
+        playerAudio = GetComponent<AudioSource>();
     }
 
     void UploadHealthBars()
@@ -233,6 +243,42 @@ public class CarMoveTutorial2 : MonoBehaviour
         }
     }
 
+
+
+    void PlayAudioOnCollision(Collider2D other)
+    {
+        if (playerAudio != null)
+        {
+            if (obstacleCollisionClip != null && other.CompareTag("Obstacle"))
+            {
+                playerAudio.PlayOneShot(obstacleCollisionClip);
+            }
+            else if (scoreUpCollisionClip != null && other.gameObject.name.Contains("ScoreUp"))
+            {
+                playerAudio.PlayOneShot(scoreUpCollisionClip);
+            }
+            else if (heartCollisionClip != null && other.CompareTag("HeartProp"))
+            {
+                playerAudio.PlayOneShot(heartCollisionClip);
+            }
+
+            else if (controlFlipCollisionClip != null && other.gameObject.name.Contains("EnemyControlReverse"))
+            {
+                playerAudio.PlayOneShot(controlFlipCollisionClip);
+            }
+            else if (antiHealthCollisionClip != null && other.gameObject.name.Contains("ReduceEnemyHealth"))
+            {
+                playerAudio.PlayOneShot(antiHealthCollisionClip);
+            }
+            else if (slowEnemyCollisionClip!= null && other.gameObject.name.Contains("SlowEnemy"))
+            {
+                playerAudio.PlayOneShot(slowEnemyCollisionClip);
+            }
+        }
+
+    }
+
+
     void OnTriggerEnter2D(Collider2D other)
     {
         /************************* For Obstacle Collision *************************/
@@ -345,6 +391,8 @@ public class CarMoveTutorial2 : MonoBehaviour
             Destroy(other.gameObject); // Destroy the prop after collecting
         }
         /************************* For Bullet Collision *************************/
+
+        PlayAudioOnCollision(other);
     }
 
     IEnumerator decreaseHealth()

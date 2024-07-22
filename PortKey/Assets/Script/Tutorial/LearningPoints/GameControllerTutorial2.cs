@@ -93,8 +93,8 @@ public class GameControllerTutorial2 : MonoBehaviour
     private readonly float baseScore = 1.0f;
 
     // game duration, unit is second
-    public float gameDuration = 20f;
-
+    public float gameDuration = 27f;
+    
     //analytics helper variables
     public int totalCtrlSwitchPropCollectedRight = 0;
 
@@ -262,7 +262,6 @@ public class GameControllerTutorial2 : MonoBehaviour
         {
             InvokeRepeating("CalculateScoreRight", 1, 1);
         }
-
         StartCoroutine(CountdownTimer());
     }
 
@@ -323,60 +322,74 @@ public class GameControllerTutorial2 : MonoBehaviour
         plusRight.enabled = false;
     }
 
-    void SetPlayerSpeedText()
-    {
-        if (leftSpeed != null)
-        {
-            leftSpeed.text = "5mph";
-
-        }
-
-        if (rightSpeed != null)
-        {
-            rightSpeed.text = "5mph";
-        }
-
-    }
-
 
     IEnumerator CountdownTimer()
     {
-        SetPlayerSpeedText();
-        float timer = gameDuration;
+        float startingTime = gameDuration;
         broadcast.gameObject.SetActive(true);
         while (gameDuration > 0)
         {
+            
+            float timeElapsed = startingTime - gameDuration;
+            //Debug.Log("timeElapsed: " + timeElapsed + ", gameDuration: " + gameDuration);
             if (canMove)
             {
                 TimerMsg.text = "" + Mathf.Ceil(gameDuration).ToString() + "s";
-                if ((timer - gameDuration) == 2f)
+                //if ((startingTime - gameDuration) == 2f)
+                if (timeElapsed == 2f)
                 {
                     StartCoroutine(FadeOutText(broadcast));
                 }
-                if ((timer - gameDuration) == 5f && levelNext == 7)
+
+                if (timeElapsed == 5f && levelNext == 7)
+                //if ((startingTime - gameDuration) == 5f && levelNext == 7)
                 {
                     canShootR = true;
                     StartCoroutine(PauseRight());
                 }
-                if ((timer - gameDuration) == 7f && levelNext == 7)
+
+                //if ((startingTime - gameDuration) == 7f && levelNext == 7)
+                if (timeElapsed == 7f && levelNext == 7)
                 {
                     canShootL = true;
                     canShootR = false;
                     StartCoroutine(PauseLeft());
                 }
-                if ((timer - gameDuration) == 10f && levelNext == 7)
+
+                //if ((startingTime - gameDuration) == 10f && levelNext == 7)
+                if (timeElapsed == 10f && levelNext == 7)
                 {
                     canShootL = false;
                     canShootR = false;
                     StartCoroutine(PauseLeft2());
                     
                 }
-                if ((timer - gameDuration) == 14f && levelNext == 7)
+
+                //if ((startingTime - gameDuration) == 14f && levelNext == 7)
+                if (timeElapsed == 14f && levelNext == 7)
                 {
                     canShootL = false;
                     canShootR = false;
                     StartCoroutine(PauseRight2());
                 }
+
+
+
+                if (timeElapsed == 21f && levelNext == 7)
+                {
+                    canShootL = false;
+                    canShootR = false;
+                    StartCoroutine(PauseLeft2());
+                }
+
+
+                if (timeElapsed == 28f && levelNext == 7)
+                {
+                    canShootL = false;
+                    canShootR = false;
+                    StartCoroutine(PauseRight2());
+                }
+
                 yield return new WaitForSeconds(1f);
                 // Decrease game duration by 1 second
                 gameDuration -= 1f;
@@ -409,6 +422,7 @@ public class GameControllerTutorial2 : MonoBehaviour
 
     }
 
+
     IEnumerator PauseLeft()
     {
         Time.timeScale = 0;
@@ -421,8 +435,7 @@ public class GameControllerTutorial2 : MonoBehaviour
         Time.timeScale = 1;
         ShootLeft.gameObject.SetActive(false);
         spotLeft.enabled = false;
-        canShootL = true;
-        canShootR = true;
+        canShootL = false;
     }
 
     IEnumerator PauseLeft2()
@@ -453,7 +466,8 @@ public class GameControllerTutorial2 : MonoBehaviour
         Time.timeScale = 1;
         ShootRight.gameObject.SetActive(false);
         spotRight.enabled = false;
-        if (shootingCnt == 1)
+        canShootR = false;
+        if (shootingCnt >= 2)
         {
             canShootL = true;
             canShootR = true;

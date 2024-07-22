@@ -33,6 +33,9 @@ public class RotateBulletShooterTutorial2 : MonoBehaviour
     private bool isObjectDetected = false;
     private List<GameObject> dots = new List<GameObject>(); // List to keep track of instantiated dots
 
+    public AudioClip bulletCollisionClip;
+
+    private AudioSource playerAudio;
 
     void Start()
     {
@@ -43,6 +46,7 @@ public class RotateBulletShooterTutorial2 : MonoBehaviour
 
         InitializeDots();
         GenerateDottedLine();
+        playerAudio = GetComponent<AudioSource>();
     }
 
     void Update()
@@ -55,6 +59,26 @@ public class RotateBulletShooterTutorial2 : MonoBehaviour
            
         }
         GenerateDottedLine();
+    }
+
+    void PlayBulletCollisionAudio()
+    {
+        if (playerAudio != null && bulletCollisionClip != null)
+        { 
+            playerAudio.PlayOneShot(bulletCollisionClip);
+        }
+
+        if (playerAudio == null)
+        {
+            Debug.Log("playerAudio is null, obj: "+gameObject.name );
+        }
+
+        if (bulletCollisionClip == null)
+        {
+            Debug.Log("bulletCollisionClip is null, obj: " + gameObject.name);
+        }
+
+
     }
 
     void RotatePointerAndShootBullets()
@@ -134,6 +158,7 @@ public class RotateBulletShooterTutorial2 : MonoBehaviour
             {
                 currentBulletsRight -= 1;
             }
+            PlayBulletCollisionAudio();
         }
     }
 
