@@ -59,6 +59,14 @@ public class CarMoveTutorial : MonoBehaviour
 
     int count = 0;
 
+    public AudioClip obstacleCollisionClip;
+    public AudioClip scoreUpCollisionClip;
+    public AudioClip heartCollisionClip;
+    public AudioClip controlFlipCollisionClip;
+
+    private AudioSource playerAudio;
+
+
     void Start()
     {
         navArea2.gameObject.SetActive(false);
@@ -92,6 +100,7 @@ public class CarMoveTutorial : MonoBehaviour
         }
 
         UpdateLives(transform.name, false, false);
+        playerAudio = GetComponent<AudioSource>();
     }
 
     void UploadHealthBars()
@@ -236,6 +245,34 @@ public class CarMoveTutorial : MonoBehaviour
         }
     }
 
+    void PlayAudioOnCollision(Collider2D other)
+    {
+       
+        if (playerAudio != null)
+        {
+            if (obstacleCollisionClip != null && other.CompareTag("Obstacle"))
+            {
+                playerAudio.PlayOneShot(obstacleCollisionClip);
+            }
+            else if (scoreUpCollisionClip != null && other.gameObject.name.Contains("ScoreUp"))
+            {
+                playerAudio.PlayOneShot(scoreUpCollisionClip);
+            }
+            else if (heartCollisionClip != null && other.CompareTag("HeartProp"))
+            {
+                playerAudio.PlayOneShot(heartCollisionClip);
+            }
+
+            else if (controlFlipCollisionClip != null && other.gameObject.name.Contains("EnemyControlReverse"))
+            {
+                playerAudio.PlayOneShot(controlFlipCollisionClip);
+            }
+
+        }
+
+
+    }
+
     void OnTriggerEnter2D(Collider2D other)
     {
         /************************* For Obstacle Collision *************************/
@@ -320,6 +357,9 @@ public class CarMoveTutorial : MonoBehaviour
             gameController.SpotlightLives(transform.name);
         }
         /************************* For Heart Collision *************************/
+
+
+        PlayAudioOnCollision(other);
     }
 
 
