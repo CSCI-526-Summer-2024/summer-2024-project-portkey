@@ -97,6 +97,8 @@ public class CarMove : MonoBehaviour
     public AudioClip scoreUpCollisionClip;
     public AudioClip heartCollisionClip;
     public AudioClip controlFlipCollisionClip;
+    public AudioClip antiHealthCollisionClip;
+    public AudioClip slowEnemyCollisionClip;
 
     private AudioSource playerAudio;
 
@@ -298,6 +300,14 @@ public class CarMove : MonoBehaviour
             else if (controlFlipCollisionClip != null && other.gameObject.name.Contains("EnemyControlReverse"))
             {
                 playerAudio.PlayOneShot(controlFlipCollisionClip);
+            }
+            else if (antiHealthCollisionClip != null && other.gameObject.name.Contains("ReduceEnemyHealth"))
+            {
+                playerAudio.PlayOneShot(antiHealthCollisionClip);
+            }
+            else if (slowEnemyCollisionClip != null && other.gameObject.name.Contains("SlowEnemy"))
+            {
+                playerAudio.PlayOneShot(slowEnemyCollisionClip);
             }
 
         }
