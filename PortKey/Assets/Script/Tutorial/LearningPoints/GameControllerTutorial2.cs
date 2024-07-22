@@ -375,7 +375,7 @@ public class GameControllerTutorial2 : MonoBehaviour
 
 
 
-                if (timeElapsed == 22f && levelNext == 7)
+                if (timeElapsed == 21f && levelNext == 7)
                 {
                     canShootL = false;
                     canShootR = false;
